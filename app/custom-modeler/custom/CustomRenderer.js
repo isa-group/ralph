@@ -530,6 +530,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var attrs = computeStyle(attrs, {
         stroke: element.color || BLACK,
         strokeWidth: 2,
+        strokeLinecap: 'round',
         fill: '#fff'
       });
 
@@ -794,6 +795,17 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var attrs = computeStyle(attrs, {
         stroke: element.color || BLACK,
         strokeWidth: 1.5,
+        //strokedashoffset: 153,
+        markerEnd: marker('sequenceflow-end', 'white', element.color),
+        //strokeDasharray: [10,7]->para poner como una linea por rayas
+      });
+
+      return svgAppend(p, createLine(element.waypoints, attrs));
+    },
+    'custom:ResourceArc2': (p, element) => {
+      var attrs = computeStyle(attrs, {
+        stroke: element.color || BLACK,
+        strokeWidth: 1.5,
         strokeDasharray: [10,7]
       });
 
@@ -820,7 +832,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     },
     'custom:TimeDistanceArcEnd': (p, element) => {
       var attrs = {
-        markerEnd: marker('timedistance-end', 'white', element.color),
+        markerEnd: marker('timedistance-end', 'blue', element.color),
       };
 
       return drawTimeDistanceArc(p, element, attrs)
@@ -1121,9 +1133,16 @@ CustomRenderer.prototype.getShapePath = function(shape) {
 CustomRenderer.prototype.drawConnection = function(p, element) {
   var type = element.type;
   var h = this.renderers[type];
+  console.log(type)
+  if(type==="custom:ResourceArc"){
+    element.color=COLOR_RED;
+  }else{
+    element.color='#000';
+  }
+/*
   if(element.color == null)
-    element.color= "#000"
-
+    element.color='#000'; //COLOR_RED;
+*/
   /* jshint -W040 */
   return h(p, element);
 };

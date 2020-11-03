@@ -86,6 +86,15 @@ function canConnect(source, target, connection) {
     }
     else
       return false
+  }else if(is(target, 'custom:Position')) {
+    if(isDefaultValid(source)) {
+      if(connection === 'custom:TimeDistandStartArc')
+        return { type: connection }
+      else
+        return { type: 'custom:ResourceArc2'}
+    }
+    else
+      return false
   }
   else if((isDefaultValid(source) && isCustomShape(target)) || (isCustomShape(source) && isDefaultValid(target)))
     return { type: 'custom:ResourceArc' }
@@ -171,6 +180,11 @@ CustomRules.prototype.init = function() {
           return false
       }
       else if(connection.type === 'custom:ResourceArc') {
+        if((!isCustom(source) && isCustomShape(target)) || (isCustomShape(source) && !isCustom(target)))
+          return { type: connection.type }
+        else
+          return;
+      }else if(connection.type === 'custom:ResourceArc2') {
         if((!isCustom(source) && isCustomShape(target)) || (isCustomShape(source) && !isCustom(target)))
           return { type: connection.type }
         else

@@ -33,6 +33,7 @@ export const externalLabel = [
 
 export const connections = [
     'custom:ResourceArc',
+    'custom:ResourceArc2',
     'custom:ConsequenceFlow',
     'custom:TimeDistanceArcStart',
     'custom:TimeDistanceArcEnd'
@@ -66,6 +67,10 @@ export const resourceArcElements = [
     'custom:RoleRALph',
     'custom:Personcap',
     'custom:Orgunit',
+    //'custom:Position'
+]
+
+export const resourceArcElements2 = [
     'custom:Position'
 ]
 
@@ -79,6 +84,7 @@ export const custom = [
     'custom:GroupAbsence',
     'custom:TimeSlot',
     'custom:ResourceArc',
+    'custom:ResourceArc2',
     'custom:ConsequenceFlow',
     'custom:TimeDistanceArcStart',
     'custom:TimeDistanceArcEnd',
