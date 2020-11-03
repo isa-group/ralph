@@ -240,7 +240,7 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       separator: true
     },
     'custom-Person': createAction(
-      "custom:Person", 'persons', 'icon-custom-person',null,null,Cat.dataURLpersonSVG //Cat.dataURLpersonSVG
+      "custom:Person", 'persons', 'icon-custom-person',null,null,Cat.dataURLpersonSVG
     ),
     'custom-Role':createAction(
       "custom:RoleRALph", 'persons' , 'icon-custom-roleRalph',null,null,Cat.dataRoleTest
