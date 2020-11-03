@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>bpmn-js modeler demo</title>
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="vendor/bpmn-js/assets/diagram-js.css" />
+  <link rel="stylesheet" href="vendor/bpmn-js/assets/bpmn-font/css/bpmn.css" />
+  <link rel="stylesheet" href="vendor/bpmn-js/assets/bpmn-font/css/bpmn-embedded.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" />
+
+  <link rel="stylesheet" href="css/app.css" />
+
+  <style type="text/css">
+
+    .icon-custom-clock {
+      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'><path d='M 15 15 h 50 v 50 h -50 v -50 h 5 m 0 5 h 40 v 40 h -40 v -40 h 20 m 0 1 a 15 15 79 0 0 0 38 a 15 15 79 0 0 0 -38  m 0 19 l 5 -10 m -5 10 l 12 10Z' fill='white' stroke='black' stroke-width='3'/></svg>");
+    }
+
+    .icon-custom-time-slot {
+      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><path d='M 30 90 a 23 23 0 0 0 22 20 h 76 a 23 23 0 0 0 22 -20 a 23 23 0 0 0 -22 -20 h -76 a 23 23 0 0 0 -22 20Z' fill='white' stroke='black' stroke-width='3'/></svg>");
+    }
+
+    .icon-custom-resource {
+      background:  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M 55 20 a 1 1 0 1 0 0 3 a 1 1 0 1 0 0 -3 m -10 0 a 1 1 0 0 0 0 3 a 1 1 0 0 0 0 -3 m 0 9 h 10 m 5 8 a 14 14 79 0 0 5 -10 a 6 6 79 0 0 -30 0 a 14 14 0 0 0 5 10 a 60 60 0 0 0 -15 50 h 50 a 60 60 0 0 0 -15 -50Z' fill='white' stroke='black' stroke-width='3'/></svg>");
+    }
+
+    .icon-custom-resource-absence {
+      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M 55 20 a 1 1 0 1 0 0 3 a 1 1 0 1 0 0 -3 m -10 0 a 1 1 0 0 0 0 3 a 1 1 0 0 0 0 -3 m 0 9 h 10 m 5 8 a 14 14 79 0 0 5 -10 a 6 6 79 0 0 -30 0 a 14 14 0 0 0 5 10 a 60 60 0 0 0 -15 50 h 50 a 60 60 0 0 0 -15 -50 M 20 8 l 60 83 M 80 8 l -60 83Z' fill='white' stroke='black' stroke-width='3'/></svg>");
+    }
+
+    .icon-custom-role {
+      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M 75 87 v -75 h -50 v 75 M 55 20 a 1 1 0 1 0 0 3 a 1 1 0 1 0 0 -3 m -10 0 a 1 1 0 0 0 0 3 a 1 1 0 0 0 0 -3 m 0 9 h 10 m 5 8 a 14 14 79 0 0 5 -10 a 6 6 79 0 0 -30 0 a 14 14 0 0 0 5 10 a 60 60 0 0 0 -15 50 h 50 a 60 60 0 0 0 -15 -50Z' fill='white' stroke='black' stroke-width='3'/></svg>");
+    }
+
+    .icon-custom-role-absence {
+      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M 75 87 v -75 h -50 v 75 M 75 87 l -50 -75 M 25 87 l 50 -75 M 55 20 a 1 1 0 1 0 0 3 a 1 1 0 1 0 0 -3 m -10 0 a 1 1 0 0 0 0 3 a 1 1 0 0 0 0 -3 m 0 9 h 10 m 5 8 a 14 14 79 0 0 5 -10 a 6 6 79 0 0 -30 0 a 14 14 0 0 0 5 10 a 60 60 0 0 0 -15 50 h 50 a 60 60 0 0 0 -15 -50Z' fill='white' stroke='black' stroke-width='3'/></svg>");
+    }
+
+    .icon-custom-group {
+      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' style='fill:white; stroke:black; stroke-width:3'><path d='M 62 36 a 14 14 79 0 0 5 -10 a 6 6 79 0 0 -30 0 a 14 14 79 0 0 5 10 a 60 60 0 0 0 -15 50 h 50  a 60 60 0 0 0 -15 -50 z' /><path d='M 57 38 a 14 14 79 0 0 5 -10 a 6 6 79 0 0 -30 0 a 14 14 79 0 0 5 10 a 60 60 0 0 0 -15 50 h 50  a 60 60 0 0 0 -15 -50 z' /></svg></svg>");
+    }
+
+    .icon-custom-group-absence {
+      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' style='fill:white; stroke:black; stroke-width:3'><path d='M 62 36 a 14 14 79 0 0 5 -10 a 6 6 79 0 0 -30 0 a 14 14 79 0 0 5 10 a 60 60 0 0 0 -15 50 h 50  a 60 60 0 0 0 -15 -50 z' /><path d='M 57 38 a 14 14 79 0 0 5 -10 a 6 6 79 0 0 -30 0 a 14 14 79 0 0 5 10 a 60 60 0 0 0 -15 50 h 50  a 60 60 0 0 0 -15 -50 M 20 15 l 60 78 M 80 15 l -60 78z' /></svg></svg>");
+    }
+
+    .icon-custom-nyanCat{
+      background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' style='fill:white; stroke:black; stroke-width:3'><path d='M2130 2345 l0 -75 75 0 75 0 0 75 0 75 -75 0 -75 0 0 -75z' /><path d='M3130 2060 l0 -60 75 0 75 0 0 60 0 60 -75 0 -75 0 0 -60z'/><path d='M1580 1495 l0 -75 60 0 60 0 0 75 0 75 -60 0 -60 0 0 -75z'/></svg></svg>");
+    }
+
+    .icon-custom-person{
+     background:url()
+    } 
+  </style>
+</head>
+<body>
+<div class="content" id="js-drop-zone">
+
+  <div class="message intro">
+    <div class="note">
+      Drop BPMN diagram from your desktop or <a class="js-create-diagram" href>create a new diagram</a> to get started.
+    </div>
+  </div>
+
+  <div class="message error">
+    <div class="note">
+      <p>Ooops, we could not display the BPMN 2.0 diagram.</p>
+
+      <div class="details">
+        <span>cause of the problem</span>
+        <pre></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="canvas" id="js-canvas"></div>
+</div>
+<div class="io-import-export">
+  <ul class="io-import io-control io-control-list io-horizontal">
+    <li>
+      <button title="open BPMN diagram from local file system" id="js-open-diagram">
+        <i class="fas fa-folder-open"></i>
+      </button>
+    </li>
+    <li class="vr" style="margin-left: 2px"></li>
+    <li>
+      <button title="create new BPMN diagram" class="js-create-diagram">
+        <i class="fas fa-plus-circle"></i>
+      </button>
+    </li>
+  </ul>
+  <ul class="io-export io-control io-control-list io-horizontal">
+    <li>
+      <a id="js-download-diagram" href="#" title="download BPMN diagram" onclick="downloadAll()">
+        <i class="fas fa-download"></i>
+      </a>
+    </li>
+    <li>
+      <a id="js-download-svg" href title="download as SVG image">
+        <i class="far fa-image"></i>
+      </a>
+    </li>
+    <li>
+      <a id="js-add-colors" href="#" title="add colors to model">
+        <i class="fas fa-palette"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+<!--  <ul class="buttons">-->
+<!--    <li>-->
+<!--      download-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <a id="js-download-diagram" href title="download BPMN diagram">-->
+<!--        BPMN diagram-->
+<!--      </a>-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <a id="js-download-svg" href title="download as SVG image">-->
+<!--        SVG image-->
+<!--      </a>-->
+<!--    </li>-->
+<!--  </ul>-->
+
+<script src="app.js"></script>
+<script>
+  function downloadAll() {
+    console.log("download")
+    console.log(window.localStorage.getItem("diagram"))
+    console.log(window.localStorage.getItem("custom"))
+
+    if(window.localStorage.getItem("diagram")) {
+      var link = document.createElement('a');
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.setAttribute('download', "diagram.bpmn");
+      link.setAttribute('href', 'data:application/bpmn20-xml;charset=UTF-8,' + window.localStorage.getItem("diagram"));
+      link.click();
+
+      link.setAttribute('download', "customElements.cbpmn");
+      link.setAttribute('href', 'data:text/json;charset=UTF-8,' + window.localStorage.getItem("custom"));
+      link.click();
+
+      window.localStorage.clear()
+
+      document.body.removeChild(link);
+    }
+    else
+      window.alert("No change to save")
+  }
+</script>
+</body>
+</html>
