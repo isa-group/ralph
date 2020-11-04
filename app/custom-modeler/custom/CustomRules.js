@@ -10,7 +10,7 @@ import {
 
 import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
 import {isAny} from "bpmn-js/lib/features/modeling/util/ModelingUtil";
-import {isCustomResourceArcElement, isCustomShape,isCustomResourceArc2Element} from "./Types";
+import {isCustomResourceArcElement, isCustomShape,isCustomResourceArc2Element,isHistoryConnectorActivityInstance,isHistoryConnectorSameOrPreviousInstance,isHistoryConnectorPreviousInstanceElements} from "./Types";
 import {isLabel} from "bpmn-js/lib/util/LabelUtil";
 
 var HIGH_PRIORITY = 1500;
@@ -106,9 +106,15 @@ function canConnect(source, target, connection) {
       return false
    } else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArcElement(source)) || (isCustomShape(source) && isDefaultValid(target) && isCustomResourceArcElement(target))){
     return { type: 'custom:ResourceArc' }
-   } else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArc2Element(source)) || (isCustomShape(source) && isDefaultValid(target) && isCustomResourceArc2Element(source)))
+   } else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArc2Element(source)) || (isCustomShape(source) && isDefaultValid(target) && isCustomResourceArc2Element(source))){
    return { type: 'custom:ResourceArc2' }
-  else
+  /*} else if(( isDefaultValid(source) && isCustomShape(target) && isHistoryConnectorActivityInstance(source)) || (isCustomShape(source) && isDefaultValid(target) && isHistoryConnectorActivityInstance(source))){
+  return { type1: 'custom:HistoryConnectorActivityInstance',type2: 'custom:isHistoryConnectorSameOrPreviousInstance' }
+  /*} else if(( isDefaultValid(source) && isCustomShape(target) && isHistoryConnectorPreviousInstanceElements(source)) || (isCustomShape(source) && isDefaultValid(target) && isHistoryConnectorPreviousInstanceElements(source))){
+  return { type: 'custom:HistoryConnectorPreviousInstanceElements' }
+  } else if(( isDefaultValid(source) && isCustomShape(target) && isHistoryConnectorSameOrPreviousInstance(source)) || (isCustomShape(source) && isDefaultValid(target) && isHistoryConnectorSameOrPreviousInstance(source))){
+  return { type: 'custom:isHistoryConnectorSameOrPreviousInstance' }*/
+  }else
     return;
 }
 
@@ -144,8 +150,13 @@ function canConnect2(source, target, connection) {
       
     }else if((isDefaultValid(source) && isCustomResourceArc2Element(target)) || (isDefaultValid(target) && isCustomResourceArc2Element(source))) {
       return {type: 'custom:ResourceArc2'}
-    }
-    else
+    } else if(( isDefaultValid(source) && isCustomShape(target) && isHistoryConnectorActivityInstance(source)) || (isCustomShape(source) && isDefaultValid(target) && isHistoryConnectorActivityInstance(source))){
+      return { type1: 'custom:HistoryConnectorActivityInstance',type2: 'custom:HistoryConnectorSameOrPreviousInstance'}
+    /*} else if(( isDefaultValid(source) && isCustomShape(target) && isHistoryConnectorPreviousInstanceElements(source)) || (isCustomShape(source) && isDefaultValid(target) && isHistoryConnectorPreviousInstanceElements(source))){
+      return { type1: 'custom:HistoryConnectorPreviousInstanceElements',type2: 'custom:isHistoryConnectorSameOrPreviousInstance' }
+    } else if(( isDefaultValid(source) && isCustomShape(target) && isHistoryConnectorSameOrPreviousInstance(source)) || (isCustomShape(source) && isDefaultValid(target) && isHistoryConnectorSameOrPreviousInstance(source))){
+      return { type: 'custom:isHistoryConnectorSameOrPreviousInstance' }*/
+    }else
       return
   }
 }
@@ -177,6 +188,8 @@ CustomRules.prototype.init = function() {
         return {type1: 'custom:ResourceArc', type2:'custom:ConsequenceFlow',type3: 'custom:ResourceArc2'}
       else if(type === 'custom:TimeDistance')
         return {type1: 'custom:TimeDistanceArcStart', type2:'custom:TimeDistanceArcEnd'}
+    }else if(isHistoryConnectorActivityInstance(source)){
+      return { type1: 'custom:HistoryConnectorActivityInstance',type2: 'custom:HistoryConnectorSameOrPreviousInstance'}
     }
   }
 
@@ -197,7 +210,7 @@ CustomRules.prototype.init = function() {
           return { type: connection.type }
         else
           return;
-      }else if(connection.type === 'custom:ResourceArc2') {
+      }else if(connection.type === 'custom:ResourceArc2') {//en duda
         if((!isCustom(source) && isCustomShape(target)) || (isCustomShape(source) && !isCustom(target)))
           return { type: connection.type }
         else

@@ -53,6 +53,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     return text;
   }
+  
 
   function renderEmbeddedLabel(parentGfx, element, align) {
     var semantic = getSemantic(element);
@@ -865,6 +866,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     //   return rect;
     // },
     'custom:ResourceArc': (p, element) => {
+
       var attrs = computeStyle(attrs, {
         stroke: element.color || BLACK,
         strokeWidth: 1.5,
@@ -874,15 +876,49 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         markerEnd: marker('history-source-another-end', 'white',BLACK),
         strokeDasharray: [10,7]//->para poner como una linea por rayas*/
       });
-
+  
+      //renderExternalLabel(p,element);
       return svgAppend(p, createLine(element.waypoints, attrs));
+
     },
     'custom:ResourceArc2': (p, element) => {
       var attrs = computeStyle(attrs, {
-        stroke: element.color || COLOR_RED,
+        stroke: element.color, //|| COLOR_RED,
         strokeWidth: 1.5,
         strokeDasharray: [10,7]
       });
+      
+      return svgAppend(p, createLine(element.waypoints, attrs));
+    },'custom:HistoryConnectorActivityInstance':(p,element)=>{
+      var attrs = {
+        strokeLinejoin: 'round',
+        markerEnd: marker('sequenceflow-end', 'white', element.color),
+        stroke: element.color || BLACK,
+        strokeWidth: 1.5,
+      };
+
+      return svgAppend(p, createLine(element.waypoints, attrs));
+    },
+    'custom:HistoryConnectorSameOrPreviousInstance':(p,element)=>{
+      var attrs = {
+        strokeLinejoin: 'round',
+        markerEnd: marker('sequenceflow-end', 'white', element.color),
+        stroke: element.color || BLACK,
+        strokeWidth: 1.5,
+        markerEnd: marker('history-source-another-end', 'white',BLACK),
+      };
+
+      return svgAppend(p, createLine(element.waypoints, attrs));
+    },
+    'custom:HistoryConnectorPreviousInstanceElements':(p,element)=>{
+      var attrs = {
+        strokeLinejoin: 'round',
+        markerEnd: marker('sequenceflow-end', 'white', element.color),
+        stroke: element.color || BLACK,
+        strokeWidth: 1.5,
+        strokeDasharray: [8,5],
+        markerEnd: marker('history-source-another-end', 'white',BLACK),
+      };
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     },
@@ -958,6 +994,23 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return componentsToPath(roundRectPath);
     },'custom:nyanCat':(element)=>{
+      var x = element.x,
+          y = element.y,
+          width = element.width,
+          height = element.height;
+          
+
+      var d = [
+        ['M', x , y],
+        ['h', 50 ],
+        ['v', 50 ],
+        ['h', -50 ],
+        ['v', -50 ],
+        ['z']
+      ]
+
+      return componentsToPath(d);
+    },'custom:ResourceArc':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1261,10 +1314,9 @@ CustomRenderer.prototype.drawConnection = function(p, element) {
   }else{
     element.color='#000';
   }*/
-/*
+
   if(element.color == null)
-    element.color='#000'; //COLOR_RED;
-*/
+    element.color='#000'; 
   /* jshint -W040 */
   return h(p, element);
 };

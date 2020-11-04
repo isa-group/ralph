@@ -12,7 +12,8 @@ export const label = [
     'custom:RoleRALph',
     'custom:Personcap',
     'custom:Orgunit',
-    'custom:Position'
+    'custom:Position',
+    'custom:ResourceArc'
 ]
 
 export const externalLabel = [
@@ -26,6 +27,7 @@ export const externalLabel = [
     'custom:nyanCat',
     'custom:Person',
     'custom:RoleRALph',
+    'custom:ResourceArc'
     //'custom:Personcap'
     
     
@@ -34,6 +36,9 @@ export const externalLabel = [
 export const connections = [
     'custom:ResourceArc',
     'custom:ResourceArc2',
+    'custom:HistoryConnectorActivityInstance',
+    'custom:HistoryConnectorSameOrPreviousInstance',
+    'custom:HistoryConnectorPreviousInstanceElements',
     'custom:ConsequenceFlow',
     'custom:TimeDistanceArcStart',
     'custom:TimeDistanceArcEnd'
@@ -50,7 +55,8 @@ export const directEdit = [
     'custom:RoleRALph',
     'custom:Personcap',
     'custom:Orgunit',
-    'custom:Position'
+    'custom:Position',
+    'custom:ResourceArc'
 ]
 
 export const resourceArcElements = [
@@ -71,10 +77,26 @@ export const resourceArcElements = [
     
 ]
 
-export const resourceArcElements2 = [
+export const HistoryConnectorActivityInstanceElements =[//solo linea solida
     'custom:History',
+    'custom:History-Any'
+]
+
+export const HistoryConnectorSameOrPreviousInstanceElements =[//linea solida con punto
+    'custom:History',
+    'custom:History-Any'
+]
+
+export const HistoryConnectorPreviousInstanceElements =[//linea con rayas con punto
+    'custom:History',
+    'custom:History-Any'
+]
+
+
+export const resourceArcElements2 = [
+    /*'custom:History',
     'custom:History-Any',
-    'custom:History-Date'
+    'custom:History-Date'*/
 ]
 
 export const custom = [
@@ -137,3 +159,33 @@ export function isCustomResourceArc2Element(type) {
 
      return resourceArcElements2.includes(type)
  }
+
+ export function isHistoryConnectorActivityInstance(type) {
+
+    if (typeof type === 'object') {
+       type = type.type
+    }
+
+    return HistoryConnectorActivityInstanceElements.includes(type)
+}
+
+
+export function isHistoryConnectorSameOrPreviousInstance(type) {
+
+    if (typeof type === 'object') {
+       type = type.type
+    }
+
+    return HistoryConnectorSameOrPreviousInstanceElements.includes(type)
+}
+
+
+
+export function isHistoryConnectorPreviousInstanceElements(type) {
+
+    if (typeof type === 'object') {
+       type = type.type
+    }
+
+    return HistoryConnectorPreviousInstanceElements.includes(type)
+}
