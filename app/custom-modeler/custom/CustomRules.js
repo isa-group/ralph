@@ -161,7 +161,7 @@ CustomRules.prototype.init = function() {
   function canConnectMultiple(source, target, type) {
     if (is(target, 'bpmn:Task') && is(target, 'bpmn:Task')) {
       if(type === 'custom:ConsequenceTimedFlow')
-        return {type1: 'custom:ResourceArc', type2:'custom:ConsequenceFlow'}
+        return {type1: 'custom:ResourceArc', type2:'custom:ConsequenceFlow',type3: 'custom:ResourceArc2'}
       else if(type === 'custom:TimeDistance')
         return {type1: 'custom:TimeDistanceArcStart', type2:'custom:TimeDistanceArcEnd'}
     }

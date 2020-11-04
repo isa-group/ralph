@@ -68,6 +68,7 @@ export const resourceArcElements = [
     'custom:Personcap',
     'custom:Orgunit',
     //'custom:Position'
+    'custom:Position'
 ]
 
 export const resourceArcElements2 = [
@@ -111,8 +112,23 @@ export function isCustomConnection(type) {
 }
 
 export function isCustomResourceArcElement(type) {
-    if (typeof type === 'object') {
+   /* if (typeof type === 'object') {
         type = type.type
+    }*/
+
+    if (type != "custom:Position"){
+        type=type.type
     }
+    
     return resourceArcElements.includes(type)
 }
+
+
+export function isCustomResourceArc2Element(type) {
+ 
+     if (type === "custom:Position"){
+         type=type.type
+     }
+
+     return resourceArcElements2.includes(type)
+ }

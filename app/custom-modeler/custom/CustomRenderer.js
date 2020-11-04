@@ -21,7 +21,9 @@ var RENDERER_IDS = new Ids();
 var COLOR_GREEN = '#52B415',
     COLOR_RED = '#cc0000',
     COLOR_YELLOW = '#ffc800',
-    BLACK = '#000';
+    BLACK = '#000',
+    WHITE="#fff";
+
 
 /**
  * A renderer that knows how to render custom elements.
@@ -215,6 +217,34 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         element: messageflowStart,
         attrs: {
           fill: fill,
+          stroke: stroke
+        },
+        ref: { x: 6, y: 6 }
+      });
+    }
+
+    if (type === 'history-source-another-start') {
+      var messageflowStart = svgCreate('circle');
+      svgAttr(messageflowStart, { cx: 6, cy: 6, r: 3.5 });
+
+      addMarker(id, {
+        element: messageflowStart,
+        attrs: {
+          fill:WHITE,
+          stroke: stroke
+        },
+        ref: { x: 6, y: 6 }
+      });
+    }
+
+    if (type === 'history-source-another-end') {
+      var messageflowStart = svgCreate('circle');
+      svgAttr(messageflowStart, { cx: 6, cy: 6, r: 3.5 });
+
+      addMarker(id, {
+        element: messageflowStart,
+        attrs: {
+          fill:BLACK,
           stroke: stroke
         },
         ref: { x: 6, y: 6 }
@@ -796,8 +826,10 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         stroke: element.color || BLACK,
         strokeWidth: 1.5,
         //strokedashoffset: 153,
-        markerEnd: marker('sequenceflow-end', 'white', element.color),
-        //strokeDasharray: [10,7]->para poner como una linea por rayas
+        /*Como definir history-source-another
+        markerStart: marker('history-source-another-start', 'white',BLACK),
+        markerEnd: marker('history-source-another-end', 'white',BLACK),
+        strokeDasharray: [10,7]//->para poner como una linea por rayas*/
       });
 
       return svgAppend(p, createLine(element.waypoints, attrs));
@@ -1135,7 +1167,7 @@ CustomRenderer.prototype.drawConnection = function(p, element) {
   var h = this.renderers[type];
   console.log(type)
   if(type==="custom:ResourceArc"){
-    element.color=COLOR_RED;
+    element.color='#000'//COLOR_RED;
   }else{
     element.color='#000';
   }
