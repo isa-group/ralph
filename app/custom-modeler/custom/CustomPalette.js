@@ -204,6 +204,7 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
         'bpmn:Group', 'artifact', 'bpmn-icon-group',
         translate('Create Group')
     ),
+    /*
     'custom-separator': {
       group: 'custom',
       separator: true
@@ -234,26 +235,40 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     ),
     'custom-nyanCat': createAction(
       "custom:nyanCat", 'custom', 'icon-custom-nyanCat',null,null, Cat.dataURL2
-    ),
-    'persons-separator': {
-      group: 'persons',
+    ),*/
+    'resources-entities-separator': {
+      group: 'resources',
       separator: true
     },
     'custom-Person': createAction(
-      "custom:Person", 'persons', 'icon-custom-person',null,null,Cat.dataURLpersonSVG
+      "custom:Person", 'resources', 'icon-custom-person',null,null,Cat.dataURLpersonSVG
     ),
     'custom-Role':createAction(
-      "custom:RoleRALph", 'persons' , 'icon-custom-roleRalph',null,null,Cat.dataRoleTest
+      "custom:RoleRALph", 'resources' , 'icon-custom-roleRalph',null,null,Cat.dataRoleTest
     ),
-    'custom-Personcap':createAction(
-      'custom:Personcap','persons','icom-custom-Personcap',null,null,Cat.dataPersonCap
-    ),
+    
     'custom-Orgunit':createAction(
-      'custom:Orgunit','persons','icom-custom-Orgunit',null,null,Cat.dataOrgUnit
+      'custom:Orgunit','resources','icom-custom-Orgunit',null,null,Cat.dataOrgUnit
     ),
     'custom-Position':createAction(
-      'custom:Position','persons','icom-custom-Position',null,null,Cat.dataPosition
+      'custom:Position','resources','icom-custom-Position',null,null,Cat.dataPosition
     ),
+    'custom-Personcap':createAction(
+      'custom:Personcap','resources','icom-custom-Personcap',null,null,Cat.dataPersonCap
+    ),
+    'history-based-assignment-separator': {
+      group: 'history-based-assignments',
+      separator: true
+    },
+    'custom-History':createAction(
+      'custom:History','history-based-assignments','icom-custom-History',null,null,Cat.dataHistory
+    ),
+    'custom-History-Any':createAction(
+      'custom:History-Any','history-based-assignments','icom-custom-History-Any',null,null,Cat.dataHistoryAny
+    ),
+    'custom-History-Date':createAction(
+      'custom:History-Date','history-based-assignments','icom-custom-History-Date',null,null,Cat.dataHistoryDate
+    )
 
 
   });

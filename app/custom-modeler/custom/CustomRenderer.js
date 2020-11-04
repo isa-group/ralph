@@ -418,6 +418,31 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return org;
   }
 
+  function drawHistoryConnector(shape){
+    var org = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataHistory
+    });
+
+    return org;
+  }
+
+  function drawHistoryAnyConnector(shape){
+    var org = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataHistoryAny
+    });
+
+    return org;
+  }
+
+
   function drawTimeSlot(width, height, color) {
     var attrs = computeStyle(attrs, {
       stroke: color || '#fff',
@@ -509,6 +534,24 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         renderEmbeddedLabel(p,element,'center-middle')
         svgAppend(p,role)
         return role;
+    },'custom:History':(p,element)=>{
+      let connector=drawHistoryConnector(element)
+
+      renderEmbeddedLabel(p,element,'center-middle')
+      svgAppend(p,connector)
+      return connector;
+    },'custom:History-Any':(p,element)=>{
+      let connector2=drawHistoryAnyConnector(element)
+
+      renderEmbeddedLabel(p,element,'center-middle')
+      svgAppend(p,connector2)
+      return connector2;
+    },'custom:History-Date':(p,element)=>{
+      let connector3=drawHistoryConnector(element)
+
+      renderEmbeddedLabel(p,element,'center-middle')
+      svgAppend(p,connector3)
+      return connector3;
     },
     'custom:Clock': (p, element) => {
       console.log(element)
@@ -836,7 +879,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     },
     'custom:ResourceArc2': (p, element) => {
       var attrs = computeStyle(attrs, {
-        stroke: element.color || BLACK,
+        stroke: element.color || COLOR_RED,
         strokeWidth: 1.5,
         strokeDasharray: [10,7]
       });
@@ -1017,8 +1060,56 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         ]
 
           return componentsToPath(d);
-    },
-    'custom:Clock': (element) => {
+    },'custom:History':(element)=>{
+      var x = element.x,
+      y = element.y,
+      width = element.width,
+      height = element.height;
+      
+      var d = [
+        ['M', x , y],
+        ['h', 50 ],
+        ['v', 50 ],
+        ['h', -50 ],
+        ['v', -30 ],
+        ['z']
+      ]
+
+        return componentsToPath(d);
+  },'custom:History-Any':(element)=>{
+    var x = element.x,
+    y = element.y,
+    width = element.width,
+    height = element.height;
+    
+    var d = [
+      ['M', x , y],
+      ['h', 50 ],
+      ['v', 50 ],
+      ['h', -50 ],
+      ['v', -30 ],
+      ['z']
+    ]
+
+      return componentsToPath(d);
+},'custom:History-Date':(element)=>{
+  var x = element.x,
+  y = element.y,
+  width = element.width,
+  height = element.height;
+  
+  var d = [
+    ['M', x , y],
+    ['h', 50 ],
+    ['v', 50 ],
+    ['h', -50 ],
+    ['v', -30 ],
+    ['z']
+  ]
+
+    return componentsToPath(d);
+},
+'custom:Clock': (element) => {
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1165,11 +1256,11 @@ CustomRenderer.prototype.getShapePath = function(shape) {
 CustomRenderer.prototype.drawConnection = function(p, element) {
   var type = element.type;
   var h = this.renderers[type];
-  if(type==="custom:ResourceArc"){
-    element.color=COLOR_RED;
+  /*if(type==="custom:ResourceArc"){
+    element.color=COLOR_GREEN;
   }else{
     element.color='#000';
-  }
+  }*/
 /*
   if(element.color == null)
     element.color='#000'; //COLOR_RED;

@@ -95,9 +95,19 @@ function canConnect(source, target, connection) {
     }
     else
       return false
-  }
-  else if((isDefaultValid(source) && isCustomShape(target)) || (isCustomShape(source) && isDefaultValid(target)))
+  }else if(is(target, 'custom:History')) {
+    if(isDefaultValid(source)) {
+      if(connection === 'custom:TimeDistandStartArc')
+        return { type: connection }
+      else
+        return { type: 'custom:ResourceArc2'}
+    }
+    else
+      return false
+   } else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArcElement(source)) || (isCustomShape(source) && isDefaultValid(target) && isCustomResourceArcElement(target))){
     return { type: 'custom:ResourceArc' }
+   } else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArc2Element(source)) || (isCustomShape(source) && isDefaultValid(target) && isCustomResourceArc2Element(source)))
+   return { type: 'custom:ResourceArc2' }
   else
     return;
 }

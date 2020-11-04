@@ -14,7 +14,7 @@ import {
 } from 'min-dash';
 import {isLabel} from "./utils/LabelUtil";
 
-import {resourceArcElements} from "./Types";
+import {resourceArcElements,resourceArcElements2} from "./Types";
 
 
 export default function CustomContextPadProvider(config, injector, elementFactory, connect, create, translate) {
@@ -113,6 +113,21 @@ export default function CustomContextPadProvider(config, injector, elementFactor
           }
         });
     }
+
+    if (isAny(businessObject, resourceArcElements2) && element.type !== 'label') {
+        assign(actions, {
+          'connect': {
+              group: 'connect',
+              className: 'bpmn-icon-connection-multi',
+              title: translate('Connect using custom connection 2'),
+              action: {
+                  click: startConnect,
+                  dragstart: startConnect
+              }
+          }
+        });
+    }
+
     if(is(businessObject, 'bpmn:BaseElement') && element.type !== 'label') {
         assign(actions, {
             'connect1': appendConnectAction(

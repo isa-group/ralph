@@ -167,7 +167,10 @@ CustomElementFactory.prototype._getCustomElementSize = function(type) {
     'custom:RoleRALph':{width: 75, height: 75},
     'custom:Personcap':{width:75,height:75},
     'custom:Orgunit':{width:75,height:75},
-    'custom:Position':{width:75,height:75}
+    'custom:Position':{width:75,height:75},
+    'custom:History':{width:75,height:75},
+    'custom:History-Any':{width:75,height:75},
+    'custom:History-Date':{width:75,height:75}
   };
 
   return shapes[type] || shapes.__default;

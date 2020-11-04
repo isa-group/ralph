@@ -67,12 +67,14 @@ export const resourceArcElements = [
     'custom:RoleRALph',
     'custom:Personcap',
     'custom:Orgunit',
-    //'custom:Position'
-    'custom:Position'
+    'custom:Position',
+    
 ]
 
 export const resourceArcElements2 = [
-    'custom:Position'
+    'custom:History',
+    'custom:History-Any',
+    'custom:History-Date'
 ]
 
 export const custom = [
@@ -94,7 +96,10 @@ export const custom = [
     'custom:RoleRALph',
     'custom:Personcap',
     'custom:Orgunit',
-    'custom:Position'
+    'custom:Position',
+    'custom:History',
+    'custom:History-Any',
+    'custom:History-Date'
 ]
 
 export function isCustomShape(type) {
@@ -112,22 +117,22 @@ export function isCustomConnection(type) {
 }
 
 export function isCustomResourceArcElement(type) {
-   /* if (typeof type === 'object') {
+
+    if (typeof type === 'object') {
         type = type.type
-    }*/
-    
-    if (type.type!="custom:Position"){
-        type=type.type
     }
+    /*if (type.type!="custom:Position"){
+        type=type.type
+    }*/
 
     return resourceArcElements.includes(type)
 }
 
 
 export function isCustomResourceArc2Element(type) {
- 
-     if (type.type === "custom:Position"){
-         type=type.type
+
+     if (typeof type === 'object') {
+        type = type.type
      }
 
      return resourceArcElements2.includes(type)
