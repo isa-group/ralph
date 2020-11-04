@@ -115,18 +115,18 @@ export function isCustomResourceArcElement(type) {
    /* if (typeof type === 'object') {
         type = type.type
     }*/
-
-    if (type != "custom:Position"){
+    
+    if (type.type!="custom:Position"){
         type=type.type
     }
-    
+
     return resourceArcElements.includes(type)
 }
 
 
 export function isCustomResourceArc2Element(type) {
  
-     if (type === "custom:Position"){
+     if (type.type === "custom:Position"){
          type=type.type
      }
 

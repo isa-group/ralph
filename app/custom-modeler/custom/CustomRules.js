@@ -10,7 +10,7 @@ import {
 
 import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
 import {isAny} from "bpmn-js/lib/features/modeling/util/ModelingUtil";
-import {isCustomResourceArcElement, isCustomShape} from "./Types";
+import {isCustomResourceArcElement, isCustomShape,isCustomResourceArc2Element} from "./Types";
 import {isLabel} from "bpmn-js/lib/util/LabelUtil";
 
 var HIGH_PRIORITY = 1500;
@@ -131,6 +131,9 @@ function canConnect2(source, target, connection) {
       return;
     else if((isDefaultValid(source) && isCustomResourceArcElement(target)) || (isDefaultValid(target) && isCustomResourceArcElement(source))) {
       return {type: 'custom:ResourceArc'}
+      
+    }else if((isDefaultValid(source) && isCustomResourceArc2Element(target)) || (isDefaultValid(target) && isCustomResourceArc2Element(source))) {
+      return {type: 'custom:ResourceArc2'}
     }
     else
       return

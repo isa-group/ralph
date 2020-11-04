@@ -1165,9 +1165,8 @@ CustomRenderer.prototype.getShapePath = function(shape) {
 CustomRenderer.prototype.drawConnection = function(p, element) {
   var type = element.type;
   var h = this.renderers[type];
-  console.log(type)
   if(type==="custom:ResourceArc"){
-    element.color='#000'//COLOR_RED;
+    element.color=COLOR_RED;
   }else{
     element.color='#000';
   }
