@@ -67,7 +67,7 @@ function canConnect(source, target, connection) {
     }
     else
       return false
-  }else if(is(source, 'custom:Person')) {
+  /*}else if(is(source, 'custom:Person')) {
     if(isDefaultValid(target)) {
       if(connection === 'custom:ConsequenceFlow' || connection === 'custom:TimeDistandEndArc')
         return { type: connection }
@@ -75,7 +75,7 @@ function canConnect(source, target, connection) {
         return false
     }
     else
-      return false
+      return false*/
   }
   else if(is(target, 'custom:TimeSlot')) {
     if(isDefaultValid(source)) {
@@ -86,7 +86,7 @@ function canConnect(source, target, connection) {
     }
     else
       return false
-  }else if(is(target, 'custom:Position')) {
+  /*}else if(is(target, 'custom:Position')) {
     if(isDefaultValid(source)) {
       if(connection === 'custom:TimeDistandStartArc')
         return { type: connection }
@@ -95,25 +95,19 @@ function canConnect(source, target, connection) {
     }
     else
       return false
-  }else if(is(target, 'custom:History')) {
+  }else if(is(target, 'custom:Orgunit')) {
     if(isDefaultValid(source)) {
       if(connection === 'custom:TimeDistandStartArc')
         return { type: connection }
       else
-        return { type: 'custom:ResourceArc2'}
+        return { type: 'custom:ResourceArc'}
     }
     else
-      return false
+      return false*/
    } else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArcElement(source)) || (isCustomShape(source) && isDefaultValid(target) && isCustomResourceArcElement(target))){
-    return { type: 'custom:ResourceArc' }
-   } else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArc2Element(source)) || (isCustomShape(source) && isDefaultValid(target) && isCustomResourceArc2Element(source))){
-   return { type: 'custom:ResourceArc2' }
-  /*} else if(( isDefaultValid(source) && isCustomShape(target) && isHistoryConnectorActivityInstance(source)) || (isCustomShape(source) && isDefaultValid(target) && isHistoryConnectorActivityInstance(source))){
-  return { type1: 'custom:HistoryConnectorActivityInstance',type2: 'custom:isHistoryConnectorSameOrPreviousInstance' }
-  /*} else if(( isDefaultValid(source) && isCustomShape(target) && isHistoryConnectorPreviousInstanceElements(source)) || (isCustomShape(source) && isDefaultValid(target) && isHistoryConnectorPreviousInstanceElements(source))){
-  return { type: 'custom:HistoryConnectorPreviousInstanceElements' }
-  } else if(( isDefaultValid(source) && isCustomShape(target) && isHistoryConnectorSameOrPreviousInstance(source)) || (isCustomShape(source) && isDefaultValid(target) && isHistoryConnectorSameOrPreviousInstance(source))){
-  return { type: 'custom:isHistoryConnectorSameOrPreviousInstance' }*/
+      return { type: 'custom:ResourceArc' }
+   } else if(( isCustom(source) && isCustomShape(target) && isCustomResourceArc2Element(source)) || (isCustom(source) && isDefaultValid(target) && isCustomResourceArc2Element(source))){
+      return { type: 'custom:ResourceArc2' }
   }else
     return;
 }
@@ -146,16 +140,9 @@ function canConnect2(source, target, connection) {
     if (!isCustom(source) && !isCustom(target))
       return;
     else if((isDefaultValid(source) && isCustomResourceArcElement(target)) || (isDefaultValid(target) && isCustomResourceArcElement(source))) {
-      return {type: 'custom:ResourceArc'}
-      
-    }else if((isDefaultValid(source) && isCustomResourceArc2Element(target)) || (isDefaultValid(target) && isCustomResourceArc2Element(source))) {
-      return {type: 'custom:ResourceArc2'}
-    } else if(( isDefaultValid(source) && isCustomShape(target) && isHistoryConnectorActivityInstance(source)) || (isCustomShape(source) && isDefaultValid(target) && isHistoryConnectorActivityInstance(source))){
-      return { type1: 'custom:HistoryConnectorActivityInstance',type2: 'custom:HistoryConnectorSameOrPreviousInstance'}
-    /*} else if(( isDefaultValid(source) && isCustomShape(target) && isHistoryConnectorPreviousInstanceElements(source)) || (isCustomShape(source) && isDefaultValid(target) && isHistoryConnectorPreviousInstanceElements(source))){
-      return { type1: 'custom:HistoryConnectorPreviousInstanceElements',type2: 'custom:isHistoryConnectorSameOrPreviousInstance' }
-    } else if(( isDefaultValid(source) && isCustomShape(target) && isHistoryConnectorSameOrPreviousInstance(source)) || (isCustomShape(source) && isDefaultValid(target) && isHistoryConnectorSameOrPreviousInstance(source))){
-      return { type: 'custom:isHistoryConnectorSameOrPreviousInstance' }*/
+      return { type: 'custom:ResourceArc'}
+    }else if((isCustom(source) && isCustomResourceArc2Element(target)) || (isCustom(source) && isCustomResourceArc2Element(source))) {
+      return { type: 'custom:ResourceArc2'}
     }else
       return
   }
@@ -185,12 +172,19 @@ CustomRules.prototype.init = function() {
   function canConnectMultiple(source, target, type) {
     if (is(target, 'bpmn:Task') && is(target, 'bpmn:Task')) {
       if(type === 'custom:ConsequenceTimedFlow')
-        return {type1: 'custom:ResourceArc', type2:'custom:ConsequenceFlow',type3: 'custom:ResourceArc2'}
+        return {type1: 'custom:ResourceArc', type2:'custom:ConsequenceFlow'}
       else if(type === 'custom:TimeDistance')
         return {type1: 'custom:TimeDistanceArcStart', type2:'custom:TimeDistanceArcEnd'}
-    }else if(isHistoryConnectorActivityInstance(source)){
-      return { type1: 'custom:HistoryConnectorActivityInstance',type2: 'custom:HistoryConnectorSameOrPreviousInstance'}
     }
+  }
+
+  function canConnectMultipleCustomElement(source, target, type) {
+    if (is(target,customElements) && is(source,customElements)) {
+      if(type === 'custom:Position'){
+        return {type1: 'custom:ResourceArc' , type2: 'custom:ResourceArc2' }
+      }
+    }
+    
   }
 
   function canReconnect(source, target, connection) {
@@ -273,6 +267,8 @@ CustomRules.prototype.init = function() {
 
     if(type === 'custom:ConsequenceTimedFlow' || type === 'custom:TimeDistance')
       return canConnectMultiple(source, target, type)
+    /*if(type==="custom:Position")
+      return canConnectMultipleCustomElement(source,target,type)*/
 
     return canConnect2(source, target, type);
   });

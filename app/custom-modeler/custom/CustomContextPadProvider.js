@@ -104,7 +104,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         connect.customStart2(event, element, 'custom:ConsequenceTimedFlow', elementFactory, autoActivate);
     }
 
-    if (isAny(businessObject, resourceArcElements) && element.type !== 'label') {
+    /*if (isAny(businessObject, resourceArcElements) && element.type !== 'label') {
         assign(actions, {
           'connect': {
               group: 'connect',
@@ -120,7 +120,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
 
 
 
-    if (isAny(businessObject, resourceArcElements2) && element.type !== 'label') {
+   /* if (isAny(businessObject, resourceArcElements2) && element.type !== 'label') {
         assign(actions, {
           'connect': {
               group: 'connect',
@@ -132,76 +132,22 @@ export default function CustomContextPadProvider(config, injector, elementFactor
               }
           }
         });
-    }
-    /*
-    if (isAny(businessObject, HistoryConnectorActivityInstanceElements) && element.type !== 'label') {
-        assign(actions, {
-          'connect': {
-              group: 'connect',
-              className: 'bpmn-icon-connection-multi',
-              title: translate('Connect using a connector of same Activity'),
-              action: {
-                  click: startConnect,
-                  dragstart: startConnect
-              }
-          }
-        });
-    }
-
-    if (isAny(businessObject, HistoryConnectorSameOrPreviousInstanceElements) && element.type !== 'label') {
-        assign(actions, {
-          'connect': {
-              group: 'connect',
-              className: 'bpmn-icon-connection-multi',
-              title: translate('Connect using a connector of same or previous Activity'),
-              action: {
-                  click: startConnect,
-                  dragstart: startConnect
-              }
-          }
-        });
     }*/
     
-    /*prueba mezclando varios botones:
-    if (isAny(businessObject, HistoryConnectorActivityInstanceElements) && element.type !== 'label') {
+    if(isAny(businessObject,resourceArcElements2) && element.type !== 'label') {
         assign(actions, {
             'connect1': appendConnectAction(
-                'custom:HistoryConnectorActivityInstance',
+                'custom:ResourceArc',
                 'bpmn-icon-connection-multi',
-                'Connect using a connector of same Activity'
-
+                'Connect using ResourceArc'
             ),
-            'connect2':appendConnectAction(
-                'custom:HistoryConnectorSameOrPreviousInstance',
+            'connect1': appendConnectAction(
+                'custom:ResourceArc2',
                 'bpmn-icon-connection-multi',
-                'Connect using a connector of same or previous Activity'
+                'Connect using ResourceArc2'
             )
         });
-        assign(actions, {
-            'connect': {
-                group: 'connect',
-                className: 'bpmn-icon-connection-multi',
-                title: translate('Connect using a connector of same Activity'),
-                action: {
-                    click: startConnect,
-                    dragstart: startConnect
-                }
-            },
-            'connect2': {
-                group: 'connect',
-                className: 'bpmn-icon-connection-multi',
-                title: translate('Connect using a connector of same or previous Activity'),
-                action: {
-                    click: startConnect,
-                    dragstart: startConnect
-                }
-            },
-            
-          });
-
-
-
-    }*/
+    }
 
     if(is(businessObject, 'bpmn:BaseElement') && element.type !== 'label') {
         assign(actions, {

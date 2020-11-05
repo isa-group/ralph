@@ -868,33 +868,36 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     'custom:ResourceArc': (p, element) => {
 
       var attrs = computeStyle(attrs, {
-        stroke: element.color || BLACK,
+        stroke: COLOR_GREEN,//-> PARA EL COLOR
         strokeWidth: 1.5,
         //strokedashoffset: 153,
         /*Como definir history-source-another
-        markerStart: marker('history-source-another-start', 'white',BLACK),
+        markerStart: marker('history-source-another-start', 'white',BLACK),*/
         markerEnd: marker('history-source-another-end', 'white',BLACK),
-        strokeDasharray: [10,7]//->para poner como una linea por rayas*/
+        strokeDasharray: [10,7]//->para poner como una linea por rayas
       });
   
       //renderExternalLabel(p,element);
       return svgAppend(p, createLine(element.waypoints, attrs));
 
     },
+
     'custom:ResourceArc2': (p, element) => {
       var attrs = computeStyle(attrs, {
-        stroke: element.color, //|| COLOR_RED,
-        strokeWidth: 1.5,
-        strokeDasharray: [10,7]
+        stroke: COLOR_RED,
+        /*strokeWidth: 1.5,
+        strokeDasharray: [10,7]*/
       });
       
       return svgAppend(p, createLine(element.waypoints, attrs));
+
+
     },'custom:HistoryConnectorActivityInstance':(p,element)=>{
       var attrs = {
-        strokeLinejoin: 'round',
-        markerEnd: marker('sequenceflow-end', 'white', element.color),
         stroke: element.color || BLACK,
         strokeWidth: 1.5,
+        strokeLinejoin: 'round',
+        markerEnd: marker('sequenceflow-end', 'white', element.color),
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));
@@ -1010,7 +1013,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ]
 
       return componentsToPath(d);
-    },'custom:ResourceArc':(element)=>{
+    },/*'custom:ResourceArc':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1027,7 +1030,24 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ]
 
       return componentsToPath(d);
-    },'custom:Rolecap':(element)=>{
+    },'custom:ResourceArc2':(element)=>{
+      var x = element.x,
+          y = element.y,
+          width = element.width,
+          height = element.height;
+          
+
+      var d = [
+        ['M', x , y],
+        ['h', 50 ],
+        ['v', 50 ],
+        ['h', -50 ],
+        ['v', -50 ],
+        ['z']
+      ]
+
+      return componentsToPath(d);
+    },*/'custom:Rolecap':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1063,7 +1083,25 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       return componentsToPath(d);
 
 
-    },'custom:Position':(element) =>{
+    },'custom:Position':(element)=>{
+      var x = element.x,
+          y = element.y,
+          width = element.width,
+          height = element.height;
+          
+
+      var d = [
+        ['M', x , y],
+        ['h', 50 ],
+        ['v', 50 ],
+        ['h', -50 ],
+        ['v', -50 ],
+        ['z']
+      ]
+
+      return componentsToPath(d);
+
+    },'custom:Orgunit':(element) =>{
       var x = element.x,
         y = element.y,
         width = element.width,
@@ -1309,14 +1347,9 @@ CustomRenderer.prototype.getShapePath = function(shape) {
 CustomRenderer.prototype.drawConnection = function(p, element) {
   var type = element.type;
   var h = this.renderers[type];
-  /*if(type==="custom:ResourceArc"){
-    element.color=COLOR_GREEN;
-  }else{
-    element.color='#000';
-  }*/
 
   if(element.color == null)
-    element.color='#000'; 
+    element.color='#000';
   /* jshint -W040 */
   return h(p, element);
 };

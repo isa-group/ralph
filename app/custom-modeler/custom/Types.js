@@ -73,7 +73,7 @@ export const resourceArcElements = [
     'custom:RoleRALph',
     'custom:Personcap',
     'custom:Orgunit',
-    'custom:Position',
+    'custom:Position'
     
 ]
 
@@ -89,14 +89,13 @@ export const HistoryConnectorSameOrPreviousInstanceElements =[//linea solida con
 
 export const HistoryConnectorPreviousInstanceElements =[//linea con rayas con punto
     'custom:History',
-    'custom:History-Any'
+    'custom:History-Any',
 ]
 
 
 export const resourceArcElements2 = [
-    /*'custom:History',
-    'custom:History-Any',
-    'custom:History-Date'*/
+    'custom:Position',
+    'custom:Orgunit'
 ]
 
 export const custom = [
@@ -122,6 +121,8 @@ export const custom = [
     'custom:History',
     'custom:History-Any',
     'custom:History-Date'
+
+    //añadir conexiones aqui también
 ]
 
 export function isCustomShape(type) {
