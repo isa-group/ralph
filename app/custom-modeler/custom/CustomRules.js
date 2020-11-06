@@ -21,7 +21,11 @@ function isCustom(element) {
 }
 
 function isDefaultValid(element) {
-  return element && (is(element, 'bpmn:Task') || is(element, 'bpmn:Event'))
+  return element && (is(element, 'bpmn:Task')) //|| is(element, 'bpmn:Event'))
+}
+
+function isDefaultValid2(element) {
+  return element &&  (is(element, 'bpmn:Event'))
 }
 
 /**
@@ -104,9 +108,9 @@ function canConnect(source, target, connection) {
     }
     else
       return false*/
-   } else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArcElement(source)) || (isCustomShape(source) && isDefaultValid(target) && isCustomResourceArcElement(target))){
+   } else if(( isDefaultValid2(source) && isCustomShape(target) && isCustomResourceArcElement(source)) || (isDefaultValid2(target) && isCustomShape(source) &&  isCustomResourceArcElement(target))){
       return { type: 'custom:ResourceArc' }
-   } else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArc2Element(source)) || (isDefaultValid(source) && isCustomShape(target) && isCustomResourceArc2Element(source))){
+   } else if((isDefaultValid(source) && isCustomShape(target) && isCustomResourceArc2Element(source)) || (isDefaultValid(target) && isCustomShape(source) && isCustomResourceArc2Element(source))){
       return { type: 'custom:ResourceArc2' }
   }else
     return;
@@ -139,10 +143,10 @@ function canConnect2(source, target, connection) {
   else {
     if (!isCustom(source) && !isCustom(target))
       return;
-    else if((isDefaultValid(source) && isCustomResourceArcElement(target)) || (isDefaultValid(target) && isCustomResourceArcElement(source))) {
-      return { type: 'custom:ResourceArc'}
-    }else if((isCustom(source) && isCustomResourceArc2Element(target)) || (isCustom(source) && isCustomResourceArc2Element(source))) {
-      return { type: 'custom:ResourceArc2'}
+    else if( (isDefaultValid2(source) && isCustomResourceArcElement(target)) || (isDefaultValid2(target) && isCustomResourceArcElement(source)) ) {
+        return { type: 'custom:ResourceArc'}
+    }else if((isDefaultValid(source) && isCustomResourceArc2Element(target)) || (isDefaultValid(target) && isCustomResourceArc2Element(source))) {
+        return { type: 'custom:ResourceArc2'}
     }else
       return
   }

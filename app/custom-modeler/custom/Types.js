@@ -13,7 +13,8 @@ export const label = [
     'custom:Personcap',
     'custom:Orgunit',
     'custom:Position',
-    'custom:ResourceArc'
+    'custom:ResourceArc',
+    'custom:ResourceArc2'
 ]
 
 export const externalLabel = [
@@ -27,7 +28,8 @@ export const externalLabel = [
     'custom:nyanCat',
     'custom:Person',
     'custom:RoleRALph',
-    'custom:ResourceArc'
+    'custom:ResourceArc',
+    'custom:ResourceArc2'
     //'custom:Personcap'
     
     
@@ -56,7 +58,8 @@ export const directEdit = [
     'custom:Personcap',
     'custom:Orgunit',
     'custom:Position',
-    'custom:ResourceArc'
+    'custom:ResourceArc',
+    'custom:ResourceArc2'
 ]
 
 export const resourceArcElements = [

@@ -885,6 +885,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     'custom:ResourceArc2': (p, element) => {
       var attrs = computeStyle(attrs, {
         stroke: COLOR_RED,
+        strokeWidth: 1.5
         /*strokeWidth: 1.5,
         strokeDasharray: [10,7]*/
       });
