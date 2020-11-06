@@ -104,7 +104,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         connect.customStart2(event, element, 'custom:ConsequenceTimedFlow', elementFactory, autoActivate);
     }
 
-    if (isAny(businessObject, resourceArcElements) && element.type !== 'label') {
+    /*if (isAny(businessObject, resourceArcElements) && element.type !== 'label') {
         assign(actions, {
           'connect': {
               group: 'connect',
@@ -115,6 +115,16 @@ export default function CustomContextPadProvider(config, injector, elementFactor
                   dragstart: startConnect
               }
           }
+        });
+    }*/
+
+    if (isAny(businessObject, resourceArcElements) && element.type !== 'label') {
+        assign(actions, {
+            'connect1': appendConnectAction(
+                'custom:ResourceArc',
+                'bpmn-icon-connection-multi',
+                'Connect using ResourceArc'
+            ),
         });
     }
 
@@ -141,7 +151,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
                 'bpmn-icon-connection-multi',
                 'Connect using ResourceArc'
             ),
-            'connect1': appendConnectAction(
+            'connect2': appendConnectAction(
                 'custom:ResourceArc2',
                 'bpmn-icon-connection-multi',
                 'Connect using ResourceArc2'
