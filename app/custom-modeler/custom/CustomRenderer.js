@@ -481,12 +481,12 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
   var renderers = this.renderers = {
     'custom:TimeSlot': (p, element) => {
       let polygon = drawTimeSlot(element.width, element.height, element.color)
-
-      svgAppend(p, polygon);
+      let person=drawPerson(element)
+      svgAppend(p, person);
       renderExternalLabel(p,element)
       //renderEmbeddedLabel(p, element, 'center-middle');
 
-      return polygon;
+      return person;
     },
     'custom:nyanCat':(p,element) =>{
       let cat=drawNyanCat(element)
@@ -862,7 +862,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     'custom:ResourceArc': (p, element) => {
 
       var attrs = computeStyle(attrs, {
-        stroke: COLOR_GREEN,//-> PARA EL COLOR
+        stroke: COLOR_RED,//-> PARA EL COLOR
         strokeWidth: 1.5,
         //strokedashoffset: 153,
         /*Como definir history-source-another
@@ -923,7 +923,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         markerEnd: marker('sequenceflow-end', 'white', element.color),
         stroke: element.color || BLACK,
         strokeWidth: 1.5,
-        strokeDasharray: [8,5]
+        //strokeDasharray: [8,5]
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));

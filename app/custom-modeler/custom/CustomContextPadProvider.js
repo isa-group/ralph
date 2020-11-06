@@ -128,6 +128,15 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         });
     }
 
+    if (is(businessObject, 'custom:Position') && element.type !== 'label') {
+        assign(actions, {
+            'connectPos': appendConnectAction(
+                'custom:Delegate',
+                'bpmn-icon-connection-multi',
+                'Connect using delegate'
+            ),
+        });
+    }
 
 
    /* if (isAny(businessObject, resourceArcElements2) && element.type !== 'label') {
@@ -187,12 +196,12 @@ export default function CustomContextPadProvider(config, injector, elementFactor
             'connect2': appendConnectAction(
                 'custom:ConsequenceTimedFlow',
                 'bpmn-icon-connection-multi',
-                'Connect using custom connection'
+                'Connect using custom connection 2'
             ),
             'connect3': appendConnectAction(
                 'custom:TimeDistance',
                 'bpmn-icon-connection-multi',
-                'Connect using custom connection'
+                'Connect using custom connection 3'
             ),
         });
     }

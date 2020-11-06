@@ -207,21 +207,18 @@ CustomRules.prototype.init = function() {
 
 
   function canConnectMultiple(source, target, type) {
-    if (is(target, 'bpmn:Task') && is(target, 'bpmn:Task')) {
-      if(type === 'custom:ConsequenceTimedFlow')
+    if (is(source, 'bpmn:Task') && is(target, 'bpmn:Task')) {
+      if(type === 'custom:ConsequenceTimedFlow')//aqui parece definir la conexion compleja
         return {type1: 'custom:ResourceArc', type2:'custom:ConsequenceFlow'}
       else if(type === 'custom:TimeDistance')
         return {type1: 'custom:TimeDistanceArcStart', type2:'custom:TimeDistanceArcEnd'}
     }
   }
 
-  function canConnectMultipleCustomElement(source, target, type) {
-    if (is(target,customElements) && is(source,customElements)) {
-      if(type === 'custom:Position'){
-        return {type1: 'custom:ResourceArc' , type2: 'custom:ResourceArc2' }
+  function canConnectMultipleCustomElement(source, target) {
+      if( is(source,'custom:Position') && is(target,'bpmn:Task') ) { 
+        return {type1: 'custom:HistoryConnectorActivityInstance' , type2: 'custom:ConsequenceFlow' }
       }
-    }
-    
   }
 
   function canReconnect(source, target, connection) {
@@ -304,8 +301,9 @@ CustomRules.prototype.init = function() {
 
     if(type === 'custom:ConsequenceTimedFlow' || type === 'custom:TimeDistance')
       return canConnectMultiple(source, target, type)
-    /*if(type==="custom:Position")
-      return canConnectMultipleCustomElement(source,target,type)*/
+    //if(source === "custom:Position" && target === "bpmn:Task")
+    if(type === 'custom:Delegate')
+      return canConnectMultipleCustomElement(source,target)
 
     return canConnect2(source, target, type);
   });
