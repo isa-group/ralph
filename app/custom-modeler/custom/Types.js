@@ -38,12 +38,14 @@ export const externalLabel = [
 export const connections = [
     'custom:ResourceArc',
     'custom:ResourceArc2',
-    'custom:HistoryConnectorActivityInstance',
-    'custom:HistoryConnectorSameOrPreviousInstance',
-    'custom:HistoryConnectorPreviousInstanceElements',
+    
     'custom:ConsequenceFlow',
     'custom:TimeDistanceArcStart',
-    'custom:TimeDistanceArcEnd'
+    'custom:TimeDistanceArcEnd',
+
+    'custom:HistoryConnectorActivityInstance',
+    'custom:HistoryConnectorSameOrPreviousInstance',
+    'custom:HistoryConnectorPreviousInstanceElements'
 ]
 
 export const directEdit = [
@@ -81,17 +83,17 @@ export const resourceArcElements = [
 ]
 
 export const HistoryConnectorActivityInstanceElements =[//solo linea solida
-    'custom:History',
+    'custom:History-Same',
     'custom:History-Any'
 ]
 
 export const HistoryConnectorSameOrPreviousInstanceElements =[//linea solida con punto
-    'custom:History',
+    'custom:History-Same',
     'custom:History-Any'
 ]
 
 export const HistoryConnectorPreviousInstanceElements =[//linea con rayas con punto
-    'custom:History',
+    'custom:History-Same',
     'custom:History-Any',
 ]
 
@@ -121,10 +123,11 @@ export const custom = [
     'custom:Personcap',
     'custom:Orgunit',
     'custom:Position',
+
+
     'custom:History',
     'custom:History-Any',
-    'custom:History-Date'
-
+    'custom:HistoryConnectorActivityInstance'
     //añadir conexiones aqui también
 ]
 

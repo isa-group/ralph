@@ -261,14 +261,11 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       separator: true
     },
     'custom-History':createAction(
-      'custom:History','history-based-assignments','icom-custom-History',null,null,Cat.dataHistory
+      'custom:History-Same','history-based-assignments','icom-custom-History',null,null,Cat.dataHistory
     ),
     'custom-History-Any':createAction(
       'custom:History-Any','history-based-assignments','icom-custom-History-Any',null,null,Cat.dataHistoryAny
     ),
-    'custom-History-Date':createAction(
-      'custom:History-Date','history-based-assignments','icom-custom-History-Date',null,null,Cat.dataHistoryDate
-    )
 
 
   });

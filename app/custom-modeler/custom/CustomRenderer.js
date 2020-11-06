@@ -535,7 +535,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         renderEmbeddedLabel(p,element,'center-middle')
         svgAppend(p,role)
         return role;
-    },'custom:History':(p,element)=>{
+    },'custom:History-Same':(p,element)=>{
       let connector=drawHistoryConnector(element)
 
       renderEmbeddedLabel(p,element,'center-middle')
@@ -547,12 +547,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       renderEmbeddedLabel(p,element,'center-middle')
       svgAppend(p,connector2)
       return connector2;
-    },'custom:History-Date':(p,element)=>{
-      let connector3=drawHistoryConnector(element)
-
-      renderEmbeddedLabel(p,element,'center-middle')
-      svgAppend(p,connector3)
-      return connector3;
     },
     'custom:Clock': (p, element) => {
       console.log(element)
@@ -898,7 +892,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         stroke: element.color || BLACK,
         strokeWidth: 1.5,
         strokeLinejoin: 'round',
-        markerEnd: marker('sequenceflow-end', 'white', element.color),
+        //markerEnd: marker('sequenceflow-end', 'white', element.color),
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));
@@ -1153,7 +1147,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         ]
 
           return componentsToPath(d);
-    },'custom:History':(element)=>{
+    },'custom:History-Same':(element)=>{
       var x = element.x,
       y = element.y,
       width = element.width,
@@ -1185,22 +1179,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     ]
 
       return componentsToPath(d);
-},'custom:History-Date':(element)=>{
-  var x = element.x,
-  y = element.y,
-  width = element.width,
-  height = element.height;
-  
-  var d = [
-    ['M', x , y],
-    ['h', 50 ],
-    ['v', 50 ],
-    ['h', -50 ],
-    ['v', -30 ],
-    ['z']
-  ]
-
-    return componentsToPath(d);
 },
 'custom:Clock': (element) => {
       var x = element.x,

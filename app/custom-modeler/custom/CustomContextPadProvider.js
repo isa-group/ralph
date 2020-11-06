@@ -159,6 +159,16 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         });
     }
 
+    if(isAny(businessObject,HistoryConnectorActivityInstanceElements) && element.type !== 'label') {
+        assign(actions, {
+            'connect1': appendConnectAction(
+                'custom:HistoryConnectorActivityInstance',
+                'bpmn-icon-connection-multi',
+                'Connect using connector of same instance'
+            ),
+        });
+    }
+
     if(is(businessObject, 'bpmn:BaseElement') && element.type !== 'label') {
         assign(actions, {
             'connect1': appendConnectAction(
