@@ -165,7 +165,15 @@ export default function CustomContextPadProvider(config, injector, elementFactor
                 'custom:HistoryConnectorActivityInstance',
                 'bpmn-icon-connection-multi',
                 'Connect using connector of same instance'
-            ),
+            ),'connect2': appendConnectAction(
+                'custom:HistoryConnectorSameOrPreviousInstance',
+                'bpmn-icon-connection-multi',
+                'Connect using connector of same or previous instance'
+            ),'connect3': appendConnectAction(
+                'custom:HistoryConnectorPreviousInstance',
+                'bpmn-icon-connection-multi',
+                'Connect using connector of previous instance'
+            )
         });
     }
 

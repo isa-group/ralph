@@ -28,6 +28,10 @@ function isDefaultValid2(element) {
   return element &&  (is(element, 'bpmn:Event'))
 }
 
+function isValidForHistoryConnectors(element){
+  return element && (is(element, 'bpmn:Task'))
+}
+
 /**
  * Specific rules for custom elements
  */
@@ -142,7 +146,17 @@ function canConnect2(source, target, connection) {
   }
 
   if(connection === 'custom:HistoryConnectorActivityInstance'){
-    if(isAny(source,HistoryConnectorActivityInstanceElements))
+    if(isValidForHistoryConnectors(target))
+      return { type: connection }
+  }
+
+  if(connection === 'custom:HistoryConnectorSameOrPreviousInstance'){
+    if(isValidForHistoryConnectors(target))
+      return { type: connection }
+  }
+
+  if(connection === 'custom:HistoryConnectorPreviousInstance'){
+    if(isValidForHistoryConnectors(target))
       return { type: connection }
   }
 

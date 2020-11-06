@@ -892,7 +892,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         stroke: element.color || BLACK,
         strokeWidth: 1.5,
         strokeLinejoin: 'round',
-        //markerEnd: marker('sequenceflow-end', 'white', element.color),
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));
@@ -900,22 +899,20 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     'custom:HistoryConnectorSameOrPreviousInstance':(p,element)=>{
       var attrs = {
         strokeLinejoin: 'round',
-        markerEnd: marker('sequenceflow-end', 'white', element.color),
-        stroke: element.color || BLACK,
+        stroke: BLACK,
         strokeWidth: 1.5,
-        markerEnd: marker('history-source-another-end', 'white',BLACK),
+        markerEnd: marker('history-source-another-start', 'white',BLACK),
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     },
-    'custom:HistoryConnectorPreviousInstanceElements':(p,element)=>{
+    'custom:HistoryConnectorPreviousInstance':(p,element)=>{
       var attrs = {
         strokeLinejoin: 'round',
-        markerEnd: marker('sequenceflow-end', 'white', element.color),
         stroke: element.color || BLACK,
         strokeWidth: 1.5,
         strokeDasharray: [8,5],
-        markerEnd: marker('history-source-another-end', 'white',BLACK),
+        markerEnd: marker('history-source-another-start', 'white',BLACK),
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));

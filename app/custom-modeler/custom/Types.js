@@ -45,7 +45,7 @@ export const connections = [
 
     'custom:HistoryConnectorActivityInstance',
     'custom:HistoryConnectorSameOrPreviousInstance',
-    'custom:HistoryConnectorPreviousInstanceElements'
+    'custom:HistoryConnectorPreviousInstance'
 ]
 
 export const directEdit = [
@@ -127,7 +127,9 @@ export const custom = [
 
     'custom:History',
     'custom:History-Any',
-    'custom:HistoryConnectorActivityInstance'
+    'custom:HistoryConnectorActivityInstance',
+    'custom:HistoryConnectorSameOrPreviousInstance',
+    'custom:HistoryConnectorPreviousInstance'
     //añadir conexiones aqui también
 ]
 
