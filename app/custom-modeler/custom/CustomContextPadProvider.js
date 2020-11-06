@@ -104,7 +104,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         connect.customStart2(event, element, 'custom:ConsequenceTimedFlow', elementFactory, autoActivate);
     }
 
-    /*if (isAny(businessObject, resourceArcElements) && element.type !== 'label') {
+    if (isAny(businessObject, resourceArcElements) && element.type !== 'label') {
         assign(actions, {
           'connect': {
               group: 'connect',

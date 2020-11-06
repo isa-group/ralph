@@ -106,7 +106,7 @@ function canConnect(source, target, connection) {
       return false*/
    } else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArcElement(source)) || (isCustomShape(source) && isDefaultValid(target) && isCustomResourceArcElement(target))){
       return { type: 'custom:ResourceArc' }
-   } else if(( isCustom(source) && isCustomShape(target) && isCustomResourceArc2Element(source)) || (isCustom(source) && isDefaultValid(target) && isCustomResourceArc2Element(source))){
+   } else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArc2Element(source)) || (isDefaultValid(source) && isCustomShape(target) && isCustomResourceArc2Element(source))){
       return { type: 'custom:ResourceArc2' }
   }else
     return;

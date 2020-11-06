@@ -957,6 +957,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     },
   };
 
+  /*
    function getConnectionPath(connection) {
      var waypoints = connection.waypoints.map(function(p) {
        return p.original || p;
@@ -972,7 +973,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
        }
      });
      return componentsToPath(connectionPath);
-   }
+   }*/
 
   var paths = this.paths = {
     'custom:TimeSlot': (shape) => {
@@ -1039,8 +1040,8 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       var d = [
         ['M', x , y],
-        ['h', 50 ],
-        ['v', 50 ],
+        ['h', 60 ],
+        ['v', 90 ],
         ['h', -50 ],
         ['v', -50 ],
         ['z']
