@@ -481,12 +481,12 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
   var renderers = this.renderers = {
     'custom:TimeSlot': (p, element) => {
       let polygon = drawTimeSlot(element.width, element.height, element.color)
-      let person=drawPerson(element)
+      //let person=drawPerson(element)
       svgAppend(p, person);
       renderExternalLabel(p,element)
       //renderEmbeddedLabel(p, element, 'center-middle');
 
-      return person;
+      return polygon;
     },
     'custom:nyanCat':(p,element) =>{
       let cat=drawNyanCat(element)

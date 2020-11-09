@@ -85,6 +85,24 @@ export default function CustomConnect(eventBus, dragging, modeling, rules) {
                 attrs = { type: canExecute.type2}
                 modeling.connect(newShape, target, attrs, hints);
                 return;
+            }else if(canExecute.type3){
+                let shape = elementFactory.createShape({ type: 'custom:Person' });
+                let pos = {
+                    x: (sourcePosition.x + targetPosition.x)/2,
+                    y: (sourcePosition.y + targetPosition.y)/2,
+                }
+                let newShape = modeling.appendShape(source, shape, pos, source.parent, {
+                    connection: { type: canExecute.type3}
+                });
+
+                hints = {
+                    connectionStart: pos,
+                    connectionEnd: targetPosition
+                }
+                attrs = { type: canExecute.type4}
+                modeling.connect(newShape, target, attrs, hints);
+                return;
+
             }
             else
                 attrs = canExecute;

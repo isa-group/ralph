@@ -95,6 +95,23 @@ function canConnect(source, target, connection) {
     }
     else
       return false
+
+   } 
+   else if(is(target, 'custom:Person')) {
+        if(isCustom(source)) {
+          if(connection === 'custom:HistoryConnectorActivityInstance') // 'custom:ConsequenceFlow' }
+            return { type: connection }
+        }
+        else
+          return false
+    }
+    else if(is(source, 'custom:Person')) {
+        if(isCustom(target)) {
+            if(connection === 'custom:ConsequenceFlow')
+              return { type: connection }
+        }
+        else
+          return false    
   /*}else if(is(target, 'custom:Position')) {
     if(isDefaultValid(source)) {
       if(connection === 'custom:TimeDistandStartArc')
@@ -125,16 +142,15 @@ function canConnect2(source, target, connection) {
   if (nonExistingOrLabel(source) || nonExistingOrLabel(target)) {
     return null;
   }
-  if(connection === 'custom:ConsequenceFlow') {
+  /*if(connection === 'custom:ConsequenceFlow') {
     if(isDefaultValid(source) && isDefaultValid(target))
       return { type: connection }
     else if(is(source, 'custom:TimeSlot') && isDefaultValid(target))
       return { type: connection }
     else
       return false
-  }
+  }*/
 
-    
   if(connection === 'custom:ResourceArc') {
     if(isDefaultValid(target) || isDefaultValid(source))
     return { type: connection }
@@ -217,7 +233,7 @@ CustomRules.prototype.init = function() {
 
   function canConnectMultipleCustomElement(source, target) {
       if( is(source,'custom:Position') && is(target,'bpmn:Task') ) { 
-        return {type1: 'custom:HistoryConnectorActivityInstance' , type2: 'custom:ConsequenceFlow' }
+        return {type3: 'custom:HistoryConnectorActivityInstance' , type4: 'custom:ConsequenceFlow' }
       }
   }
 
