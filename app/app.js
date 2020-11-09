@@ -7,6 +7,7 @@ import pizzaDiagram from '../resources/diag.bpmn';
 import CustomModeler from './custom-modeler';
 
 import BpmnModdle from 'bpmn-moddle';
+//import custom from './custom-elements2.json'
 
 var moddle = new BpmnModdle();
 
@@ -20,6 +21,10 @@ var modeler = new CustomModeler({
   }
 });
 
+
+
+
+
 function createNewDiagram() {
 	modeler.clear()
 	modeler.createDiagram(function(err) {
@@ -30,7 +35,8 @@ function createNewDiagram() {
 			.addClass('with-error');
 
 		modeler.setModelOpen(false)
-		container.find('.error pre').text(err.message);
+    container.find('.error pre').text(err.message);
+
 	} else {
 		container
 			.removeClass('with-error')
@@ -52,6 +58,7 @@ function openDiagram(xml, cbpmn) {
         .removeClass('with-diagram')
         .addClass('with-error');
 
+      modeler.addCustomElements(custom);
       modeler.setModelOpen(false);
       container.find('.error pre').text(err.message);
 
@@ -113,7 +120,7 @@ function saveDiagram(done) {
   modeler.saveXML({ format: true }, function(err, xml) {
     moddle.fromXML(xml, (err, def) => {
       def.getCustomElements();
-      
+
       def.get("rootElements").forEach((obj) => {
         if(obj.$type.includes('Process')) {
           obj.get('flowElements').forEach((el) => {

@@ -236,24 +236,8 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         },
         ref: { x: 6, y: 6 }
       });
-
-      if (type === 'test') {
-        var sequenceflowEnd = svgCreate('path');
-        svgAttr(sequenceflowEnd, { d: 'M -10 -5 L 20 10 L -10 25 L 20 10  Z' });
-  
-        addMarker(id, {
-          element: sequenceflowEnd,
-          ref: { x: 5, y: 10 },
-          scale: 0.8,
-          attrs: {
-            fill: '#fff',
-            stroke: stroke,
-            strokeWidth: 1.5,
-            fillOpacity: 0
-          }
-        });
-      }
     }
+
 
     if (type === 'history-source-another-end') {
       var messageflowStart = svgCreate('circle');
@@ -283,6 +267,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         ref: { x: 8.5, y: 5 }
       });
     }
+
 
     if (type === 'association-start') {
       var associationStart = svgCreate('path');
@@ -343,6 +328,40 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         ref: { x: 0, y: 10 },
         scale: 0.5
       });
+    }
+
+
+    if(type === "test"){
+      var dobleFlecha=svgCreate('path');
+      //M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
+      svgAttr(dobleFlecha,{d: 'M 33.105 473.415 L 0 428.339 L 234.096 256.411 L 0 84.49 L 33.104 39.413 L 297.889 233.872 C 305.063 239.141 309.3 247.51 309.3 256.411 C 309.3 265.311 305.063 273.681 297.889 278.949 L 33.105 473.415 Z'+' '+'M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
+
+      /*
+      var d = [
+        ['M', 33.105 , 473.415],
+        ['l', 0, 428.339],
+        ['l',234.096,256.411 ],
+        ['l',0,84.49],
+        ['l',33.104,39.413],
+        ['l', 297.889, 233.872],
+        ['c', 305.063 ,239.141 ,309.3 ,247.51 ,309.3, 256.411], 
+        ['c', 309.3, 265.311, 305.063, 273.681, 297.889, 278.949],
+        ['l', 33.105, 473.415],
+        ['z']
+      ]
+      var comp=componentsToPath(d);
+      svgAttr(dobleFlecha,comp);
+      */
+  
+      addMarker(id, {
+        element: dobleFlecha,
+        attrs: {
+          stroke: stroke
+        },
+        ref: { x: 0, y: 10 },
+        scale: 0.5
+      });
+
     }
   }
 
@@ -939,6 +958,16 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         stroke: element.color || BLACK,
         strokeWidth: 1.5,
         //strokeDasharray: [8,5]
+      };
+
+      return svgAppend(p, createLine(element.waypoints, attrs));
+    },
+    'custom:reportsTo': (p,element)=>{
+      var attrs = {
+        strokeLinejoin: 'round',
+        markerEnd: marker('test', 'white', element.color),
+        stroke: element.color || BLACK,
+        strokeWidth: 1.5,
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));

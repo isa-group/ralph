@@ -235,7 +235,7 @@ CustomRules.prototype.init = function() {
       if( is(source,'custom:Position') && is(target,'bpmn:Task') ) { 
         return {type3: 'custom:HistoryConnectorActivityInstance' , type4: 'custom:ConsequenceFlow' }
       }else if( is(source,'bpmn:Task') && is(target,'custom:Position') ){
-        return {type3: 'custom:HistoryConnectorActivityInstance' , type4: 'custom:ConsequenceFlow' }
+        return {type3: 'custom:HistoryConnectorActivityInstance' , type4: 'custom:reportsTo' }
       }
   }
 
