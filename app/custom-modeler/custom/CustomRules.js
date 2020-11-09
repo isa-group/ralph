@@ -234,6 +234,8 @@ CustomRules.prototype.init = function() {
   function canConnectMultipleCustomElement(source, target) {
       if( is(source,'custom:Position') && is(target,'bpmn:Task') ) { 
         return {type3: 'custom:HistoryConnectorActivityInstance' , type4: 'custom:ConsequenceFlow' }
+      }else if( is(source,'bpmn:Task') && is(target,'custom:Position') ){
+        return {type3: 'custom:HistoryConnectorActivityInstance' , type4: 'custom:ConsequenceFlow' }
       }
   }
 
@@ -318,7 +320,7 @@ CustomRules.prototype.init = function() {
     if(type === 'custom:ConsequenceTimedFlow' || type === 'custom:TimeDistance')
       return canConnectMultiple(source, target, type)
     //if(source === "custom:Position" && target === "bpmn:Task")
-    if(type === 'custom:Delegate')
+    if(type === 'custom:Delegate' || type==='custom:Report')
       return canConnectMultipleCustomElement(source,target)
 
     return canConnect2(source, target, type);

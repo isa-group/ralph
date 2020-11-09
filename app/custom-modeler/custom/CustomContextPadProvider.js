@@ -189,6 +189,11 @@ export default function CustomContextPadProvider(config, injector, elementFactor
     if(is(businessObject, 'bpmn:BaseElement') && element.type !== 'label') {
         assign(actions, {
             'connect1': appendConnectAction(
+                'custom:Report',
+                'bpmn-icon-connection-multi',
+                'Connect using report connection'
+            ),
+            /*'connect1': appendConnectAction(
                 'custom:ConsequenceFlow',
                 'bpmn-icon-connection-multi',
                 'Connect using custom connection'
@@ -202,7 +207,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
                 'custom:TimeDistance',
                 'bpmn-icon-connection-multi',
                 'Connect using custom connection 3'
-            ),
+            ),*/
         });
     }
 
