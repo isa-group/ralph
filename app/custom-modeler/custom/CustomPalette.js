@@ -241,10 +241,10 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       separator: true
     },
     'custom-Person': createAction(
-      "custom:Person", 'resources', 'icon-custom-person',null,null,Cat.dataURLpersonSVG
+      "custom:Person", 'resources', 'icon-custom-person',null,null,Cat.dataPerson2//Cat.dataURLpersonSVG
     ),
     'custom-Role':createAction(
-      "custom:RoleRALph", 'resources' , 'icon-custom-roleRalph',null,null,Cat.dataRoleTest
+      "custom:RoleRALph", 'resources' , 'icon-custom-roleRalph',null,null,Cat.dataRole2
     ),
     
     'custom-Orgunit':createAction(
@@ -266,6 +266,9 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     'custom-History-Any':createAction(
       'custom:History-Any','history-based-assignments','icom-custom-History-Any',null,null,Cat.dataHistoryAny
     ),
+   'custom-HistoryConnectorActivityInstance': createAction(
+    'custom:HistoryConnectorActivityInstance','history-based-assignments','icom-custom-History-Any',null,null,Cat.dataHistoryConnectorSame
+   ),
 
 
   });

@@ -78,7 +78,6 @@ export const resourceArcElements = [
     'custom:RoleRALph',
     'custom:Personcap',
     'custom:Orgunit',
-    'custom:Position'
     
 ]
 
@@ -99,8 +98,7 @@ export const HistoryConnectorPreviousInstanceElements =[//linea con rayas con pu
 
 
 export const resourceArcElements2 = [
-    'custom:Position',
-    'custom:Orgunit'
+
 ]
 
 export const custom = [

@@ -72,6 +72,7 @@ function openDiagram(xml, cbpmn) {
 }
 
 function saveSVG(done) {
+  
   modeler.saveSVG(done);
 }
 
@@ -111,6 +112,8 @@ function saveDiagram(done) {
 
   modeler.saveXML({ format: true }, function(err, xml) {
     moddle.fromXML(xml, (err, def) => {
+      def.getCustomElements();
+      
       def.get("rootElements").forEach((obj) => {
         if(obj.$type.includes('Process')) {
           obj.get('flowElements').forEach((el) => {
@@ -131,6 +134,7 @@ function saveDiagram(done) {
       })
     })
 
+    done(err, xml);
     // console.log(modeler.getJson())
   });
 }

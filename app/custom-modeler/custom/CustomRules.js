@@ -75,7 +75,7 @@ function canConnect(source, target, connection) {
     }
     else
       return false
-  /*}else if(is(source, 'custom:Person')) {
+  }else if(is(source, 'custom:Person')) {
     if(isDefaultValid(target)) {
       if(connection === 'custom:ConsequenceFlow' || connection === 'custom:TimeDistandEndArc')
         return { type: connection }
@@ -83,7 +83,7 @@ function canConnect(source, target, connection) {
         return false
     }
     else
-      return false*/
+      return false
       
   }
   else if(is(target, 'custom:TimeSlot')) {

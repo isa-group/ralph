@@ -236,6 +236,23 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         },
         ref: { x: 6, y: 6 }
       });
+
+      if (type === 'test') {
+        var sequenceflowEnd = svgCreate('path');
+        svgAttr(sequenceflowEnd, { d: 'M -10 -5 L 20 10 L -10 25 L 20 10  Z' });
+  
+        addMarker(id, {
+          element: sequenceflowEnd,
+          ref: { x: 5, y: 10 },
+          scale: 0.8,
+          attrs: {
+            fill: '#fff',
+            stroke: stroke,
+            strokeWidth: 1.5,
+            fillOpacity: 0
+          }
+        });
+      }
     }
 
     if (type === 'history-source-another-end') {
@@ -481,7 +498,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
   var renderers = this.renderers = {
     'custom:TimeSlot': (p, element) => {
       let polygon = drawTimeSlot(element.width, element.height, element.color)
-      //let person=drawPerson(element)
       svgAppend(p, person);
       renderExternalLabel(p,element)
       //renderEmbeddedLabel(p, element, 'center-middle');
@@ -517,8 +533,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       let cap=drawPersoncap(element)
 
       svgAppend(p,cap)
-      renderEmbeddedLabel(p,element,'bottom')
-      //renderExternalLabel(p,element)
+      renderExternalLabel(p,element)
 
       return cap;
 
@@ -862,13 +877,13 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     'custom:ResourceArc': (p, element) => {
 
       var attrs = computeStyle(attrs, {
-        stroke: COLOR_RED,//-> PARA EL COLOR
+        stroke:BLACK,//-> PARA EL COLOR
         strokeWidth: 1.5,
         //strokedashoffset: 153,
         /*Como definir history-source-another
         markerStart: marker('history-source-another-start', 'white',BLACK),*/
-        markerEnd: marker('history-source-another-end', 'white',BLACK),
-        strokeDasharray: [10,7]//->para poner como una linea por rayas
+        //markerEnd: marker('history-source-another-end', 'white',BLACK),
+        //strokeDasharray: [10,7]//->para poner como una linea por rayas
       });
   
       //renderExternalLabel(p,element);
