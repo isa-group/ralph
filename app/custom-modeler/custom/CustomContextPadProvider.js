@@ -125,6 +125,12 @@ export default function CustomContextPadProvider(config, injector, elementFactor
                 'bpmn-icon-connection-multi',
                 'Connect using ResourceArc'
             ),
+            
+            'connect2': appendConnectAction(
+                    'custom:negatedAssignment',
+                    'bpmn-icon-connection-multi',
+                    'Connect using negated connection'
+                )
         });
     }
 
@@ -153,6 +159,9 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         });
     }*/
     
+
+
+
     if(isAny(businessObject,resourceArcElements2) && element.type !== 'label') {
         assign(actions, {
             'connect1': appendConnectAction(

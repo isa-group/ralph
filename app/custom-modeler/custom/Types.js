@@ -45,7 +45,9 @@ export const connections = [
 
     'custom:HistoryConnectorActivityInstance',
     'custom:HistoryConnectorSameOrPreviousInstance',
-    'custom:HistoryConnectorPreviousInstance'
+    'custom:HistoryConnectorPreviousInstance',
+
+    'custom:negatedAssignment'
 ]
 
 export const directEdit = [
@@ -65,7 +67,7 @@ export const directEdit = [
 ]
 
 export const resourceArcElements = [
-    'custom:Clock',
+    /*'custom:Clock',
     'custom:Resource',
     'custom:ResourceAbsence',
     'custom:Role',
@@ -73,7 +75,7 @@ export const resourceArcElements = [
     'custom:Group',
     'custom:GroupAbsence',
     'custom:TimeSlot',
-    'custom:nyanCat',
+    'custom:nyanCat',*/
     'custom:Person',
     'custom:RoleRALph',
     'custom:Personcap',
@@ -102,14 +104,14 @@ export const resourceArcElements2 = [
 ]
 
 export const custom = [
-    'custom:Clock',
+    /*'custom:Clock',
     'custom:Resource',
     'custom:ResourceAbsence',
     'custom:Role',
     'custom:RoleAbsence',
     'custom:Group',
     'custom:GroupAbsence',
-    'custom:TimeSlot',
+    'custom:TimeSlot',*/
     'custom:ResourceArc',
     'custom:ResourceArc2',
     'custom:ConsequenceFlow',

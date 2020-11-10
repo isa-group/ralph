@@ -32,6 +32,10 @@ function isValidForHistoryConnectors(element){
   return element && (is(element, 'bpmn:Task'))
 }
 
+function isValidForResourceEntities(element){
+  return element && (is(element,'custom:Person') || is(element,'custom:RoleRALph') || is(element,'custom:Personcap') || is(element,'custom:Orgunit'))
+}
+
 /**
  * Specific rules for custom elements
  */
@@ -151,6 +155,12 @@ function canConnect2(source, target, connection) {
       return false
   }*/
 
+  if(connection === 'custom:negatedAssignment'){
+    if(isValidForResourceEntities(source) && is(target, 'bpmn:Task')){
+      return { type: connection }
+    }
+  }
+
   if(connection === 'custom:ResourceArc') {
     if(isDefaultValid(target) || isDefaultValid(source))
     return { type: connection }
@@ -235,7 +245,7 @@ CustomRules.prototype.init = function() {
       if( is(source,'custom:Position') && is(target,'bpmn:Task') ) { 
         return {type3: 'custom:HistoryConnectorActivityInstance' , type4: 'custom:ConsequenceFlow' }
       }else if( is(source,'bpmn:Task') && is(target,'custom:Position') ){
-        return {type3: 'custom:HistoryConnectorActivityInstance' , type4: 'custom:reportsTo' }
+        return {type3: 'custom:HistoryConnectorActivityInstance' , type4:'custom:reportsTo'} //'custom:reportsTo' }
       }
   }
 
