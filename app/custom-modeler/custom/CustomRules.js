@@ -21,7 +21,7 @@ function isCustom(element) {
 }
 
 function isDefaultValid(element) {
-  return element && (is(element, 'bpmn:Task') || is(element, 'bpmn:Event'))
+  return element && (is(element, 'bpmn:Task') || is(element, 'bpmn:Event') || is(element,'bpmn:DataObjectReference') || is(element,'bpmn:ExclusiveGateway') || is(element,'bpmn:EndEvent') || is(element,'bpmn:DataStoreReference') )
 }
 
 function isDefaultValid2(element) {
@@ -318,7 +318,7 @@ CustomRules.prototype.init = function() {
 
     if (isCustom(shape)) {
       // cannot resize custom elements
-      return false;
+      return true;
     }
   });
 
