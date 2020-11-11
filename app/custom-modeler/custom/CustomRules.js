@@ -162,7 +162,7 @@ function canConnect2(source, target, connection) {
   }
 
   if(connection === 'custom:ResourceArc') {
-    if(isDefaultValid(target) || isDefaultValid(source) || isCustom(target))
+    if(isDefaultValid(target) || isDefaultValid(source) || ( is(target, 'custom:Orgunit') && is(source,'custom:RoleRALph') ) )
     return { type: connection }
   }
 
