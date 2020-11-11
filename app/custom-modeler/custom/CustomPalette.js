@@ -241,10 +241,10 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       separator: true
     },
     'custom-Person': createAction(
-      "custom:Person", 'resources', 'icon-custom-person',null,null,Cat.dataPerson2//Cat.dataURLpersonSVG
+      "custom:Person", 'resources', 'icon-custom-person',null,null,Cat.dataURLpersonSVG
     ),
     'custom-Role':createAction(
-      "custom:RoleRALph", 'resources' , 'icon-custom-roleRalph',null,null,Cat.dataRole2
+      "custom:RoleRALph", 'resources' , 'icon-custom-roleRalph',null,null,Cat.dataRoleTest
     ),
     
     'custom-Orgunit':createAction(
@@ -252,10 +252,10 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     ),
     'custom-Position':createAction(
       'custom:Position','resources','icom-custom-Position',null,null,Cat.dataPosition
-    ),
+    ),/*
     'custom-Personcap':createAction(
       'custom:Personcap','resources','icom-custom-Personcap',null,null,Cat.dataPersonCap
-    ),
+    ),*/
     'history-based-assignment-separator': {
       group: 'history-based-assignments',
       separator: true
@@ -265,10 +265,10 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     ),
     'custom-History-Any':createAction(
       'custom:History-Any','history-based-assignments','icom-custom-History-Any',null,null,Cat.dataHistoryAny
-    ),
+    ),/*
    'custom-HistoryConnectorActivityInstance': createAction(
     'custom:HistoryConnectorActivityInstance','history-based-assignments','icom-custom-History-Any',null,null,Cat.dataHistoryConnectorSame
-   ),
+   ),*/
 
 
   });
