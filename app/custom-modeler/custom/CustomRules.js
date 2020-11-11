@@ -162,7 +162,7 @@ function canConnect2(source, target, connection) {
   }
 
   if(connection === 'custom:ResourceArc') {
-    if(isDefaultValid(target) || isDefaultValid(source))
+    if(isDefaultValid(target) || isDefaultValid(source) || isCustom(target))
     return { type: connection }
   }
 

@@ -80,6 +80,7 @@ export const resourceArcElements = [
     'custom:RoleRALph',
     'custom:Personcap',
     'custom:Orgunit',
+    'custom:Position'
     
 ]
 
