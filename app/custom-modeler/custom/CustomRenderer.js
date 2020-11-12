@@ -443,7 +443,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataRoleTest//Cat.dataURLrole
+      href:Cat.dataURLrole
     });
 
     return role;
@@ -479,7 +479,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataHistory
+      href:Cat.dataHistorySame
     });
 
     return org;
@@ -967,7 +967,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var attrs = {
         strokeLinejoin: 'round',
         stroke: BLACK,
-        strokeWidth: 1.5,
+        strokeWidth: 0.5,
         markerEnd: marker('history-source-another-start', 'white',BLACK),
       };
 
@@ -977,7 +977,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var attrs = {
         strokeLinejoin: 'round',
         stroke: element.color || BLACK,
-        strokeWidth: 1.5,
+        strokeWidth: 0.5,
         strokeDasharray: [8,5],
         markerEnd: marker('history-source-another-start', 'white',BLACK),
       };

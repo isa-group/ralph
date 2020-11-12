@@ -239,24 +239,24 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     ),
         
     'custom-Orgunit':createAction(
-      'custom:Orgunit','resources','icom-custom-Orgunit',null,null,Cat.dataOrgUnit
+      'custom:Orgunit','resources','icom-custom-Orgunit'
     ),
     'custom-Position':createAction(
-      'custom:Position','resources','icom-custom-Position',null,null,Cat.dataPosition
+      'custom:Position','resources','icom-custom-Position'
     ),
     'custom-Personcap':createAction(
-      'custom:Personcap','resources','icom-custom-Personcap',null,null,Cat.dataPersonCap
+      'custom:Personcap','resources','icom-custom-Personcap'
     ),
-    /*
+    
     'history-based-assignment-separator': {
       group: 'history-based-assignments',
       separator: true
     },
-    'custom-History':createAction(
-      'custom:History-Same','history-based-assignments','icom-custom-History',null,null,Cat.dataHistory
+    'custom-History.Same':createAction(
+      'custom:History-Same','history-based-assignments','icom-custom-History-Same'
     ),
     'custom-History-Any':createAction(
-      'custom:History-Any','history-based-assignments','icom-custom-History-Any',null,null,Cat.dataHistoryAny
+      'custom:History-Any','history-based-assignments','icom-custom-History-Any'
     ),/*
    'custom-HistoryConnectorActivityInstance': createAction(
     'custom:HistoryConnectorActivityInstance','history-based-assignments','icom-custom-History-Any',null,null,Cat.dataHistoryConnectorSame
