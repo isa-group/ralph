@@ -226,7 +226,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     if (type === 'history-source-another-start') {
       var messageflowStart = svgCreate('circle');
-      svgAttr(messageflowStart, { cx: 6, cy: 6, r: 3.5 });
+      svgAttr(messageflowStart, { cx: 6, cy: 6, r: 5.5 });
 
       addMarker(id, {
         element: messageflowStart,
@@ -234,7 +234,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
           fill:WHITE,
           stroke: stroke
         },
-        ref: { x: 6, y: 6 }
+        ref: { x: 7, y: 7 }
       });
     }
 
@@ -980,7 +980,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     },
-    'custom:HistoryConnectorSameOrPreviousInstance':(p,element)=>{
+    'custom:solidLineWithCircle':(p,element)=>{
       var attrs = {
         strokeLinejoin: 'round',
         stroke: BLACK,
@@ -990,7 +990,18 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     },
-    'custom:HistoryConnectorPreviousInstance':(p,element)=>{
+    'custom:dashedLine':(p,element)=>{
+      var attrs = {
+        strokeLinejoin: 'round',
+        stroke: element.color || BLACK,
+        strokeWidth: 0.5,
+        strokeDasharray: [8,5],
+       // markerEnd: marker('history-source-another-start', 'white',BLACK),
+      };
+
+      return svgAppend(p, createLine(element.waypoints, attrs));
+    },
+    'custom:dashedLineWithCircle':(p,element)=>{
       var attrs = {
         strokeLinejoin: 'round',
         stroke: element.color || BLACK,

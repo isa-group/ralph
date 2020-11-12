@@ -43,11 +43,11 @@ export const connections = [
     'custom:TimeDistanceArcStart',
     'custom:TimeDistanceArcEnd',
 
-    'custom:HistoryConnectorActivityInstance',
-    'custom:HistoryConnectorSameOrPreviousInstance',
-    'custom:HistoryConnectorPreviousInstance',
-
-    'custom:negatedAssignment'
+    'custom:negatedAssignment',
+    'custom:solidLine',
+    'custom:solidLineWithCircle',
+    'custom:dashedLine',
+    'custom:dashedLineWithCircle'
 ]
 
 export const directEdit = [
@@ -129,8 +129,8 @@ export const custom = [
     'custom:History',
     'custom:History-Any',
     'custom:HistoryConnectorActivityInstance',
-    'custom:HistoryConnectorSameOrPreviousInstance',
-    'custom:HistoryConnectorPreviousInstance'
+    'custom:solidLineWithCircle',
+    'custom:dashedLine',
     //añadir conexiones aqui también
 ]
 

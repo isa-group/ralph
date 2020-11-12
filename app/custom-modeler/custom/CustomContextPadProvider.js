@@ -184,13 +184,17 @@ export default function CustomContextPadProvider(config, injector, elementFactor
                 'bpmn-icon-connection-multi',
                 'Connect using a solid line'
             ),'connect2': appendConnectAction(
-                'custom:HistoryConnectorSameOrPreviousInstance',
+                'custom:solidLineWithCircle',
                 'bpmn-icon-connection-multi',
-                'Connect using connector of same or previous instance'
+                'Connect using a solid line with a circle'
             ),'connect3': appendConnectAction(
-                'custom:HistoryConnectorPreviousInstance',
+                'custom:dashedLine',
                 'bpmn-icon-connection-multi',
-                'Connect using connector of previous instance'
+                'Connect using a dashed line'
+            ),'connect4': appendConnectAction(
+                'custom:dashedLineWithCircle',
+                'bpmn-icon-connection-multi',
+                'Connect using a dashed line with circle'
             )
         });
     }

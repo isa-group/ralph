@@ -176,12 +176,17 @@ function canConnect2(source, target, connection) {
       return { type: connection }
   }
 
-  if(connection === 'custom:HistoryConnectorSameOrPreviousInstance'){
+  if(connection === 'custom:solidLineWithCircle'){
     if(isValidForHistoryConnectors(target))
       return { type: connection }
   }
 
-  if(connection === 'custom:HistoryConnectorPreviousInstance'){
+  if(connection === 'custom:dashedLine'){
+    if(isValidForHistoryConnectors(target))
+      return { type: connection }
+  }
+
+  if(connection === 'custom:dashedLineWithCircle'){
     if(isValidForHistoryConnectors(target))
       return { type: connection }
   }
