@@ -253,7 +253,7 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       separator: true
     },
     'custom-History-Same':createAction(
-      'custom:History-Same','history-based-assignments','icom-custom-History-Same'
+      'custom:History-Same','history-based-assignments','icom-custom-Same'
     ),
     'custom-History-Any':createAction(
       'custom:History-Any','history-based-assignments','icom-custom-History-Any'
