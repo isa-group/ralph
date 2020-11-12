@@ -233,22 +233,20 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     'custom-Person': createAction(
       "custom:Person", 'resources', 'icon-custom-person'//,null,null,Cat.dataURLpersonSVG2
     ),
-    
-    
+  
+    'custom-Role':createAction(
+      "custom:RoleRALph", 'resources' , 'icon-custom-roleRalph'
+    ),
+        
     'custom-Orgunit':createAction(
       'custom:Orgunit','resources','icom-custom-Orgunit',null,null,Cat.dataOrgUnit
     ),
-    /*
     'custom-Position':createAction(
       'custom:Position','resources','icom-custom-Position',null,null,Cat.dataPosition
     ),
-    'custom-Role':createAction(
-      "custom:RoleRALph", 'resources' , 'icon-custom-roleRalph',null,null,Cat.dataRoleTest
-    ),
-    
     'custom-Personcap':createAction(
       'custom:Personcap','resources','icom-custom-Personcap',null,null,Cat.dataPersonCap
-    ),*/
+    ),
     /*
     'history-based-assignment-separator': {
       group: 'history-based-assignments',
