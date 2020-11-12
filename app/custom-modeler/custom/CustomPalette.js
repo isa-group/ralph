@@ -252,15 +252,12 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       group: 'history-based-assignments',
       separator: true
     },
-    'custom-History.Same':createAction(
+    'custom-History-Same':createAction(
       'custom:History-Same','history-based-assignments','icom-custom-History-Same'
     ),
     'custom-History-Any':createAction(
       'custom:History-Any','history-based-assignments','icom-custom-History-Any'
-    ),/*
-   'custom-HistoryConnectorActivityInstance': createAction(
-    'custom:HistoryConnectorActivityInstance','history-based-assignments','icom-custom-History-Any',null,null,Cat.dataHistoryConnectorSame
-   ),*/
+    ),
 
 
   });
