@@ -14,7 +14,7 @@ import {
 } from 'min-dash';
 import {isLabel} from "./utils/LabelUtil";
 
-import {resourceArcElements,resourceArcElements2,HistoryConnectorActivityInstanceElements,HistoryConnectorSameOrPreviousInstanceElements,HistoryConnectorPreviousInstanceElements} from "./Types";
+import {resourceArcElements,resourceArcElements2,solidLineElements,HistoryConnectorSameOrPreviousInstanceElements,HistoryConnectorPreviousInstanceElements} from "./Types";
 
 
 export default function CustomContextPadProvider(config, injector, elementFactory, connect, create, translate) {
@@ -177,12 +177,12 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         });
     }
 
-    if(isAny(businessObject,HistoryConnectorActivityInstanceElements) && element.type !== 'label') {
+    if(isAny(businessObject,solidLineElements) && element.type !== 'label') {
         assign(actions, {
             'connect1': appendConnectAction(
-                'custom:HistoryConnectorActivityInstance',
+                'custom:solidLine',
                 'bpmn-icon-connection-multi',
-                'Connect using connector of same instance'
+                'Connect using a solid line'
             ),'connect2': appendConnectAction(
                 'custom:HistoryConnectorSameOrPreviousInstance',
                 'bpmn-icon-connection-multi',

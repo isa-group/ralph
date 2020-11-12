@@ -84,7 +84,7 @@ export const resourceArcElements = [
     
 ]
 
-export const HistoryConnectorActivityInstanceElements =[//solo linea solida
+export const solidLineElements =[//solo linea solida
     'custom:History-Same',
     'custom:History-Any'
 ]
@@ -176,7 +176,7 @@ export function isCustomResourceArc2Element(type) {
        type = type.type
     }
 
-    return HistoryConnectorActivityInstanceElements.includes(type)
+    return solidLineElements.includes(type)
 }
 
 

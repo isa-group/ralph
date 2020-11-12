@@ -10,7 +10,7 @@ import {
 
 import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
 import {isAny} from "bpmn-js/lib/features/modeling/util/ModelingUtil";
-import {isCustomResourceArcElement, isCustomShape,isCustomResourceArc2Element,HistoryConnectorActivityInstanceElements,isHistoryConnectorActivityInstance,isHistoryConnectorSameOrPreviousInstance,isHistoryConnectorPreviousInstanceElements} from "./Types";
+import {isCustomResourceArcElement, isCustomShape,isCustomResourceArc2Element,isHistoryConnectorActivityInstance,isHistoryConnectorSameOrPreviousInstance,isHistoryConnectorPreviousInstanceElements} from "./Types";
 import {isLabel} from "bpmn-js/lib/util/LabelUtil";
 
 var HIGH_PRIORITY = 1500;
@@ -103,7 +103,7 @@ function canConnect(source, target, connection) {
    } 
    else if(is(target, 'custom:Person')) {
         if(isCustom(source)) {
-          if(connection === 'custom:HistoryConnectorActivityInstance') // 'custom:ConsequenceFlow' }
+          if(connection === 'custom:solidLine') // 'custom:ConsequenceFlow' }
             return { type: connection }
         }
         else
@@ -171,7 +171,7 @@ function canConnect2(source, target, connection) {
       return { type: connection }
   }
 
-  if(connection === 'custom:HistoryConnectorActivityInstance'){
+  if(connection === 'custom:solidLine'){
     if(isValidForHistoryConnectors(target))
       return { type: connection }
   }
@@ -243,9 +243,9 @@ CustomRules.prototype.init = function() {
 
   function canConnectMultipleCustomElement(source, target) {
       if( is(source,'custom:Position') && is(target,'bpmn:Task') ) { 
-        return {type3: 'custom:HistoryConnectorActivityInstance' , type4: 'custom:ConsequenceFlow' }
+        return {type3: 'custom:solidLine' , type4: 'custom:ConsequenceFlow' }
       }else if( is(source,'bpmn:Task') && is(target,'custom:Position') ){
-        return {type3: 'custom:HistoryConnectorActivityInstance' , type4:'custom:reportsTo'} //'custom:reportsTo' }
+        return {type3: 'custom:solidLine' , type4:'custom:reportsTo'} //'custom:reportsTo' }
       }
   }
 

@@ -46,7 +46,7 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       globalConnect = this._globalConnect,
       translate = this._translate;
 
-  function createAction(type, group, className,title, options,url) {
+  function createAction(type, group, className,title, options) {
 
     function createListener(event) {
       var shape = elementFactory.createShape(assign({ type: type }, options));
@@ -59,7 +59,7 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     }
 
     var shortType = type.replace(/^bpmn:/, '');
-      if(url === null){
+      
       return {
         group: group,
         className: className,
@@ -69,18 +69,7 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
           click: createListener
         }
       };
-    }else{
-      return {
-        group: group,
-        className: className,
-        title: title || 'Create ' + shortType,
-        imageUrl:url,
-        action: {
-          dragstart: createListener,
-          click: createListener
-        }
-      };
-    }
+
   }
 
   function createSubprocess(event) {
@@ -240,22 +229,27 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       group: 'resources',
       separator: true
     },
+    
     'custom-Person': createAction(
-      "custom:Person", 'resources', 'icon-custom-person',null,null,Cat.dataURLpersonSVG
+      "custom:Person", 'resources', 'icon-custom-person'//,null,null,Cat.dataURLpersonSVG2
+    ),
+    
+    
+    'custom-Orgunit':createAction(
+      'custom:Orgunit','resources','icom-custom-Orgunit',null,null,Cat.dataOrgUnit
+    ),
+    /*
+    'custom-Position':createAction(
+      'custom:Position','resources','icom-custom-Position',null,null,Cat.dataPosition
     ),
     'custom-Role':createAction(
       "custom:RoleRALph", 'resources' , 'icon-custom-roleRalph',null,null,Cat.dataRoleTest
     ),
     
-    'custom-Orgunit':createAction(
-      'custom:Orgunit','resources','icom-custom-Orgunit',null,null,Cat.dataOrgUnit
-    ),
-    'custom-Position':createAction(
-      'custom:Position','resources','icom-custom-Position',null,null,Cat.dataPosition
-    ),/*
     'custom-Personcap':createAction(
       'custom:Personcap','resources','icom-custom-Personcap',null,null,Cat.dataPersonCap
     ),*/
+    /*
     'history-based-assignment-separator': {
       group: 'history-based-assignments',
       separator: true

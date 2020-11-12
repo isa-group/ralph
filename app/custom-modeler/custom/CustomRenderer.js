@@ -915,7 +915,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       var attrs = computeStyle(attrs, {
         stroke:BLACK,//-> PARA EL COLOR
-        strokeWidth: 1.5,
+        strokeWidth: 0.5,
         //strokedashoffset: 153,
         /*Como definir history-source-another
         markerStart: marker('history-source-another-start', 'white',BLACK),*/
@@ -954,10 +954,10 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     },
     
-    'custom:HistoryConnectorActivityInstance':(p,element)=>{
+    'custom:solidLine':(p,element)=>{
       var attrs = {
         stroke: element.color || BLACK,
-        strokeWidth: 1.5,
+        strokeWidth: 0.5,
         strokeLinejoin: 'round',
       };
 
@@ -1083,7 +1083,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ]
 
       return componentsToPath(d);
-    },/*'custom:ResourceArc':(element)=>{
+    },'custom:ResourceArc':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1117,7 +1117,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ]
 
       return componentsToPath(d);
-    },*/'custom:Rolecap':(element)=>{
+    },'custom:Rolecap':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
