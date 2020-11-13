@@ -124,6 +124,7 @@ export const custom = [
     'custom:Personcap',
     'custom:Orgunit',
     'custom:Position',
+    'custom:DelegateTo',
 
 
     'custom:History',

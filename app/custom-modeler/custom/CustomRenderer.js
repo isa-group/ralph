@@ -453,6 +453,18 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return  person;
   }
 
+  function drawDelegateTo(shape){
+    var delegate = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataCanDelegate
+    });
+
+    return delegate;
+  }
+
   function drawRoleRALph(shape){
     var role = svgCreate('image', {
       x: 0,
@@ -615,6 +627,11 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       renderEmbeddedLabel(p,element,'center-middle')
       svgAppend(p,connector2)
       return connector2;
+    },'custom:DelegateTo':(p,element)=>{
+      let delegate=drawDelegateTo(element)
+
+      svgAppend(p,delegate)
+      return delegate;
     },
     'custom:Clock': (p, element) => {
       console.log(element)
@@ -935,11 +952,11 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         //strokedashoffset: 153,
         /*Como definir history-source-another
         markerStart: marker('history-source-another-start', 'white',BLACK),*/
-        markerBetween: marker('history-source-another-end', 'white',BLACK),
+        //markerBetween: marker('history-source-another-end', 'white',BLACK),
         //strokeDasharray: [10,7]//->para poner como una linea por rayas
       });
-  
-      //renderExternalLabel(p,element);
+      
+
       return svgAppend(p, createLine(element.waypoints, attrs));
 
     },
@@ -1181,7 +1198,25 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       return componentsToPath(d);
 
 
-    },'custom:Position':(element)=>{
+    },'custom:DelegateTo':(p,element)=>{
+      var x = element.x,
+          y = element.y,
+          width = element.width,
+          height = element.height;
+          
+
+      var d = [
+        ['M', x , y],
+        ['h', 50 ],
+        ['v', 50 ],
+        ['h', -50 ],
+        ['v', -50 ],
+        ['z']
+      ]
+
+      return componentsToPath(d);
+    },
+    'custom:Position':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
