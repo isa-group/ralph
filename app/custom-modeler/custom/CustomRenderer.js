@@ -368,7 +368,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var dobleFlecha=svgCreate('path');
       //M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
       //svgAttr(dobleFlecha,{d: 'M 33.105 473.415 L 0 428.339 L 234.096 256.411 L 0 84.49 L 33.104 39.413 L 297.889 233.872 C 305.063 239.141 309.3 247.51 309.3 256.411 C 309.3 265.311 305.063 273.681 297.889 278.949 L 33.105 473.415 Z M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
-      svgAttr(dobleFlecha,{d:'M 0 0 L 1 2 L 3 6'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
+      svgAttr(dobleFlecha,{d:'M 0 3 L 3 0'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
       //version cutre: M 0 0 L 1 2 L 3 6 V 0 L 0 6
   
       addMarker(id, {
@@ -376,7 +376,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         attrs: {
           stroke: 'red'
         },
-        ref: {x:50,y:4}//{ x: 10, y: 5},
+        ref: {x:30,y:5}//{ x: 10, y: 5},
         //scale: 0.5
       });
     }
@@ -385,7 +385,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var dobleFlecha=svgCreate('path');
       //M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
       //svgAttr(dobleFlecha,{d: 'M 33.105 473.415 L 0 428.339 L 234.096 256.411 L 0 84.49 L 33.104 39.413 L 297.889 233.872 C 305.063 239.141 309.3 247.51 309.3 256.411 C 309.3 265.311 305.063 273.681 297.889 278.949 L 33.105 473.415 Z M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
-      svgAttr(dobleFlecha,{d:'M 0 0 L 3 6'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
+      svgAttr(dobleFlecha,{d:'M 0 0 L 3 3'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
       //version cutre: M 0 0 L 1 2 L 3 6 V 0 L 0 6
   
       addMarker(id, {
@@ -393,7 +393,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         attrs: {
           stroke: 'red'
         },
-        ref: {x:50,y:4}//{ x: 10, y: 5},
+        ref: {x:0,y:4}//{ x: 10, y: 5},
         //scale: 0.5
       });
     }
