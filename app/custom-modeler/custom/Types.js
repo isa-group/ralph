@@ -126,8 +126,7 @@ export const custom = [
     'custom:Orgunit',
     'custom:Position',
     'custom:DelegateTo',
-
-
+    'custom:RedCross',
     'custom:History',
     'custom:History-Any',
     'custom:HistoryConnectorActivityInstance',

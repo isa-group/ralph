@@ -251,6 +251,8 @@ CustomRules.prototype.init = function() {
         return {type3: 'custom:solidLine' , type4: 'custom:ConsequenceFlow' }
       }else if( is(source,'bpmn:Task') && is(target,'custom:Position') ){
         return {type3: 'custom:solidLine' , type4:'custom:reportsTo'} //'custom:reportsTo' }
+      }else if( isCustom(source) && ( is(target, 'bpmn:Task') || is(target, 'bpmn:Event') || is(target,'bpmn:DataObjectReference') || is(target,'bpmn:ExclusiveGateway') || is(target,'bpmn:EndEvent') || is(target,'bpmn:DataStoreReference') )){
+        return {type7: 'custom:ResourceArc' , type8:'custom:ResoruceArc'}
       }
   }
 
@@ -335,7 +337,7 @@ CustomRules.prototype.init = function() {
     if(type === 'custom:ConsequenceTimedFlow' || type === 'custom:TimeDistance')
       return canConnectMultiple(source, target, type)
     //if(source === "custom:Position" && target === "bpmn:Task")
-    if(type === 'custom:Delegate' || type==='custom:Report')
+    if(type === 'custom:Delegate' || type==='custom:Report' || type==='custom:negatedAssignment2')
       return canConnectMultipleCustomElement(source,target)
 
     return canConnect2(source, target, type);

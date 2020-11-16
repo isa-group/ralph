@@ -368,16 +368,17 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var dobleFlecha=svgCreate('path');
       //M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
       //svgAttr(dobleFlecha,{d: 'M 33.105 473.415 L 0 428.339 L 234.096 256.411 L 0 84.49 L 33.104 39.413 L 297.889 233.872 C 305.063 239.141 309.3 247.51 309.3 256.411 C 309.3 265.311 305.063 273.681 297.889 278.949 L 33.105 473.415 Z M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
-      svgAttr(dobleFlecha,{d:'M 0 10 L 10 0'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
-      //version cutre: M 0 0 L 1 2 L 3 6 V 0 L 0 6
-  
+      
+      //svgAttr(dobleFlecha,{d:'M 0 10 L 10 0 M 0 0 L 10 10 Z'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
+      svgAttr(dobleFlecha,{d:"M 5 5 L 7 3 L 11 7 L 15 11 L 18 14 L 22 11 L 27 7 L 29 9 L 31 11 L 26 15 L 22 18 L 27 22 L 31 25 L 29 27 L 26 30 L 22 27 L 18 22 L 14 25 L 9 30 L 6 26 L 5 23 L 9 20 L 14 17 L 6 11 L 2 8 Z"})//{d:"M 0 0 L 2 0 L 5 0 L 5 5 V 5 L 5 5 L 0 5"})
+      //svgAttr(dobleFlecha,{d:"M 262 1618 L 230 1585 L 437 1378 L 645 1170 L 437 962 L 230 755 L 262 722 L 295 690 L 502 897 L 710 1105 L 918 897 L 1125 690 L 1158 722 L 1190 755 L 983 962 L 775 1170 L 983 1378 L 1190 1585 L 1158 1618 L 1125 1650 L 918 1443 L 710 1235 L 502 1443 L 295 1650 L 262 1618 Z"})
       addMarker(id, {
         element: dobleFlecha,
         attrs: {
-          stroke: 'red'
+          //fill:"#000000"
         },
-        ref: {x:55,y:5},//{ x: 10, y: 5},
-        orient:'auto'
+        ref: {x:5,y:5},//{ x: 10, y: 5},
+        //viewBox:"0 0 407.000000 188.000000",
       });
 
     }
@@ -415,6 +416,19 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     svgAppend(parentGfx, path);
 
     return path;
+  }
+
+  function drawRedCross(shape){
+    
+    var catGfx = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataRedCross
+    });
+
+    return  catGfx;
   }
 
   function drawNyanCat(shape){
@@ -610,7 +624,15 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         svgAppend(p,person)
         return person;
 
-    },'custom:RoleRALph':(p,element)=>{
+    },
+    'custom:RedCross':(p,element)=>{
+      let redCross=drawRedCross(element)
+
+      svgAppend(p,redCross)
+      return redCrosss;
+
+    }
+    ,'custom:RoleRALph':(p,element)=>{
         let role=drawRoleRALph(element)
 
         renderEmbeddedLabel(p,element,'center-middle')
@@ -976,12 +998,11 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     },  
     
     'custom:negatedAssignment': (p, element) => {
-
       var attrs = {
         strokeLinejoin: 'round',
-        markerStart: marker('negated2', 'white', element.color),
+        //markerStart: marker('negated2', 'white', element.color),
         markerEnd: marker('negated', 'white', element.color),
-        stroke: element.color || BLACK,
+        stroke: element.color || COLOR_RED,
         strokeWidth: 1.5,
       };
 
@@ -1374,6 +1395,25 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ];
 
       return componentsToPath(resourcePath);
+
+    },'custom:RedCross':(element)=>{
+      var x = element.x,
+      y = element.y,
+      width = element.width,
+      height = element.height;
+
+
+    var resourcePath = [
+      ['M', x , y],
+      ['v', 78],
+      ['h', 54],
+      ['v', -78],
+      ['h', -54],
+      ['z']
+    ];
+
+    return componentsToPath(resourcePath);
+
     },
     'custom:RoleAbsence': (element) => {
       return paths['custom:Role'](element)

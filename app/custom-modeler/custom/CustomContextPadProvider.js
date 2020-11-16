@@ -130,6 +130,12 @@ export default function CustomContextPadProvider(config, injector, elementFactor
                     'custom:negatedAssignment',
                     'bpmn-icon-connection-multi',
                     'Connect using negated connection'
+                ),
+
+            'connect3': appendConnectAction(
+                    'custom:negatedAssignment2',
+                    'bpmn-icon-connection-multi',
+                    'Connect using negated connection 2'
                 )
         });
     }
