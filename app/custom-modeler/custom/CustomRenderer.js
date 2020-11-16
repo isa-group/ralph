@@ -626,7 +626,8 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       renderEmbeddedLabel(p,element,'center-middle')
       svgAppend(p,connector2)
       return connector2;
-    },'custom:DelegateTo':(p,element)=>{
+    },
+    'custom:DelegateTo':(p,element)=>{
       let delegate=drawDelegateTo(element)
 
       svgAppend(p,delegate)
@@ -1199,14 +1200,11 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     },'custom:DelegateTo':(p,element)=>{
       var x = element.x,
-          y = element.y,
-          width = element.width,
-          height = element.height;
+          y = element.y;
           
-
       var d = [
         ['M', x , y],
-        ['h', 50 ],
+        ['h', 40 ],
         ['v', 50 ],
         ['h', -50 ],
         ['v', -50 ],

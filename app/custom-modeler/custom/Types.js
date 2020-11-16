@@ -47,7 +47,8 @@ export const connections = [
     'custom:solidLine',
     'custom:solidLineWithCircle',
     'custom:dashedLine',
-    'custom:dashedLineWithCircle'
+    'custom:dashedLineWithCircle',
+    'custom:reportsTo'
 ]
 
 export const directEdit = [

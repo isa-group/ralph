@@ -70,15 +70,7 @@ function canConnect(source, target, connection) {
     }
     else
       return false
-  } else if(is(source, 'custom:nyanCat')) {
-    if(isDefaultValid(target)) {
-      if(connection === 'custom:ConsequenceFlow' || connection === 'custom:TimeDistandEndArc')
-        return { type: connection }
-      else
-        return false
-    }
-    else
-      return false
+ 
   }else if(is(source, 'custom:Person')) {
     if(isDefaultValid(target)) {
       if(connection === 'custom:ConsequenceFlow' || connection === 'custom:TimeDistandEndArc')
@@ -101,45 +93,36 @@ function canConnect(source, target, connection) {
       return false
 
    } 
-   else if(is(target, 'custom:Person')) {
+   //Delegates to:
+   else if(is(target, 'custom:DelegateTo') && is(source,'custom:Position')) {
         if(isCustom(source)) {
-          if(connection === 'custom:solidLine') // 'custom:ConsequenceFlow' }
+          if(connection === 'custom:ResourceArc') // 'custom:ConsequenceFlow' }
             return { type: connection }
         }
         else
           return false
     }
-    else if(is(source, 'custom:Person')) {
-        if(isCustom(target)) {
-            if(connection === 'custom:ConsequenceFlow')
+    else if(is(source, 'custom:DelegateTo') && isDefaultValid(target)) {
+            if(connection === 'custom:ConsequenceFlow'){
               return { type: connection }
-        }
-        else
-          return false    
-  /*}else if(is(target, 'custom:Position')) {
-    if(isDefaultValid(source)) {
-      if(connection === 'custom:TimeDistandStartArc')
+            }else
+              return false
+    }//reports to:
+    else if(is(source, 'bpmn:Task') && is(target, 'custom:DelegateTo') ) {
+      if(connection === 'custom:ResourceArc'){
         return { type: connection }
-      else
-        return { type: 'custom:ResourceArc2'}
+      }else
+        return false 
+
     }
-    else
-      return false
-  }else if(is(target, 'custom:Orgunit')) {
-    if(isDefaultValid(source)) {
-      if(connection === 'custom:TimeDistandStartArc')
+    else if(is(target, 'custom:Position') && is(source, 'custom:DelegateTo') ) {
+      if(connection === 'custom:reportsTo'){
         return { type: connection }
-      else
-        return { type: 'custom:ResourceArc'}
-    }
-    else
-      return false*/
-   } else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArcElement(source)) || (isDefaultValid(target) && isCustomShape(source) &&  isCustomResourceArcElement(target))){
-      return { type: 'custom:ResourceArc' }
-   } else if((isDefaultValid(source) && isCustomShape(target) && isCustomResourceArc2Element(source)) || (isDefaultValid(target) && isCustomShape(source) && isCustomResourceArc2Element(target))){
-      return { type: 'custom:ResourceArc2' }
-  }else
-    return;
+      }else
+        return false
+    }else
+        return;
+
 }
 
 function canConnect2(source, target, connection) {
@@ -162,7 +145,7 @@ function canConnect2(source, target, connection) {
   }
 
   if(connection === 'custom:ResourceArc') {
-    if(isDefaultValid(target) || isDefaultValid(source) || ( is(target, 'custom:Orgunit') && is(source,'custom:RoleRALph') ) )
+    if(isDefaultValid(target) || isDefaultValid(source) || ( is(target, 'custom:Orgunit') && is(source,'custom:RoleRALph')) || is(source,'custom:DelegateTo') )
     return { type: connection }
   }
 
@@ -248,9 +231,9 @@ CustomRules.prototype.init = function() {
 
   function canConnectMultipleCustomElement(source, target) {
       if( is(source,'custom:Position') && is(target,'bpmn:Task') ) { 
-        return {type3: 'custom:solidLine' , type4: 'custom:ConsequenceFlow' }
+        return {type3: 'custom:ResourceArc' , type4: 'custom:ConsequenceFlow' }
       }else if( is(source,'bpmn:Task') && is(target,'custom:Position') ){
-        return {type3: 'custom:solidLine' , type4:'custom:reportsTo'} //'custom:reportsTo' }
+        return {type3: 'custom:ResourceArc' , type4:'custom:reportsTo'} 
       }
   }
 
@@ -261,7 +244,7 @@ CustomRules.prototype.init = function() {
       if(connection.type === 'custom:ConsequenceFlow') {
         if(!isCustom(source) && !isCustom(target))
           return { type: connection.type }
-        else if(is(source, 'custom:TimeSlot') && !isCustom(target))
+        else if(is(source, 'custom:DelegateTo') && !isCustom(target))
           return { type: connection.type }
         else
           return false
