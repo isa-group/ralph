@@ -58,7 +58,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
   function renderEmbeddedLabel(parentGfx, element, align) {
     var semantic = getSemantic(element);
 
-    return renderLabel(parentGfx, semantic.text, {
+    return renderLabel(parentGfx,semantic.text, {
       box: element,
       align: align,
       padding: 5,
@@ -563,7 +563,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
   var renderers = this.renderers = {
     'custom:TimeSlot': (p, element) => {
       let polygon = drawTimeSlot(element.width, element.height, element.color)
-      svgAppend(p, person);
       renderExternalLabel(p,element)
       //renderEmbeddedLabel(p, element, 'center-middle');
 

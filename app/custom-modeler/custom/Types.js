@@ -86,7 +86,8 @@ export const resourceArcElements = [
 
 export const solidLineElements =[//solo linea solida
     'custom:History-Same',
-    'custom:History-Any'
+    'custom:History-Any',
+    'custom:DelegateTo'
 ]
 
 export const HistoryConnectorSameOrPreviousInstanceElements =[//linea solida con punto

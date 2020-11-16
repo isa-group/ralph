@@ -205,7 +205,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
                 'custom:Report',
                 'bpmn-icon-connection-multi',
                 'Connect using report connection'
-            ),/*
+            ),
             'connect1': appendConnectAction(
                 'custom:ConsequenceFlow',
                 'bpmn-icon-connection-multi',
@@ -220,7 +220,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
                 'custom:TimeDistance',
                 'bpmn-icon-connection-multi',
                 'Connect using custom connection 3'
-            ),*/
+            ),
         });
     }
 
