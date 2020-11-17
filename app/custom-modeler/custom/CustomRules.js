@@ -116,7 +116,7 @@ function canConnect(source, target, connection) {
 
     }
     else if(is(target, 'custom:Position') && is(source, 'custom:DelegateTo') ) {
-      if(connection === 'custom:reportsTo'){
+      if(connection === 'custom:doubleArrow'){
         return { type: connection }
       }else
         return false
@@ -129,14 +129,14 @@ function canConnect2(source, target, connection) {
   if (nonExistingOrLabel(source) || nonExistingOrLabel(target)) {
     return null;
   }
-  /*if(connection === 'custom:ConsequenceFlow') {
+  if(connection === 'custom:ConsequenceFlow') {
     if(isDefaultValid(source) && isDefaultValid(target))
       return { type: connection }
-    else if(is(source, 'custom:TimeSlot') && isDefaultValid(target))
+    else if(is(source, 'custom:DelegateTo') && isDefaultValid(target))
       return { type: connection }
     else
       return false
-  }*/
+  }
 
   if(connection === 'custom:negatedAssignment'){
     if(isValidForResourceEntities(source) && is(target, 'bpmn:Task')){
@@ -145,7 +145,7 @@ function canConnect2(source, target, connection) {
   }
 
   if(connection === 'custom:ResourceArc') {
-    if(isDefaultValid(target) || isDefaultValid(source) || ( is(target, 'custom:Orgunit') && is(source,'custom:RoleRALph')) || is(source,'custom:DelegateTo') )
+    if((isDefaultValid(target) || isDefaultValid(source)) && ( is(target, 'custom:Orgunit') && is(source,'custom:RoleRALph')) || is(source,'custom:DelegateTo') )
     return { type: connection }
   }
 
@@ -189,7 +189,6 @@ function canConnect2(source, target, connection) {
   else {
     if (!isCustom(source) && !isCustom(target))
       return;
-      
     /*else if( (isDefaultValid(source) && isCustomResourceArcElement(target)) || (isDefaultValid(target) && isCustomResourceArcElement(source)) ) {
         return { type: 'custom:ResourceArc'}
     }else if((isDefaultValid(source) && isCustomResourceArc2Element(target)) || (isDefaultValid(target) && isCustomResourceArc2Element(source))) 
@@ -225,15 +224,15 @@ CustomRules.prototype.init = function() {
       if(type === 'custom:ConsequenceTimedFlow')//aqui parece definir la conexion compleja
         return {type1: 'custom:ResourceArc', type2:'custom:ConsequenceFlow'}
       else if(type === 'custom:TimeDistance')
-        return {type1: 'custom:TimeDistanceArcStart', type2:'custom:TimeDistanceArcEnd'}
+        return {type3: 'custom:TimeDistanceArcStart', type4:'custom:TimeDistanceArcEnd'}
     }
   }
 
   function canConnectMultipleCustomElement(source, target) {
       if( is(source,'custom:Position') && is(target,'bpmn:Task') ) { 
-        return {type3: 'custom:ResourceArc' , type4: 'custom:ConsequenceFlow' }
+        return {type1: 'custom:ResourceArc' , type2: 'custom:ConsequenceFlow' }
       }else if( is(source,'bpmn:Task') && is(target,'custom:Position') ){
-        return {type3: 'custom:ResourceArc' , type4:'custom:reportsTo'} 
+        return {type3: 'custom:ResourceArc' , type4:'custom:doubleArrow'} 
       }
   }
 

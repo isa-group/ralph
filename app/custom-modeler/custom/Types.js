@@ -48,7 +48,7 @@ export const connections = [
     'custom:solidLineWithCircle',
     'custom:dashedLine',
     'custom:dashedLineWithCircle',
-    'custom:reportsTo'
+    'custom:doubleArrow'
 ]
 
 export const directEdit = [
@@ -81,14 +81,15 @@ export const resourceArcElements = [
     'custom:RoleRALph',
     'custom:Personcap',
     'custom:Orgunit',
-    'custom:Position'
+    'custom:Position',
+    //'custom:DelegateTo'
     
 ]
 
 export const solidLineElements =[//solo linea solida
     'custom:History-Same',
     'custom:History-Any',
-    'custom:DelegateTo'
+
 ]
 
 export const HistoryConnectorSameOrPreviousInstanceElements =[//linea solida con punto
@@ -127,6 +128,7 @@ export const custom = [
     'custom:Orgunit',
     'custom:Position',
     'custom:DelegateTo',
+    'custom:reportsTo',
 
 
     'custom:History',

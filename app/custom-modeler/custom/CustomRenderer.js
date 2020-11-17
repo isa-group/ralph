@@ -453,6 +453,18 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return  person;
   }
 
+  function drawReportsTo(shape){
+    var report = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataReports
+    });
+
+    return report;
+  }
+
   function drawDelegateTo(shape){
     var delegate = svgCreate('image', {
       x: 0,
@@ -629,6 +641,12 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     },
     'custom:DelegateTo':(p,element)=>{
       let delegate=drawDelegateTo(element)
+
+      svgAppend(p,delegate)
+      return delegate;
+    },
+    'custom:reportsTo':(p,element)=>{
+      let delegate=drawReportsTo(element)
 
       svgAppend(p,delegate)
       return delegate;
@@ -1040,7 +1058,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     },
-    'custom:reportsTo': (p,element)=>{
+    'custom:doubleArrow': (p,element)=>{
       var attrs = {
         strokeLinejoin: 'round',
         markerEnd: marker('test', 'white', element.color),
@@ -1128,7 +1146,28 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ]
 
       return componentsToPath(d);
-    },'custom:ResourceArc':(element)=>{
+    },
+    'custom:reportsTo':(element)=>{
+      var x = element.x,
+      y = element.y,
+      width = element.width,
+      height = element.height;
+      
+
+      var d = [
+        ['M', x , y],
+        ['h', 50 ],
+        ['v', 50 ],
+        ['h', -50 ],
+        ['v', -50 ],
+        ['z']
+    ]
+
+      return componentsToPath(d);
+
+    },
+    
+    'custom:ResourceArc':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,

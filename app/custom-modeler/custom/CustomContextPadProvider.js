@@ -144,6 +144,21 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         });
     }
 
+    if (is(businessObject, 'custom:DelegateTo') && element.type !== 'label') {
+        assign(actions, {
+            'connect1': appendConnectAction(
+                'custom:ConsequenceFlow',
+                'bpmn-icon-connection-multi',
+                'Connect using simple arrow'
+            ),
+            'connect2': appendConnectAction(
+                'custom:ResourceArc',
+                'bpmn-icon-connection-multi',
+                'Connect using a simple line'
+            ),
+        });
+    }
+
 
    /* if (isAny(businessObject, resourceArcElements2) && element.type !== 'label') {
         assign(actions, {
