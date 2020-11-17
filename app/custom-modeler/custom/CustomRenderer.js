@@ -639,17 +639,17 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       svgAppend(p,connector2)
       return connector2;
     },
-    'custom:DelegateTo':(p,element)=>{
+    'custom:delegateTo':(p,element)=>{
       let delegate=drawDelegateTo(element)
 
       svgAppend(p,delegate)
       return delegate;
     },
     'custom:reportsTo':(p,element)=>{
-      let delegate=drawReportsTo(element)
+      let report=drawReportsTo(element)
 
-      svgAppend(p,delegate)
-      return delegate;
+      svgAppend(p,report)
+      return report;
     },
     'custom:Clock': (p, element) => {
       console.log(element)
@@ -1058,12 +1058,23 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     },
+    'custom:simpleArrow':(p, element)=>{
+      var attrs = {
+        strokeLinejoin: 'round',
+        markerEnd: marker('sequenceflow-end', 'white', element.color),
+        stroke: element.color || BLACK,
+        strokeWidth: 0.5,
+        //strokeDasharray: [8,5]
+      };
+
+      return svgAppend(p, createLine(element.waypoints, attrs));
+    },
     'custom:doubleArrow': (p,element)=>{
       var attrs = {
         strokeLinejoin: 'round',
         markerEnd: marker('test', 'white', element.color),
         stroke: element.color || BLACK,
-        strokeWidth: 1.5,
+        strokeWidth: 0.5,
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));
@@ -1237,13 +1248,13 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       return componentsToPath(d);
 
 
-    },'custom:DelegateTo':(p,element)=>{
+    },'custom:delegateTo':(element)=>{
       var x = element.x,
           y = element.y;
           
       var d = [
         ['M', x , y],
-        ['h', 40 ],
+        ['h', 50 ],
         ['v', 50 ],
         ['h', -50 ],
         ['v', -50 ],

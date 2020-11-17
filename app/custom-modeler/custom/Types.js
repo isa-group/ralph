@@ -48,6 +48,7 @@ export const connections = [
     'custom:solidLineWithCircle',
     'custom:dashedLine',
     'custom:dashedLineWithCircle',
+    'custom:simpleArrow',
     'custom:doubleArrow'
 ]
 
@@ -81,8 +82,7 @@ export const resourceArcElements = [
     'custom:RoleRALph',
     'custom:Personcap',
     'custom:Orgunit',
-    'custom:Position',
-    //'custom:DelegateTo'
+    'custom:Position'
     
 ]
 
@@ -127,10 +127,10 @@ export const custom = [
     'custom:Personcap',
     'custom:Orgunit',
     'custom:Position',
-    'custom:DelegateTo',
+    'custom:delegateTo',
     'custom:reportsTo',
-
-
+    'custom:simpleArrow',
+    'custom:doubleArrow',
     'custom:History',
     'custom:History-Any',
     'custom:HistoryConnectorActivityInstance',

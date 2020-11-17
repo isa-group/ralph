@@ -69,7 +69,7 @@ export default function CustomConnect(eventBus, dragging, modeling, rules) {
         if (typeof canExecute === 'object') {
             if(canExecute.type1) {
                 // crea shape
-                let shape = elementFactory.createShape({ type: 'custom:DelegateTo' });
+                let shape = elementFactory.createShape({ type: 'custom:delegateTo' });
                 let pos = {
                     x: (sourcePosition.x + targetPosition.x)/2,
                     y: (sourcePosition.y + targetPosition.y)/2,

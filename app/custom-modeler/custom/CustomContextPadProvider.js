@@ -147,7 +147,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
     if (is(businessObject, 'custom:DelegateTo') && element.type !== 'label') {
         assign(actions, {
             'connect1': appendConnectAction(
-                'custom:ConsequenceFlow',
+                'custom:simpleArrow',
                 'bpmn-icon-connection-multi',
                 'Connect using simple arrow'
             ),

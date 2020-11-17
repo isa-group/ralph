@@ -92,34 +92,6 @@ function canConnect(source, target, connection) {
     else
       return false
 
-   } 
-   //Delegates to:
-   else if(is(target, 'custom:DelegateTo') && is(source,'custom:Position')) {
-        if(isCustom(source)) {
-          if(connection === 'custom:ResourceArc') // 'custom:ConsequenceFlow' }
-            return { type: connection }
-        }
-        else
-          return false
-    }
-    else if(is(source, 'custom:DelegateTo') && isDefaultValid(target)) {
-            if(connection === 'custom:ConsequenceFlow'){
-              return { type: connection }
-            }else
-              return false
-    }//reports to:
-    else if(is(source, 'bpmn:Task') && is(target, 'custom:DelegateTo') ) {
-      if(connection === 'custom:ResourceArc'){
-        return { type: connection }
-      }else
-        return false 
-
-    }
-    else if(is(target, 'custom:Position') && is(source, 'custom:DelegateTo') ) {
-      if(connection === 'custom:doubleArrow'){
-        return { type: connection }
-      }else
-        return false
     }else
         return;
 
@@ -129,14 +101,14 @@ function canConnect2(source, target, connection) {
   if (nonExistingOrLabel(source) || nonExistingOrLabel(target)) {
     return null;
   }
-  if(connection === 'custom:ConsequenceFlow') {
+  /*if(connection === 'custom:ConsequenceFlow') {
     if(isDefaultValid(source) && isDefaultValid(target))
       return { type: connection }
     else if(is(source, 'custom:DelegateTo') && isDefaultValid(target))
       return { type: connection }
     else
       return false
-  }
+  }*/
 
   if(connection === 'custom:negatedAssignment'){
     if(isValidForResourceEntities(source) && is(target, 'bpmn:Task')){
@@ -145,7 +117,7 @@ function canConnect2(source, target, connection) {
   }
 
   if(connection === 'custom:ResourceArc') {
-    if((isDefaultValid(target) || isDefaultValid(source)) && ( is(target, 'custom:Orgunit') && is(source,'custom:RoleRALph')) || is(source,'custom:DelegateTo') )
+    if((isDefaultValid(target) || isDefaultValid(source)) && ( is(target, 'custom:Orgunit') && is(source,'custom:RoleRALph')))
     return { type: connection }
   }
 
@@ -230,7 +202,7 @@ CustomRules.prototype.init = function() {
 
   function canConnectMultipleCustomElement(source, target) {
       if( is(source,'custom:Position') && is(target,'bpmn:Task') ) { 
-        return {type1: 'custom:ResourceArc' , type2: 'custom:ConsequenceFlow' }
+        return {type1: 'custom:ResourceArc' , type2: 'custom:simpleArrow' }
       }else if( is(source,'bpmn:Task') && is(target,'custom:Position') ){
         return {type3: 'custom:ResourceArc' , type4:'custom:doubleArrow'} 
       }
@@ -242,8 +214,6 @@ CustomRules.prototype.init = function() {
     else {
       if(connection.type === 'custom:ConsequenceFlow') {
         if(!isCustom(source) && !isCustom(target))
-          return { type: connection.type }
-        else if(is(source, 'custom:DelegateTo') && !isCustom(target))
           return { type: connection.type }
         else
           return false
