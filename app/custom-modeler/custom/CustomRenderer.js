@@ -38,6 +38,42 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
   var markers = {};
 
+  function toSVGPoints(points) {
+    var result = '';
+  
+    for (var i = 0, p; (p = points[i]); i++) {
+      result += p.x + ',' + p.y + ' ';
+    }
+  
+    return result;
+  }
+
+  function drawCrossedLine(points,attrs){
+    var result='';
+    //var result = 'M' + points[0].x + ',' + points[0].y;
+
+    for (var i = 0, p; (p = points[i]); i++) {
+      result += p.x + ',' + p.y + ' ';
+    }
+
+    //result +='M'+ (parseInt(points[0].x)+5).toString()+ ',' + (parseInt(points[0].y)-3).toString()+ ',' +'l'+(parseInt(points[0].x+13)).toString()+ ',' + (parseInt(points[0].y+3)).toString();
+    result += (parseInt(points[0].x)+50).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
+    var line = svgCreate('polyline');
+    svgAttr(line, {points: result });
+   /*
+   var path=svgCreate('path')
+   svgAttr(path, {
+    d: componentsToPath(d)
+   });
+   */
+
+    if (attrs) {
+      svgAttr(line, attrs);
+    }
+
+    return line
+  }
+
   function renderLabel(parentGfx, label, options) {
     options = assign({
       size: {
@@ -53,7 +89,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     return text;
   }
-  
 
   function renderEmbeddedLabel(parentGfx, element, align) {
     var semantic = getSemantic(element);
@@ -149,17 +184,17 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return str.replace(/[()\s,#]+/g, '_');
   }
 
-  function marker(type, fill, stroke) {
+  function marker(type, fill, stroke,x,y) {
     var id = type + '-' + colorEscape(fill) + '-' + colorEscape(stroke) + '-' + rendererId;
 
     if (!markers[id]) {
-      createMarker(id, type, fill, stroke);
+      createMarker(id, type, fill, stroke,x,y);
     }
 
     return 'url(#' + id + ')';
   }
 
-  function createMarker(id, type, fill, stroke) {
+  function createMarker(id, type, fill, stroke,x,y) {
 
     if (type === 'sequenceflow-end') {
       var sequenceflowEnd = svgCreate('path');
@@ -369,16 +404,18 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       //M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
       //svgAttr(dobleFlecha,{d: 'M 33.105 473.415 L 0 428.339 L 234.096 256.411 L 0 84.49 L 33.104 39.413 L 297.889 233.872 C 305.063 239.141 309.3 247.51 309.3 256.411 C 309.3 265.311 305.063 273.681 297.889 278.949 L 33.105 473.415 Z M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
       
-      //svgAttr(dobleFlecha,{d:'M 0 10 L 10 0 M 0 0 L 10 10 Z'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
-      svgAttr(dobleFlecha,{d:"M 5 5 L 7 3 L 11 7 L 15 11 L 18 14 L 22 11 L 27 7 L 29 9 L 31 11 L 26 15 L 22 18 L 27 22 L 31 25 L 29 27 L 26 30 L 22 27 L 18 22 L 14 25 L 9 30 L 6 26 L 5 23 L 9 20 L 14 17 L 6 11 L 2 8 Z"})//{d:"M 0 0 L 2 0 L 5 0 L 5 5 V 5 L 5 5 L 0 5"})
+      svgAttr(dobleFlecha,{d:'M 0 0 L 10 10',orient:'auto'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
+      //svgAttr(dobleFlecha,{d:"M 5 5 L 7 3 L 11 7 L 15 11 L 18 14 L 22 11 L 27 7 L 29 9 L 31 11 L 26 15 L 22 18 L 27 22 L 31 25 L 29 27 L 26 30 L 22 27 L 18 22 L 14 25 L 9 30 L 6 26 L 5 23 L 9 20 L 14 17 L 6 11 L 2 8 Z"})//{d:"M 0 0 L 2 0 L 5 0 L 5 5 V 5 L 5 5 L 0 5"})
       //svgAttr(dobleFlecha,{d:"M 262 1618 L 230 1585 L 437 1378 L 645 1170 L 437 962 L 230 755 L 262 722 L 295 690 L 502 897 L 710 1105 L 918 897 L 1125 690 L 1158 722 L 1190 755 L 983 962 L 775 1170 L 983 1378 L 1190 1585 L 1158 1618 L 1125 1650 L 918 1443 L 710 1235 L 502 1443 L 295 1650 L 262 1618 Z"})
       addMarker(id, {
         element: dobleFlecha,
         attrs: {
-          //fill:"#000000"
+          stroke:'red'
         },
-        ref: {x:5,y:5},//{ x: 10, y: 5},
+        ref: {x:50,y:5},
+        orient:'auto'//{ x: 10, y: 5},
         //viewBox:"0 0 407.000000 188.000000",
+        
       });
 
     }
@@ -387,7 +424,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var dobleFlecha=svgCreate('path');
       //M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
       //svgAttr(dobleFlecha,{d: 'M 33.105 473.415 L 0 428.339 L 234.096 256.411 L 0 84.49 L 33.104 39.413 L 297.889 233.872 C 305.063 239.141 309.3 247.51 309.3 256.411 C 309.3 265.311 305.063 273.681 297.889 278.949 L 33.105 473.415 Z M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
-      svgAttr(dobleFlecha,{d:'M 0 0 L 10 10'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
+      svgAttr(dobleFlecha,{d:'M 10 0 L 0 10',orient:'auto'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
       //version cutre: M 0 0 L 1 2 L 3 6 V 0 L 0 6
   
       addMarker(id, {
@@ -395,7 +432,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         attrs: {
           stroke: 'red'
         },
-        ref: {x:-55,y:4},//{ x: 10, y: 5},
+        ref: { x: -50, y: 5},
         orient:'auto'
         //scale: 0.5
       });
@@ -1000,14 +1037,21 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     'custom:negatedAssignment': (p, element) => {
       var attrs = {
         strokeLinejoin: 'round',
-        //markerStart: marker('negated2', 'white', element.color),
-        markerEnd: marker('negated', 'white', element.color),
+        markerStart: marker('negated2', 'white', element.color,element.x,element.y),
+        markerEnd: marker('negated', 'white', element.color,element.x,element.y),
         stroke: element.color || COLOR_RED,
         strokeWidth: 1.5,
       };
-
-      return svgAppend(p, createLine(element.waypoints, attrs));
-
+      var attrs = {
+        strokeLinejoin: 'round',
+        markerStart: marker('negated2', 'white', element.color,element.x,element.y),
+        markerEnd: marker('negated', 'white', element.color,element.x,element.y),
+        stroke: element.color || COLOR_GREEN,
+        strokeWidth: 1.5,
+      };
+      
+      svgAppend(p, createLine(element.waypoints, attrs));
+      return svgAppend(p, drawCrossedLine(element.waypoints,attrs))
     },
     
     'custom:solidLine':(p,element)=>{
@@ -1208,16 +1252,22 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
           height = element.height;
           
 
-      var d = [
-        ['M', x , y],
-        ['h', 50 ],
-        ['v', 50 ],
-        ['h', -50 ],
-        ['v', -50 ],
-        ['z']
-      ]
+      var borderRadius = 20;
 
-      return componentsToPath(d);
+      var roundRectPath = [
+            ['M', x + borderRadius, y],
+            ['l', width - borderRadius * 2, 0],
+            ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+            ['l', 0, height - borderRadius * 2],
+            ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+            ['l', borderRadius * 2 - width, 0],
+            ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+            ['l', 0, borderRadius * 2 - height],
+            ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+            ['z']
+      ];
+
+      return componentsToPath(roundRectPath);
 
 
     },'custom:DelegateTo':(p,element)=>{
@@ -1243,8 +1293,8 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
           y = element.y,
           width = element.width,
           height = element.height;
-          
-
+          borderRadius=20
+      /*
       var d = [
         ['M', x , y],
         ['h', 50 ],
@@ -1253,6 +1303,19 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         ['v', -50 ],
         ['z']
       ]
+      */
+     var d = [
+      ['M', x + borderRadius, y],
+      ['l', width - borderRadius * 2, 0],
+      ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+      ['l', 0, height - borderRadius * 2],
+      ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+      ['l', borderRadius * 2 - width, 0],
+      ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+      ['l', 0, borderRadius * 2 - height],
+      ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+      ['z']
+];
 
       return componentsToPath(d);
 
@@ -1260,8 +1323,9 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var x = element.x,
         y = element.y,
         width = element.width,
-        height = element.height;
-        
+        height = element.height,
+        borderRadius=20;
+        /*
         var d = [
           ['M', x , y],
           ['h', 55 ],
@@ -1269,7 +1333,19 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
           ['h', -50 ],
           ['v', -30 ],
           ['z']
-        ]
+        ]*/
+      var d = [
+          ['M', x + borderRadius, y],
+          ['l', width - borderRadius * 2, 0],
+          ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+          ['l', 0, height - borderRadius * 2],
+          ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+          ['l', borderRadius * 2 - width, 0],
+          ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+          ['l', 0, borderRadius * 2 - height],
+          ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+          ['z']
+       ];
 
       return componentsToPath(d);
 
@@ -1277,16 +1353,22 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         var x = element.x,
           y = element.y,
           width = element.width,
-          height = element.height;
+          height = element.height,
+          borderRadius=20;
+
           
           var d = [
-            ['M', x , y],
-            ['h', 50 ],
-            ['v', 50 ],
-            ['h', -50 ],
-            ['v', -30 ],
+            ['M', x + borderRadius, y],
+            ['l', width - borderRadius * 2, 0],
+            ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+            ['l', 0, height - borderRadius * 2],
+            ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+            ['l', borderRadius * 2 - width, 0],
+            ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+            ['l', 0, borderRadius * 2 - height],
+            ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
             ['z']
-          ]
+         ];
 
         return componentsToPath(d);
 
@@ -1294,48 +1376,64 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         var x = element.x,
         y = element.y,
         width = element.width,
-        height = element.height;
+        height = element.height,
+        borderRadius=20;
         
         var d = [
-          ['M', x , y],
-          ['h', 50 ],
-          ['v', 50 ],
-          ['h', -50 ],
-          ['v', -30 ],
+          ['M', x + borderRadius, y],
+          ['l', width - borderRadius * 2, 0],
+          ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+          ['l', 0, height - borderRadius * 2],
+          ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+          ['l', borderRadius * 2 - width, 0],
+          ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+          ['l', 0, borderRadius * 2 - height],
+          ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
           ['z']
-        ]
+       ];
 
           return componentsToPath(d);
+
     },'custom:History-Same':(element)=>{
       var x = element.x,
       y = element.y,
       width = element.width,
-      height = element.height;
+      height = element.height,
+      borderRadius=20;
       
       var d = [
-        ['M', x , y],
-        ['h', 50 ],
-        ['v', 50 ],
-        ['h', -50 ],
-        ['v', -30 ],
+        ['M', x + borderRadius, y],
+        ['l', width - borderRadius * 2, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+        ['l', 0, height - borderRadius * 2],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+        ['l', borderRadius * 2 - width, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+        ['l', 0, borderRadius * 2 - height],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
         ['z']
-      ]
+     ];
 
         return componentsToPath(d);
   },'custom:History-Any':(element)=>{
     var x = element.x,
     y = element.y,
     width = element.width,
-    height = element.height;
+    height = element.height,
+    borderRadius=20;
     
     var d = [
-      ['M', x , y],
-      ['h', 50 ],
-      ['v', 50 ],
-      ['h', -50 ],
-      ['v', -30 ],
+      ['M', x + borderRadius, y],
+      ['l', width - borderRadius * 2, 0],
+      ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+      ['l', 0, height - borderRadius * 2],
+      ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+      ['l', borderRadius * 2 - width, 0],
+      ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+      ['l', 0, borderRadius * 2 - height],
+      ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
       ['z']
-    ]
+   ];
 
       return componentsToPath(d);
 },
