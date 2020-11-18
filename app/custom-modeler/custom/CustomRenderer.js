@@ -1292,8 +1292,8 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var x = element.x,
           y = element.y,
           width = element.width,
-          height = element.height;
-          borderRadius=20
+          height = element.height,
+          borderRadius=20;
       /*
       var d = [
         ['M', x , y],
@@ -1315,7 +1315,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ['l', 0, borderRadius * 2 - height],
       ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
       ['z']
-];
+      ];
 
       return componentsToPath(d);
 
