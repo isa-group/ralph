@@ -168,7 +168,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       addMarker(id, {
         element: sequenceflowEnd,
         ref: { x: 11, y: 10 },
-        scale: 0.5,
+        scale: 3,
         attrs: {
           fill: stroke,
           stroke: stroke
@@ -232,7 +232,8 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         element: messageflowStart,
         attrs: {
           fill:WHITE,
-          stroke: stroke
+          stroke:stroke,
+          strokeWidth:3
         },
         ref: { x: 7, y: 7 }
       });
@@ -356,10 +357,10 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       addMarker(id, {
         element: dobleFlecha,
         attrs: {
-          //stroke: stroke
+          stroke: stroke
         },
-        ref: {x:6,y:3}//{ x: 10, y: 5},
-        //scale: 0.5
+        ref: {x:6,y:3},//{ x: 10, y: 5},
+        scale: 3
       });
 
     }
