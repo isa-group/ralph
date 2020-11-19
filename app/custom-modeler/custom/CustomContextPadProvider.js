@@ -128,14 +128,8 @@ export default function CustomContextPadProvider(config, injector, elementFactor
             
             'connect2': appendConnectAction(
                     'custom:negatedAssignment',
-                    'bpmn-icon-connection-multi',
+                    'bpmn-icon-default-flow',//'bpmn-icon-connection-multi',<span class="iconify" data-icon="" data-inline="false"></span>
                     'Connect using negated connection'
-                ),
-
-            'connect3': appendConnectAction(
-                    'custom:negatedAssignment2',
-                    'bpmn-icon-connection-multi',
-                    'Connect using negated connection 2'
                 )
         });
     }
@@ -209,7 +203,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         assign(actions, {
             'connect4': appendConnectAction(
                 'custom:Report',
-                'bpmn-icon-connection-multi',
+                'icon-custom-person2',//'bpmn-icon-connection-multi',
                 'Connect using report connection'
             ),
             'connect1': appendConnectAction(
