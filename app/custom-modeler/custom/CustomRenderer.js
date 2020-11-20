@@ -416,9 +416,9 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         attrs: {
           stroke: 'red'
         },
-        ref: {x:100 , y:5}, //{ x: 50, y: 5},
+        ref: {x:90 , y:5}, //{ x: 50, y: 5},
         orient:'auto',
-        scale: 0.5
+        scale: 1.0
       })
 
       //dpath+=dpath+'M '+(parseInt(x)-5).toString()+' '+(0).toString()+' L '+ (parseInt(x)+5).toString()+' '+(parseInt(y)+5).toString()
