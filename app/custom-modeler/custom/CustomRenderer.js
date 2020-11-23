@@ -197,7 +197,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return 'url(#' + id + ')';
   }
 
-  function createMarker(id, type, fill, stroke,x,y) {
+  function createMarker(id, type, fill, stroke,x,y,x2,y2) {
 
     if (type === 'sequenceflow-end') {
       var sequenceflowEnd = svgCreate('path');
@@ -405,10 +405,16 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     if(type === "negated"){
       var dobleFlecha=svgCreate('path');
       //var dpath='';
-      var dpath='M '+(parseInt(x)).toString()+' '+(parseInt(y)).toString()+' L '+ (parseInt(x)+10).toString()+' '+(parseInt(y)+10).toString();
-      var zero=0;
-      var ten=10;
-      dpath='M '+zero+' '+zero+' L '+ten+' '+ten+' M '+ten+' '+zero+' L '+zero+' '+ ten
+      
+      var zero=parseInt('0');
+      var ten=parseInt('10');
+      var x1=parseInt(x)
+      var x2=parseInt(x2)
+      var y1=parseInt(y1)
+      var y2=parseInt(y2)
+
+      var dpath='M '+zero+' '+zero+' L '+ten+' '+ten+' M '+ten+' '+zero+' L '+zero+' '+ ten
+      //var dpath='M '+(x2-x1)+' '+(y2-y1)+' L '+(x1)+' '+(y1)+' M '+(x1+x2)+' '+(y1+x2)+' L '+(x1)+' '+ (y1)
 
       svgAttr(dobleFlecha,{d:dpath,orient:'auto'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
       addMarker(id, {
@@ -1051,15 +1057,17 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     
     'custom:negatedAssignment': (p, element) => {
       var points=element.waypoints;
-      //var x = points[Math.round(points.length/2)].x
-      //var y = points[Math.round(points.length/2)].y
+      var p1=points[0]
+      var x = p1.x
+      var y = p1.y
 
-      var x = points[0].x
-      var y = points[0].y
+      var p2=points[points.length-1]
+      var x2 = p2.x
+      var y2 = p2.y
       var attrs = {
         strokeLinejoin: 'round',
         //markerStart: marker('negated2', 'white', element.color,x,y),
-        markerEnd: marker('negated', 'white', element.color,x,y),
+        markerEnd: marker('negated', 'white', element.color,x,y,x2,y2),
         stroke: element.color || BLACK,
         strokeWidth: 1.5,
       };
@@ -1656,6 +1664,7 @@ CustomRenderer.prototype.getConnectionPath = function(connection) {
     ['M', waypoints[0].x, waypoints[0].y]
   ];
 
+  
   waypoints.forEach(function(waypoint, index) {
     if (index !== 0) {
       connectionPath.push(['L', waypoint.x, waypoint.y]);
