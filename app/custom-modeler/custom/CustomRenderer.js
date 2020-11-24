@@ -207,7 +207,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       addMarker(id, {
         element: sequenceflowEnd,
         ref: { x: 11, y: 10 },
-        scale: 0.5,
+        scale: 1.5,
         attrs: {
           fill: stroke,
           stroke: stroke
@@ -370,7 +370,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     }
 
 
-    if(type === "test"){
+    if(type === "doubleArrow"){
       var dobleFlecha=svgCreate('path');
       //M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
       //svgAttr(dobleFlecha,{d: 'M 33.105 473.415 L 0 428.339 L 234.096 256.411 L 0 84.49 L 33.104 39.413 L 297.889 233.872 C 305.063 239.141 309.3 247.51 309.3 256.411 C 309.3 265.311 305.063 273.681 297.889 278.949 L 33.105 473.415 Z M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
@@ -397,8 +397,8 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         attrs: {
           //stroke: stroke
         },
-        ref: {x:6,y:3}//{ x: 10, y: 5},
-        //scale: 0.5
+        ref: {x:6,y:3},//{ x: 10, y: 5},
+        scale: 2.5
       });
 
     }
@@ -425,7 +425,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         },
         ref: {x:90 , y:5}, //{ x: 50, y: 5},
         orient:'auto',
-        scale: 1.0
+        scale: 4.0
       })
 
       //dpath+=dpath+'M '+(parseInt(x)-5).toString()+' '+(0).toString()+' L '+ (parseInt(x)+5).toString()+' '+(parseInt(y)+5).toString()
@@ -672,43 +672,34 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     },'custom:Person':(p,element)=>{
         let person=drawPerson(element)
-        var text = getSemantic(element);
-        if(!text)
-        {
-          label= "empty";
-        }
+        
         //element.label="empty"
         //renderExternalLabel(parentGfx, element)
         renderEmbeddedLabel(p,element,'center-middle')
         svgAppend(p,person)
         return person;
 
-    },
-    'custom:RedCross':(p,element)=>{
-      let redCross=drawRedCross(element)
-
-      svgAppend(p,redCross)
-      return redCrosss;
-
-    }
-    ,'custom:RoleRALph':(p,element)=>{
+    },'custom:RoleRALph':(p,element)=>{
         let role=drawRoleRALph(element)
 
         renderEmbeddedLabel(p,element,'center-middle')
         svgAppend(p,role)
         return role;
+
     },'custom:History-Same':(p,element)=>{
       let connector=drawHistoryConnector(element)
 
       renderEmbeddedLabel(p,element,'center-middle')
       svgAppend(p,connector)
       return connector;
+
     },'custom:History-Any':(p,element)=>{
       let connector2=drawHistoryAnyConnector(element)
 
       renderEmbeddedLabel(p,element,'center-middle')
       svgAppend(p,connector2)
       return connector2;
+
     },'custom:DelegateTo':(p,element)=>{
       let delegate=drawDelegateTo(element)
 
@@ -1070,7 +1061,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         //markerStart: marker('negated2', 'white', element.color,x,y),
         markerEnd: marker('negated', 'white', element.color,x,y,x2,y2),
         stroke: element.color || BLACK,
-        strokeWidth: 1.5,
+        strokeWidth: 0.5,
       };
 
       
@@ -1124,7 +1115,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         strokeLinejoin: 'round',
         markerEnd: marker('sequenceflow-end', 'white', element.color),
         stroke: element.color || BLACK,
-        strokeWidth: 1.5,
+        strokeWidth: 0.5,
         //strokeDasharray: [8,5]
       };
 
@@ -1133,9 +1124,9 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     'custom:reportsTo': (p,element)=>{
       var attrs = {
         strokeLinejoin: 'round',
-        markerEnd: marker('test', 'white', element.color),
+        markerEnd: marker('doubleArrow', 'white', element.color),
         stroke: element.color || BLACK,
-        strokeWidth: 1.5,
+        strokeWidth: 0.5,
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));
@@ -1441,6 +1432,8 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       width = element.width,
       height = element.height,
       borderRadius=20;
+
+     
       
       var d = [
         ['M', x + borderRadius, y],
@@ -1454,6 +1447,13 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
         ['z']
      ];
+
+     svgAttr(path, {
+      width: element.width,
+      height: element.height,
+      d: componentsToPath(d),
+      id: 'History-Same' + rendererId
+    });
 
         return componentsToPath(d);
   },'custom:History-Any':(element)=>{

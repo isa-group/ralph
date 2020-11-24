@@ -199,28 +199,19 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         });
     }
 
-    if(is(businessObject, 'bpmn:BaseElement') && element.type !== 'label') {
+    if(is(businessObject, 'bpmn:Task') && element.type !== 'label') {
         assign(actions, {
             'connect4': appendConnectAction(
                 'custom:Report',
                 'icom-custom-Report',//'bpmn-icon-connection-multi',
                 'Connect using report connection'
             ),
-            'connect1': appendConnectAction(
-                'custom:ConsequenceFlow',
-                'bpmn-icon-connection-multi',
-                'Connect using custom connection'
-            ),
-            'connect2': appendConnectAction(
-                'custom:ConsequenceTimedFlow',
-                'bpmn-icon-connection-multi',
-                'Connect using custom connection 2'
-            ),
-            'connect3': appendConnectAction(
-                'custom:TimeDistance',
-                'bpmn-icon-connection-multi',
-                'Connect using custom connection 3'
-            ),
+            'connect5': appendConnectAction(
+                'bpmn:DataOutputAssociation',
+                'bpmn-icon-connection-multi',//'bpmn-icon-connection-multi',
+                'Connect using data output association'
+            )
+            
         });
     }
 

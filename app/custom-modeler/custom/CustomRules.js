@@ -14,7 +14,7 @@ import {isCustomResourceArcElement, isCustomShape,isCustomResourceArc2Element,is
 import {isLabel} from "bpmn-js/lib/util/LabelUtil";
 
 var HIGH_PRIORITY = 1500;
-
+let historyConnectors=[];
 
 function isCustom(element) {
   return element && /^custom:/.test(element.type);
@@ -154,6 +154,19 @@ function canConnect2(source, target, connection) {
     else
       return false
   }*/
+  let cond=true;
+  
+    for (var i=0; i < historyConnectors.length; i++) {
+      if( historyConnectors[i] == [source,target] ){
+          cond=false;
+      }
+  }
+  
+  if(connection ===  'bpmn:DataOutputAssociation'){
+    if( is(target, 'bpmn:DataObjectReference') && is(source,'bpmn:Task') ){
+        return { type: connection}
+    }
+  }
 
   if(connection === 'custom:negatedAssignment'){
     if(isValidForResourceEntities(source) && is(target, 'bpmn:Task')){
@@ -176,8 +189,10 @@ function canConnect2(source, target, connection) {
       return { type: connection }
   }
 
-  if(connection === 'custom:solidLineWithCircle'){
+  //historyConnectors.forEach(function(element) {if (element === [source,target]){cond=false } } ) === true)
+  if(connection === 'custom:solidLineWithCircle' && cond === true) {
     if(isValidForHistoryConnectors(target))
+      historyConnectors.push([source,target]);
       return { type: connection }
   }
 
@@ -249,7 +264,7 @@ CustomRules.prototype.init = function() {
   function canConnectMultipleCustomElement(source, target) {
       if( is(source,'custom:Position') && is(target,'bpmn:Task') ) { 
         return {type3: 'custom:solidLine' , type4: 'custom:ConsequenceFlow' }
-      }else if( is(source,'bpmn:Task') && is(target,'custom:Position') ){
+      }else if( is(source,'bpmn:Task') && is(target,'custom:Position')  ){
         return {type3: 'custom:solidLine' , type4:'custom:reportsTo'} //'custom:reportsTo' }
       }
   }
@@ -331,9 +346,6 @@ CustomRules.prototype.init = function() {
     var source = context.source,
         target = context.target,
         type = context.type;
-
-    if(type === 'custom:ConsequenceTimedFlow' || type === 'custom:TimeDistance')
-      return canConnectMultiple(source, target, type)
     //if(source === "custom:Position" && target === "bpmn:Task")
     if(type === 'custom:Delegate' || type==='custom:Report' || type==='custom:negatedAssignment2')
       return canConnectMultipleCustomElement(source,target)
