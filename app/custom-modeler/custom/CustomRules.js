@@ -33,7 +33,7 @@ function isValidForHistoryConnectors(element){
 }
 
 function isValidForResourceEntities(element){
-  return element && (is(element,'custom:Person') || is(element,'custom:RoleRALph') || is(element,'custom:Personcap') || is(element,'custom:Orgunit'))
+  return element && (is(element,'custom:Person') || is(element,'custom:RoleRALph') || is(element,'custom:Personcap') || is(element,'custom:Orgunit') || is(element,'custom:Position'))
 }
 
 /**
@@ -251,8 +251,6 @@ CustomRules.prototype.init = function() {
         return {type3: 'custom:solidLine' , type4: 'custom:ConsequenceFlow' }
       }else if( is(source,'bpmn:Task') && is(target,'custom:Position') ){
         return {type3: 'custom:solidLine' , type4:'custom:reportsTo'} //'custom:reportsTo' }
-      }else if( isCustom(source) && ( is(target, 'bpmn:Task') || is(target, 'bpmn:Event') || is(target,'bpmn:DataObjectReference') || is(target,'bpmn:ExclusiveGateway') || is(target,'bpmn:EndEvent') || is(target,'bpmn:DataStoreReference') )){
-        return {type7: 'custom:ResourceArc' , type8:'custom:ResoruceArc'}
       }
   }
 

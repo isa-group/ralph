@@ -123,7 +123,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
             'connect1': appendConnectAction(
                 'custom:ResourceArc',
                 'bpmn-icon-connection-multi',
-                'Connect using ResourceArc'
+                'Connect using simple resource assignment'
             ),
             
             'connect2': appendConnectAction(
@@ -138,7 +138,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         assign(actions, {
             'connectPos': appendConnectAction(
                 'custom:Delegate',
-                'bpmn-icon-connection-multi',
+                'icom-custom-Delegate',
                 'Connect using delegate'
             ),
         });
@@ -189,7 +189,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
                 'Connect using a solid line with a circle'
             ),'connect3': appendConnectAction(
                 'custom:dashedLine',
-                'bpmn-icon-connection-multi',
+                'icom-custom-dashedLine',
                 'Connect using a dashed line'
             ),'connect4': appendConnectAction(
                 'custom:dashedLineWithCircle',

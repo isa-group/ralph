@@ -1068,14 +1068,14 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var attrs = {
         strokeLinejoin: 'round',
         //markerStart: marker('negated2', 'white', element.color,x,y),
-        //markerEnd: marker('negated', 'white', element.color,x,y,x2,y2),
+        markerEnd: marker('negated', 'white', element.color,x,y,x2,y2),
         stroke: element.color || BLACK,
         strokeWidth: 1.5,
       };
 
       
-      //return svgAppend(p, createLine(element.waypoints, attrs));
-      return svgAppend(p, drawCrossedLine(element.waypoints,attrs))
+      return svgAppend(p, createLine(element.waypoints, attrs));
+      //return svgAppend(p, drawCrossedLine(element.waypoints,attrs))
     },
     
     'custom:solidLine':(p,element)=>{
