@@ -61,8 +61,8 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     
     //result +=(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
     var line = svgCreate('polyline');
-    var result=toSVGPoints(points)
-    result +=(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
+    var result='';//toSVGPoints(points)
+    result +=(parseInt(points[0].x)+100).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+200)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
     svgAttr(line, {points: result });
    /*
    var path=svgCreate('path')
@@ -1059,10 +1059,19 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var attrs = {
         strokeLinejoin: 'round',
         //markerStart: marker('negated2', 'white', element.color,x,y),
-        markerEnd: marker('negated', 'white', element.color,x,y,x2,y2),
+        //markerEnd: marker('negated', 'white', element.color,x,y,x2,y2),
         stroke: element.color || BLACK,
         strokeWidth: 0.5,
       };
+
+      var attrs2 = {
+        strokeLinejoin: 'round',
+        //markerStart: marker('negated2', 'white', element.color,x,y),
+        stroke: element.color || BLACK,
+        strokeWidth: 0.5,
+      };
+      //(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
+      svgAppend(p, drawCrossedLine(element.waypoints,attrs2));
 
       
       return svgAppend(p, createLine(element.waypoints, attrs));
