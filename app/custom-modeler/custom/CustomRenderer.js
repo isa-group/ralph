@@ -62,7 +62,29 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     //result +=(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
     var line = svgCreate('polyline');
     var result='';//toSVGPoints(points)
-    result +=(parseInt(points[0].x)+100).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+200)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
+    result +=(points[0].x + parseInt(points[1].x-points[0].x)/4).toString()+ ',' + (parseInt(points[0].y)+20).toString()+ ','+(points[0].x + parseInt(points[1].x-points[0].x)*3/4).toString()+ ',' + (parseInt(points[0].y)-20).toString();
+    svgAttr(line, {points: result });
+   /*
+   var path=svgCreate('path')
+   svgAttr(path, {
+    d: componentsToPath(d)
+   });
+   */
+
+    if (attrs) {
+      svgAttr(line, attrs);
+    }
+
+    return line
+  }
+
+
+  function drawCrossedLine2(points,attrs){
+    
+    //result +=(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
+    var line = svgCreate('polyline');
+    var result='';//toSVGPoints(points)
+    result +=(points[0].x + parseInt(points[1].x-points[0].x)*3/4).toString()+ ',' + (parseInt(points[0].y)+20).toString()+ ','+(points[0].x + parseInt(points[1].x-points[0].x)/4).toString()+ ',' + (parseInt(points[0].y)-20).toString();
     svgAttr(line, {points: result });
    /*
    var path=svgCreate('path')
@@ -1070,8 +1092,17 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         stroke: element.color || BLACK,
         strokeWidth: 0.5,
       };
+
+      var attrs3 = {
+        strokeLinejoin: 'round',
+        //markerStart: marker('negated2', 'white', element.color,x,y),
+        stroke: element.color || BLACK,
+        strokeWidth: 0.5,
+      };
+
       //(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
       svgAppend(p, drawCrossedLine(element.waypoints,attrs2));
+      svgAppend(p, drawCrossedLine2(element.waypoints,attrs3));
 
       
       return svgAppend(p, createLine(element.waypoints, attrs));
