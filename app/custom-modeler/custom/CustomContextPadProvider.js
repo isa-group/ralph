@@ -239,6 +239,15 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         });
     }
 
+    if(is(businessObject, 'bpmn:DataObjectReference') && element.type !== 'label') {
+        assign(actions, {
+            'connect4': appendConnectAction(
+                'custom:dataFieldConnection',
+                'bpmn-icon-connection-multi',
+                'Connect using data field connection')
+        });
+    }
+
 
     return actions;
   };

@@ -171,7 +171,8 @@ CustomElementFactory.prototype._getCustomElementSize = function(type) {
     'custom:History-Same':{width:75,height:75},
     'custom:History-Any':{width:75,height:75},
     'custom:delegateTo':{width:82,height:43},
-    'custom:reportsTo':{width:58,height:43}
+    'custom:reportsTo':{width:58,height:43},
+    'custom:dataField':{width:50,height:43}
 
   };
 

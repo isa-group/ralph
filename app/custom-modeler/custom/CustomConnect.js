@@ -110,7 +110,7 @@ export default function CustomConnect(eventBus, dragging, modeling, rules) {
                     y: (sourcePosition.y + targetPosition.y)/2,
                 }
                 let newShape = modeling.appendShape(source, shape, pos, source.parent, {
-                    connection: { type: canExecute.type3}
+                    connection: { type: canExecute.type5}
                 });
 
                 hints = {

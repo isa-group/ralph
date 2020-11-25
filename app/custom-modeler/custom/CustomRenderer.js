@@ -573,7 +573,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return drawPath(p, pathData, attrs);
   }
 
-  function drawDataField(p,element,options){
+  function drawDataField(shape){
     var org = svgCreate('image', {
       x: 0,
       y: 0,
@@ -1092,8 +1092,9 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));
+
     },'custom:dataField':(p , element) =>{
-      var data=drawDataField(p,element);
+      let data=drawDataField(element);
       svgAppend(p,data);
       return data;
 
@@ -1280,8 +1281,23 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ]
 
       return componentsToPath(d);
-    },
-    'custom:Position':(element)=>{
+
+    },'custom:dataField':(element)=>{
+      var x = element.x,
+          y = element.y;
+          
+      var d = [
+        ['M', x , y],
+        ['h', 50 ],
+        ['v', 50 ],
+        ['h', -50 ],
+        ['v', -50 ],
+        ['z']
+      ]
+
+      return componentsToPath(d);
+      
+    },'custom:Position':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,

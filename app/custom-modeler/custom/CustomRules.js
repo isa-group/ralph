@@ -206,7 +206,7 @@ CustomRules.prototype.init = function() {
       }else if( is(source,'bpmn:Task') && is(target,'custom:Position') ){
         return {type3: 'custom:ResourceArc' , type4:'custom:doubleArrow'} 
       }else if( is(source,'bpmn:DataObjectReference') && is(target,'custom:Person')){
-        return {type5:'custom:ResourceArc',type6:'custom:simpleArrow'}
+        return {type5:'custom:ResourceArc', type6:'custom:simpleArrow'}
       }
   }
 
@@ -289,7 +289,7 @@ CustomRules.prototype.init = function() {
     if(type === 'custom:ConsequenceTimedFlow' || type === 'custom:TimeDistance')
       return canConnectMultiple(source, target, type)
     //if(source === "custom:Position" && target === "bpmn:Task")
-    if(type === 'custom:Delegate' || type==='custom:Report')
+    if(type === 'custom:Delegate' || type==='custom:Report' || type==='custom:dataFieldConnection')
       return canConnectMultipleCustomElement(source,target)
 
     return canConnect2(source, target, type);
