@@ -51,41 +51,49 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
 
   function drawCrossedLine(points,attrs){
-    /*var result='';
-    var result = 'M ' + points[0].x + ' ' + points[0].y;
-    
-    for (var i = 0, p; (p = points[i]); i++) {
-      result +=' L '+ p.x + ' ' + p.y;
-    }*/
-
-    
-    //result +=(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
     var line = svgCreate('polyline');
     var result='';//toSVGPoints(points)
+
+    if(points[0].y===points[1].y){
+    //result +=(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
+    
     result +=(points[0].x + parseInt(points[1].x-points[0].x)/4).toString()+ ',' + (parseInt(points[0].y)+20).toString()+ ','+(points[0].x + parseInt(points[1].x-points[0].x)*3/4).toString()+ ',' + (parseInt(points[0].y)-20).toString();
     svgAttr(line, {points: result });
-   /*
-   var path=svgCreate('path')
-   svgAttr(path, {
-    d: componentsToPath(d)
-   });
-   */
+
+    }else if(points[0].x===points[1].x){
+  
+    result +=(points[0].x + 20).toString()+ ',' + (parseInt(points[0].y + parseInt(points[1].y-points[0].y)/4)).toString()+ ','+(points[0].x -20).toString()+ ',' + (points[0].y + parseInt(points[1].y-points[0].y)*3/4).toString();
+    svgAttr(line, {points: result });
+
+    }
+
 
     if (attrs) {
       svgAttr(line, attrs);
     }
+
 
     return line
   }
 
 
   function drawCrossedLine2(points,attrs){
-    
-    //result +=(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
+
     var line = svgCreate('polyline');
-    var result='';//toSVGPoints(points)
-    result +=(points[0].x + parseInt(points[1].x-points[0].x)*3/4).toString()+ ',' + (parseInt(points[0].y)+20).toString()+ ','+(points[0].x + parseInt(points[1].x-points[0].x)/4).toString()+ ',' + (parseInt(points[0].y)-20).toString();
-    svgAttr(line, {points: result });
+    var result='';
+    //result +=(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
+    if(points[0].y === points[1].y){
+    
+      result +=(points[0].x + parseInt(points[1].x-points[0].x)*3/4).toString()+ ',' + (parseInt(points[0].y)+20).toString()+ ','+(points[0].x + parseInt(points[1].x-points[0].x)/4).toString()+ ',' + (parseInt(points[0].y)-20).toString();
+      svgAttr(line, {points: result });
+
+    }else if(points[0].x === points[1].x){
+
+      result +=(parseInt(points[0].x)+20).toString()+ ',' + (points[0].y + parseInt(points[1].y-points[0].y)*3/4).toString()+ ','+(parseInt(points[0].x) -20).toString()+ ',' + (points[0].y + parseInt(points[1].y-points[0].y)/4).toString();
+      svgAttr(line, {points: result });
+  }
+    
+
    /*
    var path=svgCreate('path')
    svgAttr(path, {
