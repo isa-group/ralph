@@ -68,7 +68,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     }else{
       var middlePointX=(points[1].x+points[0].x)/2;
       var middlePointY=(points[1].y+points[0].y)/2;
-      result +=(middlePointX-5).toString()+ ',' + (middlePointY+5).toString()+ ','+(middlePointX+5).toString()+ ',' +  parseInt(middlePointY-5).toString();
+      result +=(middlePointX-15).toString()+ ',' + (middlePointY+15).toString()+ ','+(middlePointX+15).toString()+ ',' +  parseInt(middlePointY-15).toString();
       svgAttr(line, {points: result });
 
     }
@@ -102,7 +102,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var middlePointX=(points[1].x+points[0].x)/2;
       var middlePointY=(points[1].y+points[0].y)/2;
       //result +=(middlePointX+5).toString()+ ',' + (middlePointY+5).toString()+ ','+(middlePointX-5).toString()+ ',' +  parseInt(middlePointY-5).toString();
-      result +=(middlePointX+5).toString()+ ',' + (middlePointY+5).toString()+ ','+(middlePointX-5).toString()+ ',' +  parseInt(middlePointY-5).toString();
+      result +=(middlePointX+15).toString()+ ',' + (middlePointY+15).toString()+ ','+(middlePointX-15).toString()+ ',' +  parseInt(middlePointY-15).toString();
       svgAttr(line, {points: result });
 
   }
