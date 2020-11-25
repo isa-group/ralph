@@ -205,6 +205,8 @@ CustomRules.prototype.init = function() {
         return {type1: 'custom:ResourceArc' , type2: 'custom:simpleArrow' }
       }else if( is(source,'bpmn:Task') && is(target,'custom:Position') ){
         return {type3: 'custom:ResourceArc' , type4:'custom:doubleArrow'} 
+      }else if( is(source,'bpmn:DataObjectReference') && is(target,'custom:Person')){
+        return {type5:'custom:ResourceArc',type6:'custom:simpleArrow'}
       }
   }
 

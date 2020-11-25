@@ -573,6 +573,19 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return drawPath(p, pathData, attrs);
   }
 
+  function drawDataField(p,element,options){
+    var org = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataField
+    });
+
+    return org;
+
+  }
+
   var renderers = this.renderers = {
     'custom:TimeSlot': (p, element) => {
       let polygon = drawTimeSlot(element.width, element.height, element.color)
@@ -1079,8 +1092,12 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));
-    },
-    'custom:TimeDistanceArcStart': (p, element) => {
+    },'custom:dataField':(p , element) =>{
+      var data=drawDataField(p,element);
+      svgAppend(p,data);
+      return data;
+
+    },'custom:TimeDistanceArcStart': (p, element) => {
       var attrs = {
         markerStart: marker('timedistance-start', 'white', element.color),
       };
