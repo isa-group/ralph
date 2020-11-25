@@ -57,13 +57,19 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     if(points[0].y===points[1].y){
     //result +=(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
     
-    result +=(points[0].x + parseInt(points[1].x-points[0].x)/4).toString()+ ',' + (parseInt(points[0].y)+20).toString()+ ','+(points[0].x + parseInt(points[1].x-points[0].x)*3/4).toString()+ ',' + (parseInt(points[0].y)-20).toString();
-    svgAttr(line, {points: result });
+      result +=(points[0].x + parseInt(points[1].x-points[0].x)/4).toString()+ ',' + (parseInt(points[0].y)+20).toString()+ ','+(points[0].x + parseInt(points[1].x-points[0].x)*3/4).toString()+ ',' + (parseInt(points[0].y)-20).toString();
+      svgAttr(line, {points: result });
 
     }else if(points[0].x===points[1].x){
   
-    result +=(points[0].x + 20).toString()+ ',' + (parseInt(points[0].y + parseInt(points[1].y-points[0].y)/4)).toString()+ ','+(points[0].x -20).toString()+ ',' + (points[0].y + parseInt(points[1].y-points[0].y)*3/4).toString();
-    svgAttr(line, {points: result });
+      result +=(points[0].x + 20).toString()+ ',' + (parseInt(points[0].y + parseInt(points[1].y-points[0].y)/4)).toString()+ ','+(points[0].x -20).toString()+ ',' + (points[0].y + parseInt(points[1].y-points[0].y)*3/4).toString();
+      svgAttr(line, {points: result });
+
+    }else{
+      var middlePointX=(points[1].x+points[0].x)/2;
+      var middlePointY=(points[1].y+points[0].y)/2;
+      result +=(middlePointX-5).toString()+ ',' + (middlePointY+5).toString()+ ','+(middlePointX+5).toString()+ ',' +  parseInt(middlePointY-5).toString();
+      svgAttr(line, {points: result });
 
     }
 
@@ -91,6 +97,14 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       result +=(parseInt(points[0].x)+20).toString()+ ',' + (points[0].y + parseInt(points[1].y-points[0].y)*3/4).toString()+ ','+(parseInt(points[0].x) -20).toString()+ ',' + (points[0].y + parseInt(points[1].y-points[0].y)/4).toString();
       svgAttr(line, {points: result });
+  }else{
+
+      var middlePointX=(points[1].x+points[0].x)/2;
+      var middlePointY=(points[1].y+points[0].y)/2;
+      //result +=(middlePointX+5).toString()+ ',' + (middlePointY+5).toString()+ ','+(middlePointX-5).toString()+ ',' +  parseInt(middlePointY-5).toString();
+      result +=(middlePointX+5).toString()+ ',' + (middlePointY+5).toString()+ ','+(middlePointX-5).toString()+ ',' +  parseInt(middlePointY-5).toString();
+      svgAttr(line, {points: result });
+
   }
     
 
