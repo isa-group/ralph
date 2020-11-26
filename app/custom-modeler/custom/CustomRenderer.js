@@ -1499,8 +1499,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       height = element.height,
       borderRadius=20;
 
-     
-      
       var d = [
         ['M', x + borderRadius, y],
         ['l', width - borderRadius * 2, 0],
@@ -1514,14 +1512,9 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         ['z']
      ];
 
-     svgAttr(path, {
-      width: element.width,
-      height: element.height,
-      d: componentsToPath(d),
-      id: 'History-Same' + rendererId
-    });
 
-        return componentsToPath(d);
+    return componentsToPath(d);
+
   },'custom:History-Any':(element)=>{
     var x = element.x,
     y = element.y,
