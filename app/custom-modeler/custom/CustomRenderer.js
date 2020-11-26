@@ -68,7 +68,8 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     }else{
       var middlePointX=(points[1].x+points[0].x)/2;
       var middlePointY=(points[1].y+points[0].y)/2;
-      result +=(middlePointX-15).toString()+ ',' + (middlePointY+15).toString()+ ','+(middlePointX+15).toString()+ ',' +  parseInt(middlePointY-15).toString();
+      result +=(middlePointX-20).toString()+ ',' + (middlePointY+20).toString()+ ','+(middlePointX+20).toString()+ ',' +  parseInt(middlePointY-20).toString();
+      //result +=(middlePointX).toString()+ ',' + (middlePointY+5).toString()+ ','+(middlePointX).toString()+ ',' +  parseInt(middlePointY-5).toString();
       svgAttr(line, {points: result });
 
     }
@@ -102,7 +103,8 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var middlePointX=(points[1].x+points[0].x)/2;
       var middlePointY=(points[1].y+points[0].y)/2;
       //result +=(middlePointX+5).toString()+ ',' + (middlePointY+5).toString()+ ','+(middlePointX-5).toString()+ ',' +  parseInt(middlePointY-5).toString();
-      result +=(middlePointX+15).toString()+ ',' + (middlePointY+15).toString()+ ','+(middlePointX-15).toString()+ ',' +  parseInt(middlePointY-15).toString();
+      //result +=(middlePointX+5).toString()+ ',' + (middlePointY).toString()+ ','+(middlePointX-5).toString()+ ',' +  parseInt(middlePointY).toString();
+      result +=(middlePointX+20).toString()+ ',' + (middlePointY+20).toString()+ ','+(middlePointX-20).toString()+ ',' +  parseInt(middlePointY-20).toString();
       svgAttr(line, {points: result });
 
   }
@@ -1104,27 +1106,20 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         strokeLinejoin: 'round',
         //markerStart: marker('negated2', 'white', element.color,x,y),
         //markerEnd: marker('negated', 'white', element.color,x,y,x2,y2),
-        stroke: element.color || BLACK,
+        stroke: element.color || COLOR_RED,
         strokeWidth: 0.5,
       };
 
       var attrs2 = {
         strokeLinejoin: 'round',
         //markerStart: marker('negated2', 'white', element.color,x,y),
-        stroke: element.color || BLACK,
-        strokeWidth: 0.5,
-      };
-
-      var attrs3 = {
-        strokeLinejoin: 'round',
-        //markerStart: marker('negated2', 'white', element.color,x,y),
-        stroke: element.color || BLACK,
-        strokeWidth: 0.5,
+        stroke: COLOR_RED,
+        strokeWidth: 1,
       };
 
       //(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
       svgAppend(p, drawCrossedLine(element.waypoints,attrs2));
-      svgAppend(p, drawCrossedLine2(element.waypoints,attrs3));
+      svgAppend(p, drawCrossedLine2(element.waypoints,attrs2));
 
       
       return svgAppend(p, createLine(element.waypoints, attrs));
