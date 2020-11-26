@@ -54,7 +54,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     var line = svgCreate('polyline');
     var result='';//toSVGPoints(points)
 
-    if(points[0].y===points[1].y){
+    /*if(points[0].y===points[1].y){
     //result +=(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
     
       result +=(points[0].x + parseInt(points[1].x-points[0].x)/4).toString()+ ',' + (parseInt(points[0].y)+20).toString()+ ','+(points[0].x + parseInt(points[1].x-points[0].x)*3/4).toString()+ ',' + (parseInt(points[0].y)-20).toString();
@@ -65,14 +65,18 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       result +=(points[0].x + 20).toString()+ ',' + (parseInt(points[0].y + parseInt(points[1].y-points[0].y)/4)).toString()+ ','+(points[0].x -20).toString()+ ',' + (points[0].y + parseInt(points[1].y-points[0].y)*3/4).toString();
       svgAttr(line, {points: result });
 
-    }else{
-      var middlePointX=(points[1].x+points[0].x)/2;
-      var middlePointY=(points[1].y+points[0].y)/2;
+    }else{*/
+
+      var middlePosition=points.length/2;
+      middlePosition=Math.round(middlePosition)
+
+      var middlePointX=(points[middlePosition].x+points[middlePosition-1].x)/2;
+      var middlePointY=(points[middlePosition].y+points[middlePosition-1].y)/2;
       result +=(middlePointX-20).toString()+ ',' + (middlePointY+20).toString()+ ','+(middlePointX+20).toString()+ ',' +  parseInt(middlePointY-20).toString();
       //result +=(middlePointX).toString()+ ',' + (middlePointY+5).toString()+ ','+(middlePointX).toString()+ ',' +  parseInt(middlePointY-5).toString();
       svgAttr(line, {points: result });
 
-    }
+    //}
 
 
     if (attrs) {
@@ -89,7 +93,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     var line = svgCreate('polyline');
     var result='';
     //result +=(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
-    if(points[0].y === points[1].y){
+    /*if(points[0].y === points[1].y){
     
       result +=(points[0].x + parseInt(points[1].x-points[0].x)*3/4).toString()+ ',' + (parseInt(points[0].y)+20).toString()+ ','+(points[0].x + parseInt(points[1].x-points[0].x)/4).toString()+ ',' + (parseInt(points[0].y)-20).toString();
       svgAttr(line, {points: result });
@@ -98,16 +102,21 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       result +=(parseInt(points[0].x)+20).toString()+ ',' + (points[0].y + parseInt(points[1].y-points[0].y)*3/4).toString()+ ','+(parseInt(points[0].x) -20).toString()+ ',' + (points[0].y + parseInt(points[1].y-points[0].y)/4).toString();
       svgAttr(line, {points: result });
-  }else{
+  }else{*/
+      var middlePosition;
 
-      var middlePointX=(points[1].x+points[0].x)/2;
-      var middlePointY=(points[1].y+points[0].y)/2;
+      middlePosition=points.length/2;
+      middlePosition=Math.round(middlePosition)
+
+      var middlePointX=(points[middlePosition].x+points[middlePosition-1].x)/2;
+      var middlePointY=(points[middlePosition].y+points[middlePosition-1].y)/2;
+
       //result +=(middlePointX+5).toString()+ ',' + (middlePointY+5).toString()+ ','+(middlePointX-5).toString()+ ',' +  parseInt(middlePointY-5).toString();
       //result +=(middlePointX+5).toString()+ ',' + (middlePointY).toString()+ ','+(middlePointX-5).toString()+ ',' +  parseInt(middlePointY).toString();
       result +=(middlePointX+20).toString()+ ',' + (middlePointY+20).toString()+ ','+(middlePointX-20).toString()+ ',' +  parseInt(middlePointY-20).toString();
       svgAttr(line, {points: result });
 
-  }
+  //}
     
 
    /*
