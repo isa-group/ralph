@@ -185,11 +185,11 @@ export default function CustomContextPadProvider(config, injector, elementFactor
                 'Connect using a solid line'
             ),'connect2': appendConnectAction(
                 'custom:solidLineWithCircle',
-                'bpmn-icon-connection-multi',
+                'icom-custom-SolidLineWithCircle',
                 'Connect using a solid line with a circle'
             ),'connect3': appendConnectAction(
                 'custom:dashedLine',
-                'icom-custom-dashedLine',
+                'icom-custom-dashedLine2',
                 'Connect using a dashed line'
             ),'connect4': appendConnectAction(
                 'custom:dashedLineWithCircle',
