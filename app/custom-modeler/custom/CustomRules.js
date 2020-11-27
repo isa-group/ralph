@@ -141,8 +141,14 @@ function canConnect(source, target, connection) {
   }else
     return;
 }
+function giveHistory(){
+    return historyConnectors;
+}
 
-function canConnect2(source, target, connection) {
+function updateHistoryConnectors(connection){
+  historyConnectors.push(connection);
+}
+function canConnect2(source, target, connection,historyConnectors) {
   if (nonExistingOrLabel(source) || nonExistingOrLabel(target)) {
     return null;
   }
@@ -155,9 +161,13 @@ function canConnect2(source, target, connection) {
       return false
   }*/
   let cond=true;
-  
-    for (var i=0; i < historyConnectors.length; i++) {
-      if( historyConnectors[i] == [source,target] ){
+  //var cat="cat";
+  //historyConnectors.push(cat);
+  var sourceTarget=source+target+connection;
+
+  for (var i=0; i < historyConnectors.length; i++) {
+    var histConnect=historyConnectors[i];
+      if( histConnect.localeCompare(sourceTarget) === 0){
           cond=false;
       }
   }
@@ -184,25 +194,29 @@ function canConnect2(source, target, connection) {
       return { type: connection }
   }
 
-  if(connection === 'custom:solidLine'){
+  if(connection === 'custom:solidLine' && cond === true){
     if(isValidForHistoryConnectors(target))
+      console.log(target+source+connection);
+      historyConnectors.push(target+source+connection);
       return { type: connection }
   }
 
   //historyConnectors.forEach(function(element) {if (element === [source,target]){cond=false } } ) === true)
   if(connection === 'custom:solidLineWithCircle' && cond === true) {
     if(isValidForHistoryConnectors(target))
-      historyConnectors.push([source,target]);
+      updateHistoryConnectors(source+target+connection);
       return { type: connection }
   }
 
   if(connection === 'custom:dashedLine'){
     if(isValidForHistoryConnectors(target))
+      historyConnectors.push(source+target+connection);
       return { type: connection }
   }
 
   if(connection === 'custom:dashedLineWithCircle'){
     if(isValidForHistoryConnectors(target))
+      historyConnectors.push(source+target+connection);
       return { type: connection }
   }
 
@@ -346,26 +360,32 @@ CustomRules.prototype.init = function() {
     var source = context.source,
         target = context.target,
         type = context.type;
+
+    var hist=giveHistory()
     //if(source === "custom:Position" && target === "bpmn:Task")
     if(type === 'custom:Delegate' || type==='custom:Report' || type==='custom:negatedAssignment2')
       return canConnectMultipleCustomElement(source,target)
 
-    return canConnect2(source, target, type);
+    return canConnect2(source, target, type,hist);
   });
 
   this.addRule('connection.reconnectStart', HIGH_PRIORITY*2, function(context) {
     var connection = context.connection,
         source = context.hover || context.source,
         target = connection.target;
+    var hist=giveHistory()
 
-    return canConnect2(source, target, connection.type);
+    return canConnect2(source, target, connection.type,hist);
   });
 
   this.addRule('connection.reconnectEnd', HIGH_PRIORITY*2, function(context) {
     var connection = context.connection,
         source = connection.source,
         target = context.hover || context.target;
-    return canConnect2(source, target, connection.type);
+
+    var hist=giveHistory()
+
+    return canConnect2(source, target, connection.type,hist);
   });
 
 };
@@ -375,9 +395,11 @@ function nonExistingOrLabel(element) {
 }
 
 CustomRules.prototype.canConnect = function (source, target, connection) {
+  var hist=giveHistory()
+
   if (nonExistingOrLabel(source) || nonExistingOrLabel(target)) {
     return null;
   }
-  return canConnect2(source, target, connection.type)
+  return canConnect2(source, target, connection.type,hist)
 
 }
