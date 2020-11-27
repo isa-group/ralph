@@ -164,13 +164,13 @@ function canConnect2(source, target, connection,historyConnectors) {
   //var cat="cat";
   //historyConnectors.push(cat);
   var sourceTarget=source+target+connection;
-
+  /*
   for (var i=0; i < historyConnectors.length; i++) {
     var histConnect=historyConnectors[i];
       if( histConnect.localeCompare(sourceTarget) === 0){
           cond=false;
       }
-  }
+  }*/
   
   if(connection ===  'bpmn:DataOutputAssociation'){
     if( is(target, 'bpmn:DataObjectReference') && is(source,'bpmn:Task') ){
@@ -196,7 +196,7 @@ function canConnect2(source, target, connection,historyConnectors) {
 
   if(connection === 'custom:solidLine' && cond === true){
     if(isValidForHistoryConnectors(target))
-      console.log(target+source+connection);
+      console.log(target);
       historyConnectors.push(target+source+connection);
       return { type: connection }
   }
@@ -204,7 +204,7 @@ function canConnect2(source, target, connection,historyConnectors) {
   //historyConnectors.forEach(function(element) {if (element === [source,target]){cond=false } } ) === true)
   if(connection === 'custom:solidLineWithCircle' && cond === true) {
     if(isValidForHistoryConnectors(target))
-      updateHistoryConnectors(source+target+connection);
+      //historyConnectors.push(source+target+connection);
       return { type: connection }
   }
 

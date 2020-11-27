@@ -328,6 +328,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
           fill:WHITE,
           stroke: stroke
         },
+        scale:2.5,
         ref: { x: 7, y: 7 }
       });
     }
@@ -1497,7 +1498,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y = element.y,
       width = element.width,
       height = element.height,
-      borderRadius=20;
+      borderRadius=30;
 
       var d = [
         ['M', x + borderRadius, y],
@@ -1520,7 +1521,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     y = element.y,
     width = element.width,
     height = element.height,
-    borderRadius=20;
+    borderRadius=30;
     
     var d = [
       ['M', x + borderRadius, y],
