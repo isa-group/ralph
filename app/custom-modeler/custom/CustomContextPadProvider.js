@@ -181,19 +181,19 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         assign(actions, {
             'connect1': appendConnectAction(
                 'custom:solidLine',
-                'bpmn-icon-connection-multi',
+                'icom-custom-solidLineTest2',//'icom-custom-SolidLine',
                 'Connect using a solid line'
             ),'connect2': appendConnectAction(
                 'custom:solidLineWithCircle',
-                'icom-custom-SolidLineWithCircle',
+                'icom-custom-solidLineWithCircleTest2',
                 'Connect using a solid line with a circle'
             ),'connect3': appendConnectAction(
                 'custom:dashedLine',
-                'icom-custom-dashedLine2',
+                'icom-custom-dashedLineTest',//'icom-custom-dashedLine2',
                 'Connect using a dashed line'
             ),'connect4': appendConnectAction(
                 'custom:dashedLineWithCircle',
-                'bpmn-icon-connection-multi',
+                'icom-custom-dashedLineWithCircle',//'bpmn-icon-connection-multi',
                 'Connect using a dashed line with circle'
             )
         });

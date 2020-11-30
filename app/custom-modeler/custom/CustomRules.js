@@ -170,19 +170,19 @@ function canConnect2(source, target, connection,historyConnectors) {
   //var cat="cat";
   //historyConnectors.push(cat);
 
-  if(source!=null && target!=null){
-  var sourceTarget=source2.id+target2.id;
-  
-    for (var i=0; i < historyConnectors.length; i++) {
+  if(target.id !== undefined && historyConnectors.length>1){
+    var sourceTarget=source2.id+target2.id;
+    
+      for (var i=0; i < historyConnectors.length; i++) {
 
-      var histConnect=historyConnectors[i];
-      var similarity=histConnect.localeCompare(sourceTarget);
+        var histConnect=historyConnectors[i];
+        var similarity=histConnect.localeCompare(sourceTarget);
 
-        if( similarity === 0 ){
-            cond=false;
-        }
+          if( similarity === 0 ){
+              cond=false;
+          }
+      }
     }
-  }
   
   if(connection ===  'bpmn:DataOutputAssociation'){
     if( is(target, 'bpmn:DataObjectReference') && is(source,'bpmn:Task') ){
@@ -221,14 +221,13 @@ function canConnect2(source, target, connection,historyConnectors) {
 
   if(connection === 'custom:dashedLine' && cond === true){
     if(isValidForHistoryConnectors(target))
-      var artificialId=source2+target2+connection;
-      historyConnectors.push(artificialId);
+      historyConnectors.push(source2.id+target2.id);
       return { type: connection }
   }
 
   if(connection === 'custom:dashedLineWithCircle' && cond === true){
     if(isValidForHistoryConnectors(target))
-      historyConnectors.push(source2+target2+connection);
+      historyConnectors.push(source2.id+target2.id);
       return { type: connection }
   }
 
