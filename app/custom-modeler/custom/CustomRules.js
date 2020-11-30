@@ -16,6 +16,7 @@ import {isLabel} from "bpmn-js/lib/util/LabelUtil";
 
 var HIGH_PRIORITY = 1500;
 let historyConnectors=[];
+let resourceEntities=[];
 
 function isCustom(element) {
   return element && /^custom:/.test(element.type);
@@ -30,7 +31,12 @@ function isDefaultValid2(element) {
 }
 
 function isValidForHistoryConnectors(element){
-  return element && (is(element, 'bpmn:Task'))
+  var cond=false;
+
+  if(is(element, 'bpmn:Task'))
+    cond=true;
+
+  return cond;
 }
 
 function isValidForResourceEntities(element){
@@ -103,14 +109,14 @@ function canConnect(source, target, connection) {
       return false
 
    } 
-   else if(is(target, 'custom:Person')) {
+   /*else if(is(target, 'custom:Person')) {
         if(isCustom(source)) {
           if(connection === 'custom:solidLine') // 'custom:ConsequenceFlow' }
             return { type: connection }
         }
         else
           return false
-    }
+    }*/
     else if(is(source, 'custom:Person')) {
         if(isCustom(target)) {
             if(connection === 'custom:ConsequenceFlow')
@@ -136,10 +142,10 @@ function canConnect(source, target, connection) {
     }
     else
       return false*/
-   } else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArcElement(source)) || (isDefaultValid(target) && isCustomShape(source) &&  isCustomResourceArcElement(target))){
+   /*} else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArcElement(source)) || (isDefaultValid(target) && isCustomShape(source) &&  isCustomResourceArcElement(target))){
       return { type: 'custom:ResourceArc' }
    } else if((isDefaultValid(source) && isCustomShape(target) && isCustomResourceArc2Element(source)) || (isDefaultValid(target) && isCustomShape(source) && isCustomResourceArc2Element(target))){
-      return { type: 'custom:ResourceArc2' }
+      return { type: 'custom:ResourceArc2' }*/
   }else
     return;
 }
@@ -150,6 +156,8 @@ function giveHistory(){
 function updateHistoryConnectors(connection){
   historyConnectors.push(connection);
 }
+
+
 function canConnect2(source, target, connection,historyConnectors) {
 
   var source2=getBusinessObject(source);//source.businessObject;
@@ -167,10 +175,10 @@ function canConnect2(source, target, connection,historyConnectors) {
       return false
   }*/
   let cond=true;
-  //var cat="cat";
-  //historyConnectors.push(cat);
+
 
   if(target.id !== undefined && historyConnectors.length>1){
+
     var sourceTarget=source2.id+target2.id;
     
       for (var i=0; i < historyConnectors.length; i++) {
@@ -182,7 +190,7 @@ function canConnect2(source, target, connection,historyConnectors) {
               cond=false;
           }
       }
-    }
+  }
   
   if(connection ===  'bpmn:DataOutputAssociation'){
     if( is(target, 'bpmn:DataObjectReference') && is(source,'bpmn:Task') ){
@@ -207,7 +215,7 @@ function canConnect2(source, target, connection,historyConnectors) {
   }
 
   if(connection === 'custom:solidLine' && cond === true){
-    if(isValidForHistoryConnectors(target))
+    if(isValidForHistoryConnectors(target) === true)
       historyConnectors.push(source2.id+target2.id);
       return { type: connection }
   }
