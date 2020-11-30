@@ -169,16 +169,19 @@ function canConnect2(source, target, connection,historyConnectors) {
   let cond=true;
   //var cat="cat";
   //historyConnectors.push(cat);
+
+  if(source!=null && target!=null){
   var sourceTarget=source2.id+target2.id;
   
-  for (var i=0; i < historyConnectors.length; i++) {
+    for (var i=0; i < historyConnectors.length; i++) {
 
-    var histConnect=historyConnectors[i];
-    var similarity=histConnect.localeCompare(sourceTarget);
+      var histConnect=historyConnectors[i];
+      var similarity=histConnect.localeCompare(sourceTarget);
 
-      if( similarity === 0 ){
-          cond=false;
-      }
+        if( similarity === 0 ){
+            cond=false;
+        }
+    }
   }
   
   if(connection ===  'bpmn:DataOutputAssociation'){
