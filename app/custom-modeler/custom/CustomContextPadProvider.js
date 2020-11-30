@@ -122,13 +122,13 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         assign(actions, {
             'connect1': appendConnectAction(
                 'custom:ResourceArc',
-                'bpmn-icon-connection-multi',
+                'icom-custom-solidLineTest2',
                 'Connect using simple resource assignment'
             ),
             
             'connect2': appendConnectAction(
                     'custom:negatedAssignment',
-                    'icom-custom-Negated',//'bpmn-icon-connection-multi',<span class="iconify" data-icon="" data-inline="false"></span>
+                    'icom-custom-negated2',//'icom-custom-Negated',
                     'Connect using negated connection'
                 )
         });
@@ -138,7 +138,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         assign(actions, {
             'connectPos': appendConnectAction(
                 'custom:Delegate',
-                'icom-custom-Delegate',
+                'icom-custom-DelegateTest',
                 'Connect using delegate'
             ),
         });
@@ -203,7 +203,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         assign(actions, {
             'connect4': appendConnectAction(
                 'custom:Report',
-                'icom-custom-Report',//'bpmn-icon-connection-multi',
+                'icom-custom-ReportTest',//'bpmn-icon-connection-multi',
                 'Connect using report connection'
             ),
             'connect5': appendConnectAction(
