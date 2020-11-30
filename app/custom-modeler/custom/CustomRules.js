@@ -157,6 +157,25 @@ function updateHistoryConnectors(connection){
   historyConnectors.push(connection);
 }
 
+function isInList(source2,target2,list){
+  let cond=true;
+
+    var sourceTarget=source2.id+target2.id;
+    
+      for (var i=0; i < list.length; i++) {
+
+        var listElement=list[i];
+        var similarity=listElement.localeCompare(sourceTarget);
+
+          if( similarity === 0 ){
+              cond=false;
+          }
+      }
+
+  return cond;
+
+}
+
 
 function canConnect2(source, target, connection,historyConnectors) {
 
@@ -178,18 +197,11 @@ function canConnect2(source, target, connection,historyConnectors) {
 
 
   if(target.id !== undefined && historyConnectors.length>1){
+    cond=isInList(source2,target2,historyConnectors)
+  }
 
-    var sourceTarget=source2.id+target2.id;
-    
-      for (var i=0; i < historyConnectors.length; i++) {
-
-        var histConnect=historyConnectors[i];
-        var similarity=histConnect.localeCompare(sourceTarget);
-
-          if( similarity === 0 ){
-              cond=false;
-          }
-      }
+  if(target.id !== undefined && resourceEntities.length>1){
+    cond=isInList(source2,target2,resourceEntities)
   }
   
   if(connection ===  'bpmn:DataOutputAssociation'){
@@ -198,14 +210,16 @@ function canConnect2(source, target, connection,historyConnectors) {
     }
   }
 
-  if(connection === 'custom:negatedAssignment'){
+  if(connection === 'custom:negatedAssignment' && cond === true){
     if(isValidForResourceEntities(source) && is(target, 'bpmn:Task')){
+      resourceEntities.push(source2.id+target2.id);
       return { type: connection }
     }
   }
 
-  if(connection === 'custom:ResourceArc') {
+  if(connection === 'custom:ResourceArc' && cond === true){
     if(isDefaultValid(target) || isDefaultValid(source) || ( is(target, 'custom:Orgunit') && is(source,'custom:RoleRALph') ) )
+    resourceEntities.push(source2.id+target2.id);
     return { type: connection }
   }
 
