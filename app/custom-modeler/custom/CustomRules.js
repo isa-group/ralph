@@ -157,6 +157,7 @@ function updateHistoryConnectors(connection){
   historyConnectors.push(connection);
 }
 
+
 function isInList(source2,target2,list){
   let cond=true;
 
@@ -420,6 +421,21 @@ CustomRules.prototype.init = function() {
 
     return canConnect2(source, target, connection.type,hist);
   });
+
+  this.addRule('connection.delete', HIGH_PRIORITY*2, function(context) {
+    var connection = context.connection,
+        source = connection.source,
+        target = context.target;
+
+    var source2=getBusinessObject(source);//source.businessObject;
+    var target2=getBusinessObject(target);
+    var indexOfDeletedElement=historyConnectors.indexOf(source2.id+target2.id);
+
+    if (index !== -1) {
+      historyConnectors=historyConnectors.splice(indexOfDeletedElement,1);
+    }
+
+  })
 
 };
 
