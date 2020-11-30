@@ -5,6 +5,7 @@ import {
 import inherits from 'inherits';
 
 import {
+  getBusinessObject,
   is
 } from 'bpmn-js/lib/util/ModelUtil';
 
@@ -49,6 +50,7 @@ inherits(CustomRules, RuleProvider);
 CustomRules.$inject = [ 'eventBus' ];
 
 function canConnect(source, target, connection) {
+
 
   // only judge about custom elements
   if (!isCustom(source) && !isCustom(target)) {
@@ -149,6 +151,10 @@ function updateHistoryConnectors(connection){
   historyConnectors.push(connection);
 }
 function canConnect2(source, target, connection,historyConnectors) {
+
+  var source2=getBusinessObject(source);//source.businessObject;
+  var target2=getBusinessObject(target);
+
   if (nonExistingOrLabel(source) || nonExistingOrLabel(target)) {
     return null;
   }
@@ -163,14 +169,17 @@ function canConnect2(source, target, connection,historyConnectors) {
   let cond=true;
   //var cat="cat";
   //historyConnectors.push(cat);
-  var sourceTarget=source+target+connection;
-  /*
+  var sourceTarget=source2.id+target2.id;
+  
   for (var i=0; i < historyConnectors.length; i++) {
+
     var histConnect=historyConnectors[i];
-      if( histConnect.localeCompare(sourceTarget) === 0){
+    var similarity=histConnect.localeCompare(sourceTarget);
+
+      if( similarity === 0 ){
           cond=false;
       }
-  }*/
+  }
   
   if(connection ===  'bpmn:DataOutputAssociation'){
     if( is(target, 'bpmn:DataObjectReference') && is(source,'bpmn:Task') ){
@@ -196,27 +205,27 @@ function canConnect2(source, target, connection,historyConnectors) {
 
   if(connection === 'custom:solidLine' && cond === true){
     if(isValidForHistoryConnectors(target))
-      console.log(target);
-      historyConnectors.push(target+source+connection);
+      historyConnectors.push(source2.id+target2.id);
       return { type: connection }
   }
 
   //historyConnectors.forEach(function(element) {if (element === [source,target]){cond=false } } ) === true)
   if(connection === 'custom:solidLineWithCircle' && cond === true) {
     if(isValidForHistoryConnectors(target))
-      //historyConnectors.push(source+target+connection);
+      historyConnectors.push(source2.id+target2.id);
       return { type: connection }
   }
 
-  if(connection === 'custom:dashedLine'){
+  if(connection === 'custom:dashedLine' && cond === true){
     if(isValidForHistoryConnectors(target))
-      historyConnectors.push(source+target+connection);
+      var artificialId=source2+target2+connection;
+      historyConnectors.push(artificialId);
       return { type: connection }
   }
 
-  if(connection === 'custom:dashedLineWithCircle'){
+  if(connection === 'custom:dashedLineWithCircle' && cond === true){
     if(isValidForHistoryConnectors(target))
-      historyConnectors.push(source+target+connection);
+      historyConnectors.push(source2+target2+connection);
       return { type: connection }
   }
 
