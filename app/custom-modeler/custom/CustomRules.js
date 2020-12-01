@@ -9,6 +9,8 @@ import {
   is
 } from 'bpmn-js/lib/util/ModelUtil';
 
+import customModeler from'./CustomModeling';
+
 import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
 import {isAny} from "bpmn-js/lib/features/modeling/util/ModelingUtil";
 import {isCustomResourceArcElement, isCustomShape,isCustomResourceArc2Element,isHistoryConnectorActivityInstance,isHistoryConnectorSameOrPreviousInstance,isHistoryConnectorPreviousInstanceElements} from "./Types";
@@ -53,7 +55,7 @@ export default function CustomRules(eventBus) {
 
 inherits(CustomRules, RuleProvider);
 
-CustomRules.$inject = [ 'eventBus' ];
+CustomRules.$inject = [ 'eventBus','elementRegistry' ];
 
 function canConnect(source, target, connection) {
 
@@ -98,17 +100,6 @@ function canConnect(source, target, connection) {
       return false
       
   }
-  else if(is(target, 'custom:TimeSlot')) {
-    if(isDefaultValid(source)) {
-      if(connection === 'custom:TimeDistandStartArc')
-        return { type: connection }
-      else
-        return { type: 'custom:ResourceArc'}
-    }
-    else
-      return false
-
-   } 
    /*else if(is(target, 'custom:Person')) {
         if(isCustom(source)) {
           if(connection === 'custom:solidLine') // 'custom:ConsequenceFlow' }
@@ -178,10 +169,22 @@ function isInList(source2,target2,list){
 }
 
 
-function canConnect2(source, target, connection,historyConnectors) {
+function canConnect2(source, target, connection,historyConnectors,elementRegistry) {
 
+  
   var source2=getBusinessObject(source);//source.businessObject;
   var target2=getBusinessObject(target);
+  /*
+  var activityShapeSource = customModeler.get('elementRegistry').get(source2.id);//elementRegistry.get(source2.id);
+
+  var outgoing = activityShapeSource.outgoing;
+  var incoming = activityShapeSource.incoming;
+
+  var activityShapeTarget = customModeler.get('elementRegistry').get(target2.id);
+
+  var outgoing2 = activityShapeTarget.outgoing;
+  var incoming2 = activityShapeTarget.incoming;
+  */
 
   if (nonExistingOrLabel(source) || nonExistingOrLabel(target)) {
     return null;
@@ -196,10 +199,11 @@ function canConnect2(source, target, connection,historyConnectors) {
   }*/
   let cond=true;
 
+  //if(target.incoming!=source.)
 
-  if(target.id !== undefined && historyConnectors.length>1){
+  /*if(target.id !== undefined && historyConnectors.length>1){
     cond=isInList(source2,target2,historyConnectors)
-  }
+  }*/
 
   if(target.id !== undefined && resourceEntities.length>1){
     cond=isInList(source2,target2,resourceEntities)
@@ -218,40 +222,43 @@ function canConnect2(source, target, connection,historyConnectors) {
     }
   }
 
-  if(connection === 'custom:ResourceArc' && cond === true){
-    if(isDefaultValid(target) || isDefaultValid(source) || ( is(target, 'custom:Orgunit') && is(source,'custom:RoleRALph') ) )
+  if(connection === 'custom:ResourceArc'){
+    var element=target;
+    if( ( is(target, 'custom:Orgunit') && is(source,'custom:RoleRALph')) || is(target, 'bpmn:Task') || is(target, 'bpmn:Event') || is(target,'bpmn:DataObjectReference') || is(target,'bpmn:ExclusiveGateway') || is(target,'bpmn:EndEvent') || is(target,'bpmn:DataStoreReference')){ //||  ) )
     resourceEntities.push(source2.id+target2.id);
     return { type: connection }
+    }
   }
 
-  if(connection === 'custom:ResourceArc2') {
-    if(isDefaultValid(target) || isDefaultValid(source))
-      return { type: connection }
-  }
 
   if(connection === 'custom:solidLine' && cond === true){
-    if(isValidForHistoryConnectors(target) === true)
+    if(isValidForHistoryConnectors(target) === true){
+      console.log(source2)
       historyConnectors.push(source2.id+target2.id);
       return { type: connection }
+    }
   }
 
   //historyConnectors.forEach(function(element) {if (element === [source,target]){cond=false } } ) === true)
   if(connection === 'custom:solidLineWithCircle' && cond === true) {
-    if(isValidForHistoryConnectors(target))
+    if(isValidForHistoryConnectors(target)){
       historyConnectors.push(source2.id+target2.id);
       return { type: connection }
+    }
   }
 
   if(connection === 'custom:dashedLine' && cond === true){
-    if(isValidForHistoryConnectors(target))
+    if(isValidForHistoryConnectors(target)){
       historyConnectors.push(source2.id+target2.id);
       return { type: connection }
+    }
   }
 
   if(connection === 'custom:dashedLineWithCircle' && cond === true){
-    if(isValidForHistoryConnectors(target))
+    if(isValidForHistoryConnectors(target)){
       historyConnectors.push(source2.id+target2.id);
       return { type: connection }
+    }
   }
 
   else if(connection === 'custom:TimeDistanceArcStart') {
@@ -329,7 +336,7 @@ CustomRules.prototype.init = function() {
         else
           return false
       }
-      else if(connection.type === 'custom:ResourceArc') {
+      /*else if(connection.type === 'custom:ResourceArc') {
         if((!isCustom(source) && isCustomShape(target)) || (isCustomShape(source) && !isCustom(target)))
           return { type: connection.type }
         else
@@ -339,7 +346,7 @@ CustomRules.prototype.init = function() {
           return { type: connection.type }
         else
           return;
-      }
+      }*/
       // add time distance
       else {
         return canConnect(source, target, connection.type)
