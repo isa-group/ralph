@@ -393,7 +393,17 @@ CustomRules.prototype.init = function() {
   this.addRule('connection.create', HIGH_PRIORITY, function(context) {
     var source = context.source,
         target = context.target,
-        type = context.type;
+        type = context.type,
+        hints = context.hints || {},
+        targetParent = hints.targetParent,
+        targetAttach = hints.targetAttach;
+
+    // don't allow incoming connections on
+    // newly created boundary events
+    // to boundary events
+    if (targetAttach) {
+      return false;
+    }
 
     var hist=giveHistory()
     //if(source === "custom:Position" && target === "bpmn:Task")
