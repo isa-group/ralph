@@ -46,7 +46,9 @@ export const connections = [
     'custom:solidLine',
     'custom:solidLineWithCircle',
     'custom:dashedLine',
-    'custom:dashedLineWithCircle'
+    'custom:dashedLineWithCircle',
+
+    'custom:simpleArrow'
 ]
 
 export const directEdit = [
@@ -131,6 +133,7 @@ export const custom = [
     'custom:HistoryConnectorActivityInstance',
     'custom:solidLineWithCircle',
     'custom:dashedLine',
+    'custom:simpleArrow'
     //añadir conexiones aqui también
 ]
 
