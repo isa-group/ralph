@@ -713,7 +713,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       let org=drawOrgunit(element)
 
       svgAppend(p,org)
-      //renderExternalLabel(p,element)
       renderEmbeddedLabel(p,element,'center-middle')
 
       return org;
@@ -721,16 +720,14 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     },'custom:Personcap':(p,element) =>{
       let cap=drawPersoncap(element)
 
+      renderEmbeddedLabel(p,element,'center-middle')
       svgAppend(p,cap)
-      renderExternalLabel(p,element)
 
       return cap;
 
     },'custom:Person':(p,element)=>{
         let person=drawPerson(element)
         
-        //element.label="empty"
-        //renderExternalLabel(parentGfx, element)
         renderEmbeddedLabel(p,element,'center-middle')
         svgAppend(p,person)
         return person;

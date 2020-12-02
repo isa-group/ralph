@@ -29,9 +29,8 @@ export const externalLabel = [
     'custom:Person',
     'custom:RoleRALph',
     'custom:ResourceArc',
-    'custom:ResourceArc2'
-    //'custom:Personcap'
-    
+    'custom:ResourceArc2',
+    'custom:Personcap'
     
 ]
 
