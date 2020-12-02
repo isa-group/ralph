@@ -158,7 +158,7 @@ CustomLabelEditingProvider.prototype.activate = function(element) {
             'bpmn:Lane',
             'bpmn:CallActivity',
             //CUSTOM
-            //'custom:resource' // interni?
+            //'RALph:resource' // interni?
         ]) ||
         isCollapsedSubProcess(element)
     ) {
@@ -254,7 +254,7 @@ CustomLabelEditingProvider.prototype.getEditingBBox = function(element) {
 
     // internal labels for tasks and collapsed call activities,
     // sub processes and participants
-    if (isAny(element, [ 'bpmn:Task', 'bpmn:CallActivity', 'custom:TimeSlot','custom:nyanCat','custom:Person']) ||
+    if (isAny(element, [ 'bpmn:Task', 'bpmn:CallActivity', 'RALph:TimeSlot','RALph:nyanCat','RALph:Person']) ||
         isCollapsedPool(element) ||
         isCollapsedSubProcess(element)) {
 

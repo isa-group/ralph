@@ -61,7 +61,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
 
     function appendConnectAction(type, className, title) {
         if (typeof title !== 'string') {
-            title = translate('Append {type}', { type: type.replace(/^custom:/, '') });
+            title = translate('Append {type}', { type: type.replace(/^RALph:/, '') });
         }
 
         function connectStart(event, element, autoActivate) {
@@ -93,15 +93,15 @@ export default function CustomContextPadProvider(config, injector, elementFactor
       }
 
     function startConnectConsequence(event, element, autoActivate) {
-      connect.customStart(event, element, 'custom:ConsequenceFlow', autoActivate);
+      connect.customStart(event, element, 'RALph:ConsequenceFlow', autoActivate);
     }
 
     function startConnectConsequenceTimed(event, element, autoActivate) {
-      connect.customStart2(event, element, 'custom:ConsequenceTimedFlow', elementFactory, autoActivate);
+      connect.customStart2(event, element, 'RALph:ConsequenceTimedFlow', elementFactory, autoActivate);
     }
 
     function startConnectTimeDistance(event, element, autoActivate) {
-        connect.customStart2(event, element, 'custom:ConsequenceTimedFlow', elementFactory, autoActivate);
+        connect.customStart2(event, element, 'RALph:ConsequenceTimedFlow', elementFactory, autoActivate);
     }
 
     /*if (isAny(businessObject, resourceArcElements) && element.type !== 'label') {
@@ -121,24 +121,24 @@ export default function CustomContextPadProvider(config, injector, elementFactor
     if (isAny(businessObject, resourceArcElements) && element.type !== 'label') {
         assign(actions, {
             'connect1': appendConnectAction(
-                'custom:ResourceArc',
-                'icom-custom-solidLineTest2',
+                'RALph:ResourceArc',
+                'icom-RALph-solidLineTest2',
                 'Connect using simple resource assignment'
             ),
             
             'connect2': appendConnectAction(
-                    'custom:negatedAssignment',
-                    'icom-custom-negated2',//'icom-custom-Negated',
+                    'RALph:negatedAssignment',
+                    'icom-RALph-negated2',//'icom-RALph-Negated',
                     'Connect using negated connection'
                 )
         });
     }
 
-    if (is(businessObject, 'custom:Position') && element.type !== 'label') {
+    if (is(businessObject, 'RALph:Position') && element.type !== 'label') {
         assign(actions, {
             'connectPos': appendConnectAction(
-                'custom:Delegate',
-                'icom-custom-DelegateTest',
+                'RALph:Delegate',
+                'icom-RALph-DelegateTest',
                 'Connect using delegate'
             ),
         });
@@ -165,12 +165,12 @@ export default function CustomContextPadProvider(config, injector, elementFactor
     if(isAny(businessObject,resourceArcElements2) && element.type !== 'label') {
         assign(actions, {
             'connect1': appendConnectAction(
-                'custom:ResourceArc',
+                'RALph:ResourceArc',
                 'bpmn-icon-connection-multi',
                 'Connect using ResourceArc'
             ),
             'connect2': appendConnectAction(
-                'custom:ResourceArc2',
+                'RALph:ResourceArc2',
                 'bpmn-icon-connection-multi',
                 'Connect using ResourceArc2'
             )
@@ -180,20 +180,20 @@ export default function CustomContextPadProvider(config, injector, elementFactor
     if(isAny(businessObject,solidLineElements) && element.type !== 'label') {
         assign(actions, {
             'connect1': appendConnectAction(
-                'custom:solidLine',
-                'icom-custom-solidLineTest2',//'icom-custom-SolidLine',
+                'RALph:solidLine',
+                'icom-RALph-solidLineTest2',//'icom-RALph-SolidLine',
                 'Connect using a solid line'
             ),'connect2': appendConnectAction(
-                'custom:solidLineWithCircle',
-                'icom-custom-solidLineWithCircleTest2',
+                'RALph:solidLineWithCircle',
+                'icom-RALph-solidLineWithCircleTest2',
                 'Connect using a solid line with a circle'
             ),'connect3': appendConnectAction(
-                'custom:dashedLine',
-                'icom-custom-dashedLineTest',//'icom-custom-dashedLine2',
+                'RALph:dashedLine',
+                'icom-RALph-dashedLineTest',//'icom-RALph-dashedLine2',
                 'Connect using a dashed line'
             ),'connect4': appendConnectAction(
-                'custom:dashedLineWithCircle',
-                'icom-custom-dashedLineWithCircle',//'bpmn-icon-connection-multi',
+                'RALph:dashedLineWithCircle',
+                'icom-RALph-dashedLineWithCircle',//'bpmn-icon-connection-multi',
                 'Connect using a dashed line with circle'
             )
         });
@@ -202,8 +202,8 @@ export default function CustomContextPadProvider(config, injector, elementFactor
     if(is(businessObject, 'bpmn:Task') && element.type !== 'label') {
         assign(actions, {
             'connect4': appendConnectAction(
-                'custom:Report',
-                'icom-custom-ReportTest',//'bpmn-icon-connection-multi',
+                'RALph:Report',
+                'icom-RALph-ReportTest',//'bpmn-icon-connection-multi',
                 'Connect using report connection'
             ),
             'connect5': appendConnectAction(
@@ -218,7 +218,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
     if(is(businessObject, 'bpmn:DataObjectReference') && element.type !== 'label') {
         assign(actions, {
             'connect4': appendConnectAction(
-                'custom:dataFieldConnection',
+                'RALph:dataFieldConnection',
                 'bpmn-icon-connection-multi',
                 'Connect using data field connection')
         });

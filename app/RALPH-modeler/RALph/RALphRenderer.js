@@ -5,7 +5,7 @@ import BpmnRenderer from "bpmn-js/lib/draw/BpmnRenderer";
 
 import {componentsToPath, createLine} from 'diagram-js/lib/util/RenderUtil';
 import {query as domQuery} from 'min-dom';
-import Cat from './cat';
+import Cat from './SVGs';
 import {append as svgAppend, attr as svgAttr, classes as svgClasses, create as svgCreate} from 'tiny-svg';
 import {getFillColor, getSemantic, getStrokeColor} from "bpmn-js/lib/draw/BpmnRenderUtil";
 import {assign} from "min-dash";
@@ -725,14 +725,14 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
   }
 
   var renderers = this.renderers = {
-    'custom:TimeSlot': (p, element) => {
+    'RALph:TimeSlot': (p, element) => {
       let polygon = drawTimeSlot(element.width, element.height, element.color)
       renderExternalLabel(p,element)
       //renderEmbeddedLabel(p, element, 'center-middle');
 
       return polygon;
     },
-    'custom:nyanCat':(p,element) =>{
+    'RALph:nyanCat':(p,element) =>{
       let cat=drawNyanCat(element)
 
       renderEmbeddedLabel(p,element,'center-middle')
@@ -740,7 +740,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       return cat;
 
     },
-    'custom:Position':(p,element) =>{
+    'RALph:Position':(p,element) =>{
       let pos=drawPosition(element)
 
       svgAppend(p,pos)
@@ -748,7 +748,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       return pos;
 
     },
-    'custom:Orgunit':(p,element) =>{
+    'RALph:Orgunit':(p,element) =>{
       let org=drawOrgunit(element)
 
       svgAppend(p,org)
@@ -756,7 +756,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return org;
 
-    },'custom:Personcap':(p,element) =>{
+    },'RALph:Personcap':(p,element) =>{
       let cap=drawPersoncap(element)
 
       renderEmbeddedLabel(p,element,'center-middle')
@@ -764,47 +764,47 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return cap;
 
-    },'custom:Person':(p,element)=>{
+    },'RALph:Person':(p,element)=>{
         let person=drawPerson(element)
         
         renderEmbeddedLabel(p,element,'center-middle')
         svgAppend(p,person)
         return person;
 
-    },'custom:RoleRALph':(p,element)=>{
+    },'RALph:RoleRALph':(p,element)=>{
         let role=drawRoleRALph(element)
 
         renderEmbeddedLabel(p,element,'center-middle')
         svgAppend(p,role)
         return role;
 
-    },'custom:History-Same':(p,element)=>{
+    },'RALph:History-Same':(p,element)=>{
       let connector=drawHistoryConnector(element)
 
       renderEmbeddedLabel(p,element,'center-middle')
       svgAppend(p,connector)
       return connector;
 
-    },'custom:History-Any':(p,element)=>{
+    },'RALph:History-Any':(p,element)=>{
       let connector2=drawHistoryAnyConnector(element)
 
       renderEmbeddedLabel(p,element,'center-middle')
       svgAppend(p,connector2)
       return connector2;
 
-    },'custom:DelegateTo':(p,element)=>{
+    },'RALph:DelegateTo':(p,element)=>{
       let delegate=drawDelegateTo(element)
       
       svgAppend(p,delegate)
       return delegate;
 
-    },'custom:reportsTo':(p,element)=>{
+    },'RALph:reportsTo':(p,element)=>{
       let report = drawReportsTo(element);
 
       svgAppend(p,report)
       return report;
 
-    },'custom:Clock': (p, element) => {
+    },'RALph:Clock': (p, element) => {
       console.log(element)
       var attrs = computeStyle(attrs, {
         stroke: element.color,
@@ -850,7 +850,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return path;
     },
-    'custom:Resource': (p, element) => {
+    'RALph:Resource': (p, element) => {
       var attrs = computeStyle(attrs, {
         stroke: element.color || BLACK,
         strokeWidth: 2,
@@ -892,7 +892,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return path;
     },
-    'custom:ResourceAbsence': (p, element) => {
+    'RALph:ResourceAbsence': (p, element) => {
       var attrs = computeStyle(attrs, {
         stroke: element.color || BLACK,
         strokeWidth: 2,
@@ -936,7 +936,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return path;
     },
-    'custom:Role': (p, element) => {
+    'RALph:Role': (p, element) => {
 
       var attrs = computeStyle(attrs, {
         stroke: element.color || BLACK,
@@ -983,7 +983,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return path;
     },
-    'custom:RoleAbsence': (p, element) => {
+    'RALph:RoleAbsence': (p, element) => {
 
       var attrs = computeStyle(attrs, {
         stroke: element.color || BLACK,
@@ -1034,7 +1034,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return path;
     },
-    'custom:Group': (p, element, bool=false) => {
+    'RALph:Group': (p, element, bool=false) => {
       var attrs = computeStyle(attrs, {
         stroke: element.color || BLACK,
         strokeWidth: 2,
@@ -1099,10 +1099,10 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return inner;
     },
-    'custom:GroupAbsence': (p, element) => {
-      return renderers['custom:Group'](p, element, true)
+    'RALph:GroupAbsence': (p, element) => {
+      return renderers['RALph:Group'](p, element, true)
     },
-    // 'custom:TaskTimed': (p, element) => {
+    // 'RALph:TaskTimed': (p, element) => {
     //   var attrs = {
     //     fill: '#fff',
     //     stroke: '#000'
@@ -1115,7 +1115,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     //
     //   return rect;
     // },
-    'custom:ResourceArc': (p, element) => {
+    'RALph:ResourceArc': (p, element) => {
 
       var attrs = computeStyle(attrs, {
         stroke:BLACK,//-> PARA EL COLOR
@@ -1132,7 +1132,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     },
 
-    'custom:dataField':(p,element)=>{
+    'RALph:dataField':(p,element)=>{
       let dataField=drawDataField(element);
 
       svgAppend(p,dataField);
@@ -1140,7 +1140,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       return dataField;
 
     },
-      'custom:negatedAssignment': (p, element) => {
+      'RALph:negatedAssignment': (p, element) => {
       var points=element.waypoints;
       var p1=points[0]
       var x = p1.x
@@ -1172,7 +1172,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       return svgAppend(p, createLine(element.waypoints, attrs));
       //return svgAppend(p, drawCrossedLine(element.waypoints,attrs))
     },
-    'custom:simpleArrow':(p, element)=>{
+    'RALph:simpleArrow':(p, element)=>{
       var attrs = {
         strokeLinejoin: 'round',
         markerEnd: marker('sequenceflow-end', 'white', element.color),
@@ -1183,7 +1183,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     },
-    'custom:doubleArrow':(p,element)=>{
+    'RALph:doubleArrow':(p,element)=>{
       var attrs = {
         strokeLinejoin: 'round',
         markerEnd: marker('doubleArrow', 'white', element.color),
@@ -1196,7 +1196,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     }
     
-    ,'custom:solidLine':(p,element)=>{
+    ,'RALph:solidLine':(p,element)=>{
       var attrs = {
         stroke: element.color || BLACK,
         strokeWidth: 0.5,
@@ -1205,7 +1205,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     },
-    'custom:solidLineWithCircle':(p,element)=>{
+    'RALph:solidLineWithCircle':(p,element)=>{
       var attrs = {
         strokeLinejoin: 'round',
         stroke: BLACK,
@@ -1215,7 +1215,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     },
-    'custom:dashedLine':(p,element)=>{
+    'RALph:dashedLine':(p,element)=>{
       var attrs = {
         strokeLinejoin: 'round',
         stroke: element.color || BLACK,
@@ -1226,7 +1226,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     },
-    'custom:dashedLineWithCircle':(p,element)=>{
+    'RALph:dashedLineWithCircle':(p,element)=>{
       var attrs = {
         strokeLinejoin: 'round',
         stroke: element.color || BLACK,
@@ -1237,7 +1237,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     },
-    'custom:ConsequenceFlow': (p, element) => {
+    'RALph:ConsequenceFlow': (p, element) => {
       var attrs = {
         strokeLinejoin: 'round',
         markerEnd: marker('sequenceflow-end', 'white', element.color),
@@ -1248,7 +1248,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     },
-    'custom:TimeDistanceArcStart': (p, element) => {
+    'RALph:TimeDistanceArcStart': (p, element) => {
       var attrs = {
         markerStart: marker('timedistance-start', 'white', element.color),
       };
@@ -1256,7 +1256,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       return drawTimeDistanceArc(p, element, attrs)
 
     },
-    'custom:TimeDistanceArcEnd': (p, element) => {
+    'RALph:TimeDistanceArcEnd': (p, element) => {
       var attrs = {
         markerEnd: marker('timedistance-end', 'blue', element.color),
       };
@@ -1288,7 +1288,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
    }*/
 
   var paths = this.paths = {
-    'custom:TimeSlot': (shape) => {
+    'RALph:TimeSlot': (shape) => {
       var x = shape.x,
           y = shape.y,
           width = shape.width,
@@ -1309,7 +1309,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ];
 
       return componentsToPath(roundRectPath);
-    },'custom:nyanCat':(element)=>{
+    },'RALph:nyanCat':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1326,7 +1326,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ]
 
       return componentsToPath(d);
-    },'custom:ResourceArc':(element)=>{
+    },'RALph:ResourceArc':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1343,7 +1343,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ]
 
       return componentsToPath(d);
-    },'custom:ResourceArc2':(element)=>{
+    },'RALph:ResourceArc2':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1360,7 +1360,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ]
 
       return componentsToPath(d);
-    },'custom:negatedAssignment':(element)=>{
+    },'RALph:negatedAssignment':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1377,7 +1377,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ]
 
       return componentsToPath(d);
-    },'custom:Rolecap':(element)=>{
+    },'RALph:Rolecap':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1394,7 +1394,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ]
 
       return componentsToPath(d);
-    },'custom:RoleRALph':(element)=>{
+    },'RALph:RoleRALph':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1419,7 +1419,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       return componentsToPath(roundRectPath);
 
 
-    },'custom:DelegateTo':(element)=>{
+    },'RALph:DelegateTo':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1441,7 +1441,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return componentsToPath(d);
     },
-    'custom:reportsTo':(element)=>{
+    'RALph:reportsTo':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1463,7 +1463,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return componentsToPath(d);
     },
-    'custom:Position':(element)=>{
+    'RALph:Position':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1494,7 +1494,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return componentsToPath(d);
 
-    },'custom:Orgunit':(element) =>{
+    },'RALph:Orgunit':(element) =>{
       var x = element.x,
         y = element.y,
         width = element.width,
@@ -1524,7 +1524,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return componentsToPath(d);
 
-  },'custom:Personcap':(element) =>{
+  },'RALph:Personcap':(element) =>{
         var x = element.x,
           y = element.y,
           width = element.width,
@@ -1547,7 +1547,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
         return componentsToPath(d);
 
-    },'custom:Person':(element)=>{
+    },'RALph:Person':(element)=>{
         var x = element.x,
         y = element.y,
         width = element.width,
@@ -1569,7 +1569,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
           return componentsToPath(d);
 
-    },'custom:History-Same':(element)=>{
+    },'RALph:History-Same':(element)=>{
       var x = element.x,
       y = element.y,
       width = element.width,
@@ -1592,7 +1592,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     return componentsToPath(d);
 
-  },'custom:History-Any':(element)=>{
+  },'RALph:History-Any':(element)=>{
     var x = element.x,
     y = element.y,
     width = element.width,
@@ -1614,7 +1614,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return componentsToPath(d);
 },
-'custom:Clock': (element) => {
+'RALph:Clock': (element) => {
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1631,7 +1631,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return componentsToPath(d);
       
-    },'custom:dataField':(element)=>{
+    },'RALph:dataField':(element)=>{
       var x = element.x,
       y = element.y,
       width = element.width,
@@ -1654,7 +1654,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       return componentsToPath(d);
 
     },
-    'custom:Resource': (element) => {
+    'RALph:Resource': (element) => {
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1673,10 +1673,10 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return componentsToPath(resourcePath);
     },
-    'custom:ResourceAbsence': (element) => {
-      return paths['custom:Resource'](element)
+    'RALph:ResourceAbsence': (element) => {
+      return paths['RALph:Resource'](element)
     },
-    'custom:Role': (element) => {
+    'RALph:Role': (element) => {
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1694,7 +1694,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return componentsToPath(resourcePath);
 
-    },'custom:RedCross':(element)=>{
+    },'RALph:RedCross':(element)=>{
       var x = element.x,
       y = element.y,
       width = element.width,
@@ -1713,10 +1713,10 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return componentsToPath(resourcePath);
 
     },
-    'custom:RoleAbsence': (element) => {
-      return paths['custom:Role'](element)
+    'RALph:RoleAbsence': (element) => {
+      return paths['RALph:Role'](element)
     },
-    'custom:Group': (element) => {
+    'RALph:Group': (element) => {
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1742,17 +1742,17 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return componentsToPath(resourcePath);
     },
-    'custom:GroupAbsence': (element) => {
-      return paths['custom:Group'](element)
+    'RALph:GroupAbsence': (element) => {
+      return paths['RALph:Group'](element)
     },
-    // 'custom:ResourceArc': (connection) => {
+    // 'RALph:ResourceArc': (connection) => {
     //   return getConnectionPath(connection)
     // },
-    // 'custom:ConsequenceFlow': (connection) => {
-    //   return paths['custom:ResourceArc'](connection)
+    // 'RALph:ConsequenceFlow': (connection) => {
+    //   return paths['RALph:ResourceArc'](connection)
     // },
-    // 'custom:TimeDistance': (connection) => {
-    //   return paths['custom:ResourceArc'](connection)
+    // 'RALph:TimeDistance': (connection) => {
+    //   return paths['RALph:ResourceArc'](connection)
     // },
     'label': (element) => {
       var x = element.x,
@@ -1779,7 +1779,7 @@ inherits(CustomRenderer, BaseRenderer);
 CustomRenderer.$inject = [ 'eventBus', 'styles', 'canvas', 'textRenderer' ];
 
 CustomRenderer.prototype.canRender = function(element) {
-  return (/^custom:/.test(element.type) || element.type === 'label') //|| (/^persons:/.test(element.type) || element.type === 'label') 
+  return (/^RALph:/.test(element.type) || element.type === 'label') //|| (/^persons:/.test(element.type) || element.type === 'label') 
 };
 
 CustomRenderer.prototype.drawShape = function(p, element) {

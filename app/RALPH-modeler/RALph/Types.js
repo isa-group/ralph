@@ -1,105 +1,105 @@
 export const label = [
-    'custom:Resource',
-    'custom:ResourceAbsence',
-    'custom:Role',
-    'custom:RoleAbsence',
-    'custom:Group',
-    'custom:GroupAbsence',
-    'custom:Clock',
-    'custom:TimeSlot',
-    'custom:nyanCat',
-    'custom:Person',
-    'custom:RoleRALph',
-    'custom:Personcap',
-    'custom:Orgunit',
-    'custom:Position',
-    'custom:ResourceArc',
-    'custom:ResourceArc2'
+    'RALph:Resource',
+    'RALph:ResourceAbsence',
+    'RALph:Role',
+    'RALph:RoleAbsence',
+    'RALph:Group',
+    'RALph:GroupAbsence',
+    'RALph:Clock',
+    'RALph:TimeSlot',
+    'RALph:nyanCat',
+    'RALph:Person',
+    'RALph:RoleRALph',
+    'RALph:Personcap',
+    'RALph:Orgunit',
+    'RALph:Position',
+    'RALph:ResourceArc',
+    'RALph:ResourceArc2'
 ]
 
 export const externalLabel = [
-    'custom:Resource',
-    'custom:ResourceAbsence',
-    'custom:Role',
-    'custom:RoleAbsence',
-    'custom:Group',
-    'custom:GroupAbsence',
-    'custom:Clock',
-    'custom:nyanCat',
-    'custom:Person',
-    'custom:RoleRALph',
-    'custom:ResourceArc',
-    'custom:ResourceArc2',
-    'custom:Personcap'
+    'RALph:Resource',
+    'RALph:ResourceAbsence',
+    'RALph:Role',
+    'RALph:RoleAbsence',
+    'RALph:Group',
+    'RALph:GroupAbsence',
+    'RALph:Clock',
+    'RALph:nyanCat',
+    'RALph:Person',
+    'RALph:RoleRALph',
+    'RALph:ResourceArc',
+    'RALph:ResourceArc2',
+    'RALph:Personcap'
     
 ]
 
 export const connections = [
-    'custom:ResourceArc',
-    'custom:ResourceArc2',
+    'RALph:ResourceArc',
+    'RALph:ResourceArc2',
     
-    'custom:ConsequenceFlow',
-    'custom:TimeDistanceArcStart',
-    'custom:TimeDistanceArcEnd',
+    'RALph:ConsequenceFlow',
+    'RALph:TimeDistanceArcStart',
+    'RALph:TimeDistanceArcEnd',
 
-    'custom:negatedAssignment',
-    'custom:solidLine',
-    'custom:solidLineWithCircle',
-    'custom:dashedLine',
-    'custom:dashedLineWithCircle',
+    'RALph:negatedAssignment',
+    'RALph:solidLine',
+    'RALph:solidLineWithCircle',
+    'RALph:dashedLine',
+    'RALph:dashedLineWithCircle',
 
-    'custom:simpleArrow',
-    'custom:doubleArrow'
+    'RALph:simpleArrow',
+    'RALph:doubleArrow'
 ]
 
 export const directEdit = [
-    // 'custom:Resource',
-    // 'custom:Role',
-    // 'custom:Group',
-    'custom:Clock',
-    'custom:TimeSlot',
-    'custom:nyanCat',
-    'custom:Person',
-    'custom:RoleRALph',
-    'custom:Personcap',
-    'custom:Orgunit',
-    'custom:Position',
-    'custom:ResourceArc',
-    'custom:ResourceArc2'
+    // 'RALph:Resource',
+    // 'RALph:Role',
+    // 'RALph:Group',
+    'RALph:Clock',
+    'RALph:TimeSlot',
+    'RALph:nyanCat',
+    'RALph:Person',
+    'RALph:RoleRALph',
+    'RALph:Personcap',
+    'RALph:Orgunit',
+    'RALph:Position',
+    'RALph:ResourceArc',
+    'RALph:ResourceArc2'
 ]
 
 export const resourceArcElements = [
-    /*'custom:Clock',
-    'custom:Resource',
-    'custom:ResourceAbsence',
-    'custom:Role',
-    'custom:RoleAbsence',
-    'custom:Group',
-    'custom:GroupAbsence',
-    'custom:TimeSlot',
-    'custom:nyanCat',*/
-    'custom:Person',
-    'custom:RoleRALph',
-    'custom:Personcap',
-    'custom:Orgunit',
-    'custom:Position'
+    /*'RALph:Clock',
+    'RALph:Resource',
+    'RALph:ResourceAbsence',
+    'RALph:Role',
+    'RALph:RoleAbsence',
+    'RALph:Group',
+    'RALph:GroupAbsence',
+    'RALph:TimeSlot',
+    'RALph:nyanCat',*/
+    'RALph:Person',
+    'RALph:RoleRALph',
+    'RALph:Personcap',
+    'RALph:Orgunit',
+    'RALph:Position'
     
 ]
 
 export const solidLineElements =[//solo linea solida
-    'custom:History-Same',
-    'custom:History-Any',
-    'custom:DelegateTo'
+    'RALph:History-Same',
+    'RALph:History-Any',
+    'RALph:DelegateTo'
 ]
 
 export const HistoryConnectorSameOrPreviousInstanceElements =[//linea solida con punto
-    'custom:History-Same',
-    'custom:History-Any'
+    'RALph:History-Same',
+    'RALph:History-Any'
 ]
 
 export const HistoryConnectorPreviousInstanceElements =[//linea con rayas con punto
-    'custom:History-Same',
-    'custom:History-Any',
+    'RALph:History-Same',
+    'RALph:History-Any',
 ]
 
 
@@ -108,36 +108,36 @@ export const resourceArcElements2 = [
 ]
 
 export const custom = [
-    /*'custom:Clock',
-    'custom:Resource',
-    'custom:ResourceAbsence',
-    'custom:Role',
-    'custom:RoleAbsence',
-    'custom:Group',
-    'custom:GroupAbsence',
-    'custom:TimeSlot',*/
-    'custom:ResourceArc',
-    'custom:ResourceArc2',
-    'custom:ConsequenceFlow',
-    'custom:TimeDistanceArcStart',
-    'custom:TimeDistanceArcEnd',
-    'custom:nyanCat',
-    'custom:Person',
-    'custom:RoleRALph',
-    'custom:Personcap',
-    'custom:Orgunit',
-    'custom:Position',
-    'custom:DelegateTo',
-    'custom:RedCross',
-    'custom:History',
-    'custom:History-Any',
-    'custom:HistoryConnectorActivityInstance',
-    'custom:solidLineWithCircle',
-    'custom:dashedLine',
-    'custom:simpleArrow',
-    'custom:reportsTo',
-    'custom:doubleArrow',
-    'custom:dataField'
+    /*'RALph:Clock',
+    'RALph:Resource',
+    'RALph:ResourceAbsence',
+    'RALph:Role',
+    'RALph:RoleAbsence',
+    'RALph:Group',
+    'RALph:GroupAbsence',
+    'RALph:TimeSlot',*/
+    'RALph:ResourceArc',
+    'RALph:ResourceArc2',
+    'RALph:ConsequenceFlow',
+    'RALph:TimeDistanceArcStart',
+    'RALph:TimeDistanceArcEnd',
+    'RALph:nyanCat',
+    'RALph:Person',
+    'RALph:RoleRALph',
+    'RALph:Personcap',
+    'RALph:Orgunit',
+    'RALph:Position',
+    'RALph:DelegateTo',
+    'RALph:RedCross',
+    'RALph:History',
+    'RALph:History-Any',
+    'RALph:HistoryConnectorActivityInstance',
+    'RALph:solidLineWithCircle',
+    'RALph:dashedLine',
+    'RALph:simpleArrow',
+    'RALph:reportsTo',
+    'RALph:doubleArrow',
+    'RALph:dataField'
     //añadir conexiones aqui también
 ]
 
@@ -145,14 +145,14 @@ export function isCustomShape(type) {
     if (typeof type === 'object')
         type = type.type
 
-    return type.includes('custom:') && !connections.includes(type)
+    return type.includes('RALph:') && !connections.includes(type)
 }
 
 export function isCustomConnection(type) {
     if (typeof type === 'object') {
         type = type.type
     }
-    return type.includes('custom:') && connections.includes(type)
+    return type.includes('RALph:') && connections.includes(type)
 }
 
 export function isCustomResourceArcElement(type) {
@@ -160,7 +160,7 @@ export function isCustomResourceArcElement(type) {
     if (typeof type === 'object') {
         type = type.type
     }
-    /*if (type.type!="custom:Position"){
+    /*if (type.type!="RALph:Position"){
         type=type.type
     }*/
 

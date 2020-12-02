@@ -144,7 +144,7 @@ function copyWaypoints(connection) {
 }
 
 function isCustom(element) {
-  return element && /custom:/.test(element.type);
+  return element && /RALph:/.test(element.type);
 }
 
 function ifCustomElement(fn) {

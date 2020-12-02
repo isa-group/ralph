@@ -47,7 +47,7 @@ CustomElementFactory.prototype.create = function(elementType, attrs) {
 
   if (elementType === 'label')
     return this.baseCreate(elementType, assign({ type: 'label' }, DEFAULT_LABEL_SIZE, attrs));
-  else if (/^custom:/.test(type))
+  else if (/^RALph:/.test(type))
     return this.createCustomElement(elementType, attrs);
   else
     return this.createBpmnElement(elementType, attrs);
@@ -154,22 +154,22 @@ CustomElementFactory.prototype.createCustomElement = function(elementType, attrs
 CustomElementFactory.prototype._getCustomElementSize = function(type) {
   var shapes = {
     __default: { width: 100, height: 80 },
-    'custom:Clock': { width: 50, height: 50 },
-    'custom:TimeSlot': { width: 100, height: 30 },
-    'custom:Resource': { width: 50, height: 75 },
-    'custom:ResourceAbsence': { width: 50, height: 75 },
-    'custom:Role': { width: 50, height: 75 },
-    'custom:RoleAbsence': { width: 50, height: 75 },
-    'custom:Group': { width: 60, height: 80 },
-    'custom:GroupAbsence': { width: 60, height: 80 },
-    'custom:nyanCat':{ width:300, height: 300},
-    'custom:Person':{width: 58, height: 75},
-    'custom:RoleRALph':{width: 51, height: 75},
-    'custom:Personcap':{width:74,height:85},
-    'custom:Orgunit':{width:79,height:56},
-    'custom:Position':{width:99,height:79},
-    'custom:History-Same':{width:36,height:45},
-    'custom:History-Any':{width:54,height:60},
+    'RALph:Clock': { width: 50, height: 50 },
+    'RALph:TimeSlot': { width: 100, height: 30 },
+    'RALph:Resource': { width: 50, height: 75 },
+    'RALph:ResourceAbsence': { width: 50, height: 75 },
+    'RALph:Role': { width: 50, height: 75 },
+    'RALph:RoleAbsence': { width: 50, height: 75 },
+    'RALph:Group': { width: 60, height: 80 },
+    'RALph:GroupAbsence': { width: 60, height: 80 },
+    'RALph:nyanCat':{ width:300, height: 300},
+    'RALph:Person':{width: 58, height: 75},
+    'RALph:RoleRALph':{width: 51, height: 75},
+    'RALph:Personcap':{width:74,height:85},
+    'RALph:Orgunit':{width:79,height:56},
+    'RALph:Position':{width:99,height:79},
+    'RALph:History-Same':{width:36,height:45},
+    'RALph:History-Any':{width:54,height:60},
   };
 
   return shapes[type] || shapes.__default;

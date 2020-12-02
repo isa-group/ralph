@@ -1,7 +1,7 @@
 import {
   assign
 } from 'min-dash';
- import Cat from './cat'
+ import Cat from './SVGs'
 
 /**
  * A palette that allows you to create BPMN _and_ custom elements.
@@ -193,70 +193,39 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
         'bpmn:Group', 'artifact', 'bpmn-icon-group',
         translate('Create Group')
     ),
-    /*
-    'custom-separator': {
-      group: 'custom',
-      separator: true
-    },
-    'custom-clock': createAction(
-        'custom:Clock', 'custom', 'icon-custom-clock'
-    ),
-    'custom-time-slot': createAction(
-        'custom:TimeSlot', 'custom', 'icon-custom-time-slot'
-    ),
-    'custom-resource': createAction(
-        'custom:Resource', 'custom', 'icon-custom-resource'
-    ),
-    'custom-resource-absence': createAction(
-        'custom:ResourceAbsence', 'custom', 'icon-custom-resource-absence'
-    ),
-    'custom-role': createAction(
-        'custom:Role', 'custom', 'icon-custom-role'
-    ),
-    'custom-role-absence': createAction(
-        'custom:RoleAbsence', 'custom', 'icon-custom-role-absence'
-    ),
-    'custom-group': createAction(
-        'custom:Group', 'custom', 'icon-custom-group'
-    ),
-    'custom-group-absence': createAction(
-        'custom:GroupAbsence', 'custom', 'icon-custom-group-absence'
-    ),
-    'custom-nyanCat': createAction(
-      "custom:nyanCat", 'custom', 'icon-custom-nyanCat',null,null, Cat.dataURL2
-    ),*/
+    
     'resources-entities-separator': {
       group: 'resources',
       separator: true
     },
     
-    'custom-Person': createAction(
-      "custom:Person", 'resources', 'icon-custom-person'//,null,null,Cat.dataURLpersonSVG2
+    'RALph-Person': createAction(
+      "RALph:Person", 'resources', 'icon-RALph-person'
     ),
   
-    'custom-Role':createAction(
-      "custom:RoleRALph", 'resources' , 'icon-custom-roleRalph'
+    'RALph-Role':createAction(
+      "RALph:RoleRALph", 'resources' , 'icon-RALph-roleRalph'
     ),
         
-    'custom-Orgunit':createAction(
-      'custom:Orgunit','resources','icom-custom-Orgunit'
+    'RALph-Orgunit':createAction(
+      'RALph:Orgunit','resources','icom-RALph-Orgunit'
     ),
-    'custom-Position':createAction(
-      'custom:Position','resources','icom-custom-Position'
+    'RALph-Position':createAction(
+      'RALph:Position','resources','icom-RALph-Position'
     ),
-    'custom-Personcap':createAction(
-      'custom:Personcap','resources','icom-custom-Personcap'
+    'RALph-Personcap':createAction(
+      'RALph:Personcap','resources','icom-RALph-Personcap'
     ),
     
     'history-based-assignment-separator': {
       group: 'history-based-assignments',
       separator: true
     },
-    'custom-History-Same':createAction(
-      'custom:History-Same','history-based-assignments','icom-custom-Same'
+    'RALph-History-Same':createAction(
+      'RALph:History-Same','history-based-assignments','icom-RALph-Same'
     ),
-    'custom-History-Any':createAction(
-      'custom:History-Any','history-based-assignments','icom-custom-History-Any'
+    'RALph-History-Any':createAction(
+      'RALph:History-Any','history-based-assignments','icom-RALph-History-Any'
     ),
 
 

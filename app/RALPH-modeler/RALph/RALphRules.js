@@ -19,7 +19,7 @@ import {isLabel} from "bpmn-js/lib/util/LabelUtil";
 var HIGH_PRIORITY = 1500;
 
 function isCustom(element) {
-  return element && /^custom:/.test(element.type);
+  return element && /^RALph:/.test(element.type);
 }
 
 function isDefaultValid(element) {
@@ -40,7 +40,7 @@ function isValidForHistoryConnectors(element){
 }
 
 function isValidForResourceEntities(element){
-  return element && (is(element,'custom:Person') || is(element,'custom:RoleRALph') || is(element,'custom:Personcap') || is(element,'custom:Orgunit') || is(element,'custom:Position'))
+  return element && (is(element,'RALph:Person') || is(element,'RALph:RoleRALph') || is(element,'RALph:Personcap') || is(element,'RALph:Orgunit') || is(element,'RALph:Position'))
 }
 
 /**
@@ -60,7 +60,7 @@ function canConnect(source, target, connection) {
 
   // only judge about custom elements
   if (!isCustom(source) && !isCustom(target)) {
-    if(connection === 'custom:ConsequenceFlow') {
+    if(connection === 'RALph:ConsequenceFlow') {
       if(isDefaultValid(source) && isDefaultValid(target))
         return { type: connection }
       else
@@ -69,27 +69,27 @@ function canConnect(source, target, connection) {
     else
       return; // utilizza canConnect standard
   }
-  else if(is(source, 'custom:TimeSlot')) {
+  else if(is(source, 'RALph:TimeSlot')) {
     if(isDefaultValid(target)) {
-      if(connection === 'custom:ConsequenceFlow' || connection === 'custom:TimeDistandEndArc')
+      if(connection === 'RALph:ConsequenceFlow' || connection === 'RALph:TimeDistandEndArc')
         return { type: connection }
       else
         return false
     }
     else
       return false
-  } else if(is(source, 'custom:nyanCat')) {
+  } else if(is(source, 'RALph:nyanCat')) {
     if(isDefaultValid(target)) {
-      if(connection === 'custom:ConsequenceFlow' || connection === 'custom:TimeDistandEndArc')
+      if(connection === 'RALph:ConsequenceFlow' || connection === 'RALph:TimeDistandEndArc')
         return { type: connection }
       else
         return false
     }
     else
       return false
-  }else if(is(source, 'custom:Person')) {
+  }else if(is(source, 'RALph:Person')) {
     if(isDefaultValid(target)) {
-      if(connection === 'custom:ConsequenceFlow' || connection === 'custom:TimeDistandEndArc')
+      if(connection === 'RALph:ConsequenceFlow' || connection === 'RALph:TimeDistandEndArc')
         return { type: connection }
       else
         return false
@@ -98,43 +98,43 @@ function canConnect(source, target, connection) {
       return false
       
   }
-   /*else if(is(target, 'custom:Person')) {
+   /*else if(is(target, 'RALph:Person')) {
         if(isCustom(source)) {
-          if(connection === 'custom:solidLine') // 'custom:ConsequenceFlow' }
+          if(connection === 'RALph:solidLine') // 'RALph:ConsequenceFlow' }
             return { type: connection }
         }
         else
           return false
     }*/
-    else if(is(source, 'custom:Person')) {
+    else if(is(source, 'RALph:Person')) {
         if(isCustom(target)) {
-            if(connection === 'custom:ConsequenceFlow')
+            if(connection === 'RALph:ConsequenceFlow')
               return { type: connection }
         }
         else
           return false    
-  /*}else if(is(target, 'custom:Position')) {
+  /*}else if(is(target, 'RALph:Position')) {
     if(isDefaultValid(source)) {
-      if(connection === 'custom:TimeDistandStartArc')
+      if(connection === 'RALph:TimeDistandStartArc')
         return { type: connection }
       else
-        return { type: 'custom:ResourceArc2'}
+        return { type: 'RALph:ResourceArc2'}
     }
     else
       return false
-  }else if(is(target, 'custom:Orgunit')) {
+  }else if(is(target, 'RALph:Orgunit')) {
     if(isDefaultValid(source)) {
-      if(connection === 'custom:TimeDistandStartArc')
+      if(connection === 'RALph:TimeDistandStartArc')
         return { type: connection }
       else
-        return { type: 'custom:ResourceArc'}
+        return { type: 'RALph:ResourceArc'}
     }
     else
       return false*/
    /*} else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArcElement(source)) || (isDefaultValid(target) && isCustomShape(source) &&  isCustomResourceArcElement(target))){
-      return { type: 'custom:ResourceArc' }
+      return { type: 'RALph:ResourceArc' }
    } else if((isDefaultValid(source) && isCustomShape(target) && isCustomResourceArc2Element(source)) || (isDefaultValid(target) && isCustomShape(source) && isCustomResourceArc2Element(target))){
-      return { type: 'custom:ResourceArc2' }*/
+      return { type: 'RALph:ResourceArc2' }*/
   }else
     return;
 }
@@ -175,52 +175,52 @@ function canConnect2(source, target, connection) {
     }
   }
 
-  if(connection === 'custom:negatedAssignment' && cond === true){
+  if(connection === 'RALph:negatedAssignment' && cond === true){
     if(isValidForResourceEntities(source) && is(target, 'bpmn:Task')){
       return { type: connection }
     }
   }
 
-  if(connection === 'custom:ResourceArc' && cond === true){//if the connection is resourceArc, if source and target have not been connected previously
+  if(connection === 'RALph:ResourceArc' && cond === true){//if the connection is resourceArc, if source and target have not been connected previously
     //check if the target is one of the possible targets of resourceArc (Orgunit,role,task...etc)
-    if( ( is(target, 'custom:Orgunit') && is(source,'custom:RoleRALph')) || is(target, 'bpmn:Task') || is(target, 'bpmn:Event') || is(target,'bpmn:DataObjectReference') || is(target,'bpmn:ExclusiveGateway') || is(target,'bpmn:EndEvent') || is(target,'bpmn:DataStoreReference')){
+    if( ( is(target, 'RALph:Orgunit') && is(source,'RALph:RoleRALph')) || is(target, 'bpmn:Task') || is(target, 'bpmn:Event') || is(target,'bpmn:DataObjectReference') || is(target,'bpmn:ExclusiveGateway') || is(target,'bpmn:EndEvent') || is(target,'bpmn:DataStoreReference')){
     return { type: connection }
     }
   }
 
 
-  if(connection === 'custom:solidLine' && cond === true){
+  if(connection === 'RALph:solidLine' && cond === true){
     if(isValidForHistoryConnectors(target) === true){//check if the target is in the list of valid targets for history connectors.
       return { type: connection }
     }
   }
 
-  if(connection === 'custom:solidLineWithCircle' && cond === true) {
+  if(connection === 'RALph:solidLineWithCircle' && cond === true) {
     if(isValidForHistoryConnectors(target)){
       return { type: connection }
     }
   }
 
-  if(connection === 'custom:dashedLine' && cond === true){
+  if(connection === 'RALph:dashedLine' && cond === true){
     if(isValidForHistoryConnectors(target)){
       return { type: connection }
     }
   }
 
-  if(connection === 'custom:dashedLineWithCircle' && cond === true){
+  if(connection === 'RALph:dashedLineWithCircle' && cond === true){
     if(isValidForHistoryConnectors(target)){
       return { type: connection }
     }
   }
 
-  else if(connection === 'custom:TimeDistanceArcStart') {
-    if(isDefaultValid(source) && is(target, 'custom:TimeSlot'))
+  else if(connection === 'RALph:TimeDistanceArcStart') {
+    if(isDefaultValid(source) && is(target, 'RALph:TimeSlot'))
       return { type: connection }
     else
       return false
   }
-  else if(connection === 'custom:TimeDistanceArcEnd') {
-    if(isDefaultValid(target) && is(source, 'custom:TimeSlot'))
+  else if(connection === 'RALph:TimeDistanceArcEnd') {
+    if(isDefaultValid(target) && is(source, 'RALph:TimeSlot'))
       return { type: connection }
     else
       return false
@@ -254,40 +254,40 @@ CustomRules.prototype.init = function() {
 
   function canConnectMultiple(source, target, type) {
     if (is(source, 'bpmn:Task') && is(target, 'bpmn:Task')) {
-      if(type === 'custom:ConsequenceTimedFlow')//aqui parece definir la conexion compleja
-        return {type1: 'custom:ResourceArc', type2:'custom:ConsequenceFlow'}
-      else if(type === 'custom:TimeDistance')
-        return {type1: 'custom:TimeDistanceArcStart', type2:'custom:TimeDistanceArcEnd'}
+      if(type === 'RALph:ConsequenceTimedFlow')//aqui parece definir la conexion compleja
+        return {type1: 'RALph:ResourceArc', type2:'RALph:ConsequenceFlow'}
+      else if(type === 'RALph:TimeDistance')
+        return {type1: 'RALph:TimeDistanceArcStart', type2:'RALph:TimeDistanceArcEnd'}
     }
   }
 
   function canConnectMultipleCustomElement(source, target) {
-      if( is(source,'custom:Position') && is(target,'bpmn:Task') ) { 
-        return {type3: 'custom:solidLine' , type4: 'custom:simpleArrow' }
-      }else if( is(source,'bpmn:Task') && is(target,'custom:Position')  ){
-        return {type5: 'custom:solidLine' , type6:'custom:doubleArrow'} //'custom:reportsTo' }
-      }else if( is(source,'bpmn:DataObjectReference') && is(target,'custom:Person')  ){
-        return {type7:'custom:ResourceArc', type8:'custom:simpleArrow'}
+      if( is(source,'RALph:Position') && is(target,'bpmn:Task') ) { 
+        return {type3: 'RALph:solidLine' , type4: 'RALph:simpleArrow' }
+      }else if( is(source,'bpmn:Task') && is(target,'RALph:Position')  ){
+        return {type5: 'RALph:solidLine' , type6:'RALph:doubleArrow'} //'RALph:reportsTo' }
+      }else if( is(source,'bpmn:DataObjectReference') && is(target,'RALph:Person')  ){
+        return {type7:'RALph:ResourceArc', type8:'RALph:simpleArrow'}
      }
   }
   function canReconnect(source, target, connection) {
     if(!isCustom(connection) && !isCustom(source) && !isCustom(target))
       return;
     else {
-      if(connection.type === 'custom:ConsequenceFlow') {
+      if(connection.type === 'RALph:ConsequenceFlow') {
         if(!isCustom(source) && !isCustom(target))
           return { type: connection.type }
-        else if(is(source, 'custom:TimeSlot') && !isCustom(target))
+        else if(is(source, 'RALph:TimeSlot') && !isCustom(target))
           return { type: connection.type }
         else
           return false
       }
-      /*else if(connection.type === 'custom:ResourceArc') {
+      /*else if(connection.type === 'RALph:ResourceArc') {
         if((!isCustom(source) && isCustomShape(target)) || (isCustomShape(source) && !isCustom(target)))
           return { type: connection.type }
         else
           return;
-      }else if(connection.type === 'custom:ResourceArc2') {//en duda
+      }else if(connection.type === 'RALph:ResourceArc2') {//en duda
         if((!isCustom(source) && isCustomShape(target)) || (isCustomShape(source) && !isCustom(target)))
           return { type: connection.type }
         else
@@ -347,8 +347,8 @@ CustomRules.prototype.init = function() {
     var source = context.source,
         target = context.target,
         type = context.type;
-    //if(source === "custom:Position" && target === "bpmn:Task")
-    if(type === 'custom:Delegate' || type==='custom:Report' || type==='custom:dataFieldConnection')
+    //if(source === "RALph:Position" && target === "bpmn:Task")
+    if(type === 'RALph:Delegate' || type==='RALph:Report' || type==='RALph:dataFieldConnection')
       return canConnectMultipleCustomElement(source,target)
 
     return canConnect2(source, target, type);
