@@ -4,7 +4,7 @@ import BpmnModeler from 'bpmn-js/lib/Modeler';
 
 import pizzaDiagram from '../resources/diag.bpmn';
 
-import CustomModeler from './custom-modeler';
+import RALphModeler from './RALPH-modeler';
 
 import BpmnModdle from 'bpmn-moddle';
 //import custom from './custom-elements2.json'
@@ -14,7 +14,7 @@ var moddle = new BpmnModdle();
 var container = $('#js-drop-zone');
 let body =$('body')
 
-var modeler = new CustomModeler({
+var modeler = new RALphModeler({
   container: '#js-canvas',
   keyboard: {
     bindTo: document

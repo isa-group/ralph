@@ -7,11 +7,11 @@ import {
 
 import inherits from 'inherits';
 
-import {isCustomConnection} from "./custom/Types";
+import {isCustomConnection} from "./RALph/Types";
 
-import CustomModule from './custom';
-import {isLabelExternal, getExternalLabelBounds} from "./custom/utils/LabelUtil";
-import {getLabel} from "./custom/utils/LabelUtil";
+import CustomModule from './RALph';
+import {isLabelExternal, getExternalLabelBounds} from "./RALph/utils/LabelUtil";
+import {getLabel} from "./RALph/utils/LabelUtil";
 
 
 export default function CustomModeler(options) {
