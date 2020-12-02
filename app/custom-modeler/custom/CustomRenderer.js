@@ -1145,6 +1145,17 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       return svgAppend(p, createLine(element.waypoints, attrs));
       //return svgAppend(p, drawCrossedLine(element.waypoints,attrs))
     },
+    'custom:simpleArrow':(p, element)=>{
+      var attrs = {
+        strokeLinejoin: 'round',
+        markerEnd: marker('sequenceflow-end', 'white', element.color),
+        stroke: element.color || BLACK,
+        strokeWidth: 0.5,
+        //strokeDasharray: [8,5]
+      };
+
+      return svgAppend(p, createLine(element.waypoints, attrs));
+    },
     
     'custom:solidLine':(p,element)=>{
       var attrs = {
