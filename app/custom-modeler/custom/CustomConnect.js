@@ -121,6 +121,24 @@ export default function CustomConnect(eventBus, dragging, modeling, rules) {
                 modeling.connect(newShape, target, attrs, hints);
                 return;
 
+            }else if(canExecute.type7){
+                let shape = elementFactory.createShape({ type: 'custom:dataField' });
+                let pos = {
+                    x: (sourcePosition.x + targetPosition.x)/2,
+                    y: (sourcePosition.y + targetPosition.y)/2,
+                }
+                let newShape = modeling.appendShape(source, shape, pos, source.parent, {
+                    connection: { type: canExecute.type7}
+                });
+
+                hints = {
+                    connectionStart: pos,
+                    connectionEnd: targetPosition
+                }
+                attrs = { type: canExecute.type8}
+                modeling.connect(newShape, target, attrs, hints);
+                return;
+
             }
             else
                 attrs = canExecute;

@@ -136,7 +136,8 @@ export const custom = [
     'custom:dashedLine',
     'custom:simpleArrow',
     'custom:reportsTo',
-    'custom:doubleArrow'
+    'custom:doubleArrow',
+    'custom:dataField'
     //añadir conexiones aqui también
 ]
 

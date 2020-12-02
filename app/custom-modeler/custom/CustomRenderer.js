@@ -553,6 +553,19 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return  catGfx;
   }
 
+  function drawDataField(shape){
+
+    var catGfx = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataField
+    });
+
+    return  catGfx;
+  }
+
   function drawReportsTo(shape){
 
     var catGfx = svgCreate('image', {
@@ -1119,20 +1132,15 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     },
 
-    'custom:ResourceArc2': (p, element) => {
-      var attrs = computeStyle(attrs, {
-        stroke: COLOR_RED,
-        strokeWidth: 1.5
-        /*strokeWidth: 1.5,
-        strokeDasharray: [10,7]*/
-      });
-      
-      return svgAppend(p, createLine(element.waypoints, attrs));
+    'custom:dataField':(p,element)=>{
+      let dataField=drawDataField(element);
 
+      svgAppend(p,dataField);
 
-    },  
-    
-    'custom:negatedAssignment': (p, element) => {
+      return dataField;
+
+    },
+      'custom:negatedAssignment': (p, element) => {
       var points=element.waypoints;
       var p1=points[0]
       var x = p1.x

@@ -266,9 +266,10 @@ CustomRules.prototype.init = function() {
         return {type3: 'custom:solidLine' , type4: 'custom:simpleArrow' }
       }else if( is(source,'bpmn:Task') && is(target,'custom:Position')  ){
         return {type5: 'custom:solidLine' , type6:'custom:doubleArrow'} //'custom:reportsTo' }
-      }
+      }else if( is(source,'bpmn:dataRefenceObject') && is(target,'custom:Person')  ){
+        return {type5: 'custom:solidLine' , type6:'custom:doubleArrow'}
+     }
   }
-
   function canReconnect(source, target, connection) {
     if(!isCustom(connection) && !isCustom(source) && !isCustom(target))
       return;
