@@ -55,7 +55,8 @@ export default function CustomRules(eventBus) {
 
 inherits(CustomRules, RuleProvider);
 
-CustomRules.$inject = [ 'eventBus','elementRegistry' ];
+CustomRules.$inject = [ 'eventBus',
+                        'elementRegistry' ];
 
 function canConnect(source, target, connection) {
 
@@ -144,71 +145,33 @@ function giveHistory(){
     return historyConnectors;
 }
 
-function updateHistoryConnectors(connection){
-  historyConnectors.push(connection);
-}
 
+function canConnect2(source, target, connection,historyConnectors) {
+  //console.log(target);
+  //console.log(source);
 
-function isInList(source2,target2,list){
+  var sourceOutgoingConnections=source.outgoing;
+  console.log(sourceOutgoingConnections);
+ 
   let cond=true;
 
-    var sourceTarget=source2.id+target2.id;
+  if(target!==null){
     
-      for (var i=0; i < list.length; i++) {
+    var targetIncomingConnections=target.incoming;
+    console.log(targetIncomingConnections);
 
-        var listElement=list[i];
-        var similarity=listElement.localeCompare(sourceTarget);
-
-          if( similarity === 0 ){
-              cond=false;
-          }
+    for(let i of sourceOutgoingConnections){
+      if(targetIncomingConnections.includes(i)){
+        cond=false;
       }
+    }
 
-  return cond;
-
-}
-
-
-function canConnect2(source, target, connection,historyConnectors,elementRegistry) {
-
-  
-  var source2=getBusinessObject(source);//source.businessObject;
-  var target2=getBusinessObject(target);
-  /*
-  var activityShapeSource = customModeler.get('elementRegistry').get(source2.id);//elementRegistry.get(source2.id);
-
-  var outgoing = activityShapeSource.outgoing;
-  var incoming = activityShapeSource.incoming;
-
-  var activityShapeTarget = customModeler.get('elementRegistry').get(target2.id);
-
-  var outgoing2 = activityShapeTarget.outgoing;
-  var incoming2 = activityShapeTarget.incoming;
-  */
+  }
 
   if (nonExistingOrLabel(source) || nonExistingOrLabel(target)) {
     return null;
   }
-  /*if(connection === 'custom:ConsequenceFlow') {
-    if(isDefaultValid(source) && isDefaultValid(target))
-      return { type: connection }
-    else if(is(source, 'custom:TimeSlot') && isDefaultValid(target))
-      return { type: connection }
-    else
-      return false
-  }*/
-  let cond=true;
 
-  //if(target.incoming!=source.)
-
-  /*if(target.id !== undefined && historyConnectors.length>1){
-    cond=isInList(source2,target2,historyConnectors)
-  }*/
-
-  if(target.id !== undefined && resourceEntities.length>1){
-    cond=isInList(source2,target2,resourceEntities)
-  }
-  
   if(connection ===  'bpmn:DataOutputAssociation'){
     if( is(target, 'bpmn:DataObjectReference') && is(source,'bpmn:Task') ){
         return { type: connection}
@@ -217,15 +180,12 @@ function canConnect2(source, target, connection,historyConnectors,elementRegistr
 
   if(connection === 'custom:negatedAssignment' && cond === true){
     if(isValidForResourceEntities(source) && is(target, 'bpmn:Task')){
-      resourceEntities.push(source2.id+target2.id);
       return { type: connection }
     }
   }
 
-  if(connection === 'custom:ResourceArc'){
-    var element=target;
-    if( ( is(target, 'custom:Orgunit') && is(source,'custom:RoleRALph')) || is(target, 'bpmn:Task') || is(target, 'bpmn:Event') || is(target,'bpmn:DataObjectReference') || is(target,'bpmn:ExclusiveGateway') || is(target,'bpmn:EndEvent') || is(target,'bpmn:DataStoreReference')){ //||  ) )
-    resourceEntities.push(source2.id+target2.id);
+  if(connection === 'custom:ResourceArc' && cond === true){
+    if( ( is(target, 'custom:Orgunit') && is(source,'custom:RoleRALph')) || is(target, 'bpmn:Task') || is(target, 'bpmn:Event') || is(target,'bpmn:DataObjectReference') || is(target,'bpmn:ExclusiveGateway') || is(target,'bpmn:EndEvent') || is(target,'bpmn:DataStoreReference')){
     return { type: connection }
     }
   }
@@ -233,8 +193,6 @@ function canConnect2(source, target, connection,historyConnectors,elementRegistr
 
   if(connection === 'custom:solidLine' && cond === true){
     if(isValidForHistoryConnectors(target) === true){
-      console.log(source2)
-      historyConnectors.push(source2.id+target2.id);
       return { type: connection }
     }
   }
@@ -242,21 +200,18 @@ function canConnect2(source, target, connection,historyConnectors,elementRegistr
   //historyConnectors.forEach(function(element) {if (element === [source,target]){cond=false } } ) === true)
   if(connection === 'custom:solidLineWithCircle' && cond === true) {
     if(isValidForHistoryConnectors(target)){
-      historyConnectors.push(source2.id+target2.id);
       return { type: connection }
     }
   }
 
   if(connection === 'custom:dashedLine' && cond === true){
     if(isValidForHistoryConnectors(target)){
-      historyConnectors.push(source2.id+target2.id);
       return { type: connection }
     }
   }
 
   if(connection === 'custom:dashedLineWithCircle' && cond === true){
     if(isValidForHistoryConnectors(target)){
-      historyConnectors.push(source2.id+target2.id);
       return { type: connection }
     }
   }
