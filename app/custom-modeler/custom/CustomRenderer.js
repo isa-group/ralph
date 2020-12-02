@@ -1630,6 +1630,29 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ]
 
       return componentsToPath(d);
+      
+    },'custom:dataField':(element)=>{
+      var x = element.x,
+      y = element.y,
+      width = element.width,
+      height = element.height,
+      borderRadius=30;
+    
+      var d = [
+        ['M', x + borderRadius, y],
+        ['l', width - borderRadius * 2, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+        ['l', 0, height - borderRadius * 2],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+        ['l', borderRadius * 2 - width, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+        ['l', 0, borderRadius * 2 - height],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+        ['z']
+    ];
+
+      return componentsToPath(d);
+
     },
     'custom:Resource': (element) => {
       var x = element.x,
