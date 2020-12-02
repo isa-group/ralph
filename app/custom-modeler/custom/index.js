@@ -1,14 +1,14 @@
-import CustomContextPadProvider from './CustomContextPadProvider';
-import CustomElementFactory from './CustomElementFactory';
-import CustomOrderingProvider from './CustomOrderingProvider';
-import CustomPalette from './CustomPalette';
-import CustomRenderer from './CustomRenderer';
-import CustomRules from './CustomRules';
-import CustomUpdater from './CustomUpdater';
-import CustomLabelEditingProvider from "./CustomLabelEdingProvider";
-import CustomModeling from "./CustomModeling";
-import CustomConnect from "./CustomConnect";
-import CustomReplaceConnectionBehavior from "./behaviour/ReplaceConnectionBehaviour";
+import RALphContextPadProvider from './RALphContextPadProvider';
+import RALphElementFactory from './RALphElementFactory';
+import RALphOrderingProvider from './RALphOrderingProvider';
+import RALphPalette from './RALphPalette';
+import RALphRenderer from './RALphRenderer';
+import RALphRules from './RALphRules';
+import RALphUpdater from './RALphUpdater';
+import RALphLabelEditingProvider from "./RALphLabelEdingProvider";
+import RALphModeling from "./RALphModeling";
+import RALphConnect from "./RALphConnect";
+import RALphReplaceConnectionBehavior from "./behaviour/ReplaceConnectionBehaviour";
 
 export default {
   __init__: [
@@ -23,15 +23,15 @@ export default {
     'connect',
     'replaceConnectionBehavior'
   ],
-  contextPadProvider: [ 'type', CustomContextPadProvider ],
-  customOrderingProvider: [ 'type', CustomOrderingProvider ],
-  customRenderer: [ 'type', CustomRenderer ],
-  customRules: [ 'type', CustomRules ],
-  customUpdater: [ 'type', CustomUpdater ],
-  elementFactory: [ 'type', CustomElementFactory ],
-  paletteProvider: [ 'type', CustomPalette ],
-  customLabelEditingProvider: [ 'type', CustomLabelEditingProvider ],
-  modeling: [ 'type', CustomModeling ],
-  connect: [ 'type', CustomConnect],
-  replaceConnectionBehavior: [ 'type', CustomReplaceConnectionBehavior],
+  contextPadProvider: [ 'type', RALphContextPadProvider ],
+  customOrderingProvider: [ 'type', RALphOrderingProvider ],
+  customRenderer: [ 'type', RALphRenderer ],
+  customRules: [ 'type', RALphRules ],
+  customUpdater: [ 'type', RALphUpdater ],
+  elementFactory: [ 'type', RALphElementFactory ],
+  paletteProvider: [ 'type', RALphPalette ],
+  customLabelEditingProvider: [ 'type', RALphLabelEditingProvider ],
+  modeling: [ 'type', RALphModeling ],
+  connect: [ 'type', RALphConnect],
+  replaceConnectionBehavior: [ 'type', RALphReplaceConnectionBehavior],
 };
