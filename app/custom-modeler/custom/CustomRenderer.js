@@ -685,6 +685,19 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return drawPath(p, pathData, attrs);
   }
 
+  function drawCanDelegate(shape){
+
+    var delegate = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataCanDelegate
+    });
+
+    return delegate;
+  }
+
   var renderers = this.renderers = {
     'custom:TimeSlot': (p, element) => {
       let polygon = drawTimeSlot(element.width, element.height, element.color)
@@ -755,7 +768,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     },'custom:DelegateTo':(p,element)=>{
       let delegate=drawDelegateTo(element)
-
+      
       svgAppend(p,delegate)
       return delegate;
     },
