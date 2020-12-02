@@ -133,7 +133,8 @@ export const custom = [
     'custom:HistoryConnectorActivityInstance',
     'custom:solidLineWithCircle',
     'custom:dashedLine',
-    'custom:simpleArrow'
+    'custom:simpleArrow',
+    'custom:reportsTo'
     //añadir conexiones aqui también
 ]
 

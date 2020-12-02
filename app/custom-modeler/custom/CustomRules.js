@@ -265,7 +265,7 @@ CustomRules.prototype.init = function() {
       if( is(source,'custom:Position') && is(target,'bpmn:Task') ) { 
         return {type3: 'custom:solidLine' , type4: 'custom:simpleArrow' }
       }else if( is(source,'bpmn:Task') && is(target,'custom:Position')  ){
-        return {type3: 'custom:solidLine' , type4:'custom:reportsTo'} //'custom:reportsTo' }
+        return {type5: 'custom:solidLine' , type6:'custom:doubleArrow'} //'custom:reportsTo' }
       }
   }
 

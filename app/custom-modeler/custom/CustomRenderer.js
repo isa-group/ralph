@@ -553,6 +553,19 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return  catGfx;
   }
 
+  function drawReportsTo(shape){
+
+    var catGfx = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataReports
+    });
+
+    return  catGfx;
+  }
+
   function drawPosition(shape){
 
     var pos = svgCreate('image', {
@@ -771,8 +784,14 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       
       svgAppend(p,delegate)
       return delegate;
-    },
-    'custom:Clock': (p, element) => {
+
+    },'custom:reportsTo':(p,element)=>{
+      let report = drawReportsTo(element);
+
+      svgAppend(p,report)
+      return report;
+
+    },'custom:Clock': (p, element) => {
       console.log(element)
       var attrs = computeStyle(attrs, {
         stroke: element.color,
@@ -1209,16 +1228,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     },
-    'custom:reportsTo': (p,element)=>{
-      var attrs = {
-        strokeLinejoin: 'round',
-        markerEnd: marker('doubleArrow', 'white', element.color),
-        stroke: element.color || BLACK,
-        strokeWidth: 0.5,
-      };
-
-      return svgAppend(p, createLine(element.waypoints, attrs));
-    },
     'custom:TimeDistanceArcStart': (p, element) => {
       var attrs = {
         markerStart: marker('timedistance-start', 'white', element.color),
@@ -1391,6 +1400,28 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
 
     },'custom:DelegateTo':(element)=>{
+      var x = element.x,
+          y = element.y,
+          width = element.width,
+          height = element.height,
+          borderRadius=20;
+      
+      var d = [
+        ['M', x + borderRadius, y],
+        ['l', width - borderRadius * 2, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+        ['l', 0, height - borderRadius * 2],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+        ['l', borderRadius * 2 - width, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+        ['l', 0, borderRadius * 2 - height],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+        ['z']
+      ];
+
+      return componentsToPath(d);
+    },
+    'custom:reportsTo':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,

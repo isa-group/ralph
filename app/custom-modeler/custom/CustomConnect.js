@@ -103,21 +103,21 @@ export default function CustomConnect(eventBus, dragging, modeling, rules) {
                 modeling.connect(newShape, target, attrs, hints);
                 return;
 
-            }else if(canExecute.type7){
-                let shape = elementFactory.createShape({ type: 'custom:RedCross' });
+            }else if(canExecute.type5){
+                let shape = elementFactory.createShape({ type: 'custom:reportsTo' });
                 let pos = {
                     x: (sourcePosition.x + targetPosition.x)/2,
                     y: (sourcePosition.y + targetPosition.y)/2,
                 }
                 let newShape = modeling.appendShape(source, shape, pos, source.parent, {
-                    connection: { type: canExecute.type3}
+                    connection: { type: canExecute.type5}
                 });
 
                 hints = {
                     connectionStart: pos,
                     connectionEnd: targetPosition
                 }
-                attrs = { type: canExecute.type8}
+                attrs = { type: canExecute.type6}
                 modeling.connect(newShape, target, attrs, hints);
                 return;
 
