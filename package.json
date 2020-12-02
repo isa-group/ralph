@@ -40,11 +40,12 @@
   },
   "dependencies": {
     "bpmn-js": "^5.1.1",
+    "bpmn-moddle": "latest",
+    "camunda-bpmn-moddle": "^4.4.1",
     "diagram-js": "^5.1.1",
-    "jquery": "^3.4.1",
-    "tiny-svg": "latest",
-    "min-dash": "latest",
     "inherits": "latest",
-    "bpmn-moddle": "latest"
+    "jquery": "^3.4.1",
+    "min-dash": "latest",
+    "tiny-svg": "latest"
   }
 }

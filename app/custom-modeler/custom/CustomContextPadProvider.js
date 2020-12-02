@@ -14,7 +14,7 @@ import {
 } from 'min-dash';
 import {isLabel} from "./utils/LabelUtil";
 
-import {resourceArcElements,resourceArcElements2,HistoryConnectorActivityInstanceElements,HistoryConnectorSameOrPreviousInstanceElements,HistoryConnectorPreviousInstanceElements} from "./Types";
+import {resourceArcElements,resourceArcElements2,solidLineElements,HistoryConnectorSameOrPreviousInstanceElements,HistoryConnectorPreviousInstanceElements} from "./Types";
 
 
 export default function CustomContextPadProvider(config, injector, elementFactory, connect, create, translate) {
@@ -122,13 +122,13 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         assign(actions, {
             'connect1': appendConnectAction(
                 'custom:ResourceArc',
-                'bpmn-icon-connection-multi',
-                'Connect using ResourceArc'
+                'icom-custom-solidLineTest2',
+                'Connect using simple resource assignment'
             ),
             
             'connect2': appendConnectAction(
                     'custom:negatedAssignment',
-                    'bpmn-icon-connection-multi',
+                    'icom-custom-negated2',//'icom-custom-Negated',
                     'Connect using negated connection'
                 )
         });
@@ -138,7 +138,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         assign(actions, {
             'connectPos': appendConnectAction(
                 'custom:Delegate',
-                'bpmn-icon-connection-multi',
+                'icom-custom-DelegateTest',
                 'Connect using delegate'
             ),
         });
@@ -177,46 +177,41 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         });
     }
 
-    if(isAny(businessObject,HistoryConnectorActivityInstanceElements) && element.type !== 'label') {
+    if(isAny(businessObject,solidLineElements) && element.type !== 'label') {
         assign(actions, {
             'connect1': appendConnectAction(
-                'custom:HistoryConnectorActivityInstance',
-                'bpmn-icon-connection-multi',
-                'Connect using connector of same instance'
+                'custom:solidLine',
+                'icom-custom-solidLineTest2',//'icom-custom-SolidLine',
+                'Connect using a solid line'
             ),'connect2': appendConnectAction(
-                'custom:HistoryConnectorSameOrPreviousInstance',
-                'bpmn-icon-connection-multi',
-                'Connect using connector of same or previous instance'
+                'custom:solidLineWithCircle',
+                'icom-custom-solidLineWithCircleTest2',
+                'Connect using a solid line with a circle'
             ),'connect3': appendConnectAction(
-                'custom:HistoryConnectorPreviousInstance',
-                'bpmn-icon-connection-multi',
-                'Connect using connector of previous instance'
+                'custom:dashedLine',
+                'icom-custom-dashedLineTest',//'icom-custom-dashedLine2',
+                'Connect using a dashed line'
+            ),'connect4': appendConnectAction(
+                'custom:dashedLineWithCircle',
+                'icom-custom-dashedLineWithCircle',//'bpmn-icon-connection-multi',
+                'Connect using a dashed line with circle'
             )
         });
     }
 
-    if(is(businessObject, 'bpmn:BaseElement') && element.type !== 'label') {
+    if(is(businessObject, 'bpmn:Task') && element.type !== 'label') {
         assign(actions, {
             'connect4': appendConnectAction(
                 'custom:Report',
-                'bpmn-icon-connection-multi',
+                'icom-custom-ReportTest',//'bpmn-icon-connection-multi',
                 'Connect using report connection'
-            ),/*
-            'connect1': appendConnectAction(
-                'custom:ConsequenceFlow',
-                'bpmn-icon-connection-multi',
-                'Connect using custom connection'
             ),
-            'connect2': appendConnectAction(
-                'custom:ConsequenceTimedFlow',
-                'bpmn-icon-connection-multi',
-                'Connect using custom connection 2'
-            ),
-            'connect3': appendConnectAction(
-                'custom:TimeDistance',
-                'bpmn-icon-connection-multi',
-                'Connect using custom connection 3'
-            ),*/
+            'connect5': appendConnectAction(
+                'bpmn:DataOutputAssociation',
+                'bpmn-icon-connection-multi',//'bpmn-icon-connection-multi',
+                'Connect using data output association'
+            )
+            
         });
     }
 

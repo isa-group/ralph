@@ -38,6 +38,101 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
   var markers = {};
 
+  function toSVGPoints(points) {
+    var result = '';
+  
+    for (var i = 0, p; (p = points[i]); i++) {
+      result += p.x + ',' + p.y + ' ';
+    }
+  
+    return result;
+  }
+
+
+
+  function drawCrossedLine(points,attrs){
+    var line = svgCreate('polyline');
+    var result='';//toSVGPoints(points)
+
+    /*if(points[0].y===points[1].y){
+    //result +=(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
+    
+      result +=(points[0].x + parseInt(points[1].x-points[0].x)/4).toString()+ ',' + (parseInt(points[0].y)+20).toString()+ ','+(points[0].x + parseInt(points[1].x-points[0].x)*3/4).toString()+ ',' + (parseInt(points[0].y)-20).toString();
+      svgAttr(line, {points: result });
+
+    }else if(points[0].x===points[1].x){
+  
+      result +=(points[0].x + 20).toString()+ ',' + (parseInt(points[0].y + parseInt(points[1].y-points[0].y)/4)).toString()+ ','+(points[0].x -20).toString()+ ',' + (points[0].y + parseInt(points[1].y-points[0].y)*3/4).toString();
+      svgAttr(line, {points: result });
+
+    }else{*/
+
+      var middlePosition=points.length/2;
+      middlePosition=Math.round(middlePosition)
+
+      var middlePointX=(points[middlePosition].x+points[middlePosition-1].x)/2;
+      var middlePointY=(points[middlePosition].y+points[middlePosition-1].y)/2;
+      result +=(middlePointX-20).toString()+ ',' + (middlePointY+20).toString()+ ','+(middlePointX+20).toString()+ ',' +  parseInt(middlePointY-20).toString();
+      //result +=(middlePointX).toString()+ ',' + (middlePointY+5).toString()+ ','+(middlePointX).toString()+ ',' +  parseInt(middlePointY-5).toString();
+      svgAttr(line, {points: result });
+
+    //}
+
+
+    if (attrs) {
+      svgAttr(line, attrs);
+    }
+
+
+    return line
+  }
+
+
+  function drawCrossedLine2(points,attrs){
+
+    var line = svgCreate('polyline');
+    var result='';
+    //result +=(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
+    /*if(points[0].y === points[1].y){
+    
+      result +=(points[0].x + parseInt(points[1].x-points[0].x)*3/4).toString()+ ',' + (parseInt(points[0].y)+20).toString()+ ','+(points[0].x + parseInt(points[1].x-points[0].x)/4).toString()+ ',' + (parseInt(points[0].y)-20).toString();
+      svgAttr(line, {points: result });
+
+    }else if(points[0].x === points[1].x){
+
+      result +=(parseInt(points[0].x)+20).toString()+ ',' + (points[0].y + parseInt(points[1].y-points[0].y)*3/4).toString()+ ','+(parseInt(points[0].x) -20).toString()+ ',' + (points[0].y + parseInt(points[1].y-points[0].y)/4).toString();
+      svgAttr(line, {points: result });
+  }else{*/
+      var middlePosition;
+
+      middlePosition=points.length/2;
+      middlePosition=Math.round(middlePosition)
+
+      var middlePointX=(points[middlePosition].x+points[middlePosition-1].x)/2;
+      var middlePointY=(points[middlePosition].y+points[middlePosition-1].y)/2;
+
+      //result +=(middlePointX+5).toString()+ ',' + (middlePointY+5).toString()+ ','+(middlePointX-5).toString()+ ',' +  parseInt(middlePointY-5).toString();
+      //result +=(middlePointX+5).toString()+ ',' + (middlePointY).toString()+ ','+(middlePointX-5).toString()+ ',' +  parseInt(middlePointY).toString();
+      result +=(middlePointX+20).toString()+ ',' + (middlePointY+20).toString()+ ','+(middlePointX-20).toString()+ ',' +  parseInt(middlePointY-20).toString();
+      svgAttr(line, {points: result });
+
+  //}
+    
+
+   /*
+   var path=svgCreate('path')
+   svgAttr(path, {
+    d: componentsToPath(d)
+   });
+   */
+
+    if (attrs) {
+      svgAttr(line, attrs);
+    }
+
+    return line
+  }
+
   function renderLabel(parentGfx, label, options) {
     options = assign({
       size: {
@@ -53,12 +148,11 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     return text;
   }
-  
 
   function renderEmbeddedLabel(parentGfx, element, align) {
     var semantic = getSemantic(element);
 
-    return renderLabel(parentGfx, semantic.text, {
+    return renderLabel(parentGfx,semantic.text, {
       box: element,
       align: align,
       padding: 5,
@@ -149,17 +243,17 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return str.replace(/[()\s,#]+/g, '_');
   }
 
-  function marker(type, fill, stroke) {
+  function marker(type, fill, stroke,x,y) {
     var id = type + '-' + colorEscape(fill) + '-' + colorEscape(stroke) + '-' + rendererId;
 
     if (!markers[id]) {
-      createMarker(id, type, fill, stroke);
+      createMarker(id, type, fill, stroke,x,y);
     }
 
     return 'url(#' + id + ')';
   }
 
-  function createMarker(id, type, fill, stroke) {
+  function createMarker(id, type, fill, stroke,x,y,x2,y2) {
 
     if (type === 'sequenceflow-end') {
       var sequenceflowEnd = svgCreate('path');
@@ -168,7 +262,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       addMarker(id, {
         element: sequenceflowEnd,
         ref: { x: 11, y: 10 },
-        scale: 0.5,
+        scale: 1.5,
         attrs: {
           fill: stroke,
           stroke: stroke
@@ -226,7 +320,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     if (type === 'history-source-another-start') {
       var messageflowStart = svgCreate('circle');
-      svgAttr(messageflowStart, { cx: 6, cy: 6, r: 3.5 });
+      svgAttr(messageflowStart, { cx: 6, cy: 6, r: 5.5 });
 
       addMarker(id, {
         element: messageflowStart,
@@ -234,7 +328,8 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
           fill:WHITE,
           stroke: stroke
         },
-        ref: { x: 6, y: 6 }
+        scale:2.5,
+        ref: { x: 7, y: 7 }
       });
     }
 
@@ -331,7 +426,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     }
 
 
-    if(type === "test"){
+    if(type === "doubleArrow"){
       var dobleFlecha=svgCreate('path');
       //M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
       //svgAttr(dobleFlecha,{d: 'M 33.105 473.415 L 0 428.339 L 234.096 256.411 L 0 84.49 L 33.104 39.413 L 297.889 233.872 C 305.063 239.141 309.3 247.51 309.3 256.411 C 309.3 265.311 305.063 273.681 297.889 278.949 L 33.105 473.415 Z M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
@@ -358,17 +453,50 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         attrs: {
           //stroke: stroke
         },
-        ref: {x:6,y:3}//{ x: 10, y: 5},
-        //scale: 0.5
+        ref: {x:6,y:3},//{ x: 10, y: 5},
+        scale: 2.5
       });
 
     }
 
     if(type === "negated"){
       var dobleFlecha=svgCreate('path');
+      //var dpath='';
+      
+      var zero=parseInt('0');
+      var ten=parseInt('10');
+      var x1=parseInt(x)
+      var x2=parseInt(x2)
+      var y1=parseInt(y1)
+      var y2=parseInt(y2)
+
+      var dpath='M '+zero+' '+zero+' L '+ten+' '+ten+' M '+ten+' '+zero+' L '+zero+' '+ ten
+      //var dpath='M '+(x2-x1)+' '+(y2-y1)+' L '+(x1)+' '+(y1)+' M '+(x1+x2)+' '+(y1+x2)+' L '+(x1)+' '+ (y1)
+
+      svgAttr(dobleFlecha,{d:dpath,orient:'auto'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
+      addMarker(id, {
+        element: dobleFlecha,
+        attrs: {
+          stroke: 'red'
+        },
+        ref: {x:90 , y:5}, //{ x: 50, y: 5},
+        orient:'auto',
+        scale: 4.0
+      })
+
+      //dpath+=dpath+'M '+(parseInt(x)-5).toString()+' '+(0).toString()+' L '+ (parseInt(x)+5).toString()+' '+(parseInt(y)+5).toString()
+
+      //dpath+=dpath+'M '+zero+' '+zero+' L '+ten+' '+ten
+
+      //svgAttr(dobleFlecha,{d:'M 0 0 L 10 10',orient:'auto'})            
+
+    }
+
+    if(type === "negated2"){
+      var dobleFlecha=svgCreate('path');
       //M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
       //svgAttr(dobleFlecha,{d: 'M 33.105 473.415 L 0 428.339 L 234.096 256.411 L 0 84.49 L 33.104 39.413 L 297.889 233.872 C 305.063 239.141 309.3 247.51 309.3 256.411 C 309.3 265.311 305.063 273.681 297.889 278.949 L 33.105 473.415 Z M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
-      svgAttr(dobleFlecha,{d:'M 0 0 L 1 2 L 3 6'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
+      svgAttr(dobleFlecha,{d:'M 10 0 L 0 10',orient:'auto'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
       //version cutre: M 0 0 L 1 2 L 3 6 V 0 L 0 6
   
       addMarker(id, {
@@ -376,10 +504,10 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         attrs: {
           stroke: 'red'
         },
-        ref: {x:50,y:4}//{ x: 10, y: 5},
-        //scale: 0.5
+        ref: { x: -100, y: 5},
+        orient:'auto',
+        scale: 0.5
       });
-
     }
   }
 
@@ -397,6 +525,19 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     svgAppend(parentGfx, path);
 
     return path;
+  }
+
+  function drawRedCross(shape){
+    
+    var catGfx = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataRedCross
+    });
+
+    return  catGfx;
   }
 
   function drawNyanCat(shape){
@@ -437,13 +578,25 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return  person;
   }
 
+  function drawDelegateTo(shape){
+    var delegate = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataCanDelegate
+    });
+
+    return delegate;
+  }
+
   function drawRoleRALph(shape){
     var role = svgCreate('image', {
       x: 0,
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataRoleTest//Cat.dataURLrole
+      href:Cat.dataURLrole
     });
 
     return role;
@@ -479,7 +632,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataHistory
+      href:Cat.dataHistorySame
     });
 
     return org;
@@ -535,7 +688,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
   var renderers = this.renderers = {
     'custom:TimeSlot': (p, element) => {
       let polygon = drawTimeSlot(element.width, element.height, element.color)
-      svgAppend(p, person);
       renderExternalLabel(p,element)
       //renderEmbeddedLabel(p, element, 'center-middle');
 
@@ -561,7 +713,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       let org=drawOrgunit(element)
 
       svgAppend(p,org)
-      //renderExternalLabel(p,element)
       renderEmbeddedLabel(p,element,'center-middle')
 
       return org;
@@ -569,14 +720,14 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     },'custom:Personcap':(p,element) =>{
       let cap=drawPersoncap(element)
 
+      renderEmbeddedLabel(p,element,'center-middle')
       svgAppend(p,cap)
-      renderExternalLabel(p,element)
 
       return cap;
 
     },'custom:Person':(p,element)=>{
         let person=drawPerson(element)
-
+        
         renderEmbeddedLabel(p,element,'center-middle')
         svgAppend(p,person)
         return person;
@@ -587,18 +738,26 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         renderEmbeddedLabel(p,element,'center-middle')
         svgAppend(p,role)
         return role;
+
     },'custom:History-Same':(p,element)=>{
       let connector=drawHistoryConnector(element)
 
       renderEmbeddedLabel(p,element,'center-middle')
       svgAppend(p,connector)
       return connector;
+
     },'custom:History-Any':(p,element)=>{
       let connector2=drawHistoryAnyConnector(element)
 
       renderEmbeddedLabel(p,element,'center-middle')
       svgAppend(p,connector2)
       return connector2;
+
+    },'custom:DelegateTo':(p,element)=>{
+      let delegate=drawDelegateTo(element)
+
+      svgAppend(p,delegate)
+      return delegate;
     },
     'custom:Clock': (p, element) => {
       console.log(element)
@@ -915,15 +1074,15 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       var attrs = computeStyle(attrs, {
         stroke:BLACK,//-> PARA EL COLOR
-        strokeWidth: 1.5,
+        strokeWidth: 0.5,
         //strokedashoffset: 153,
         /*Como definir history-source-another
         markerStart: marker('history-source-another-start', 'white',BLACK),*/
-        markerBetween: marker('history-source-another-end', 'white',BLACK),
+        //markerBetween: marker('history-source-another-end', 'white',BLACK),
         //strokeDasharray: [10,7]//->para poner como una linea por rayas
       });
-  
-      //renderExternalLabel(p,element);
+      
+
       return svgAppend(p, createLine(element.waypoints, attrs));
 
     },
@@ -942,42 +1101,73 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     },  
     
     'custom:negatedAssignment': (p, element) => {
+      var points=element.waypoints;
+      var p1=points[0]
+      var x = p1.x
+      var y = p1.y
 
+      var p2=points[points.length-1]
+      var x2 = p2.x
+      var y2 = p2.y
       var attrs = {
         strokeLinejoin: 'round',
-        markerEnd: marker('negated', 'white', element.color),
-        stroke: element.color || BLACK,
-        strokeWidth: 1.5,
+        //markerStart: marker('negated2', 'white', element.color,x,y),
+        //markerEnd: marker('negated', 'white', element.color,x,y,x2,y2),
+        stroke: element.color || COLOR_RED,
+        strokeWidth: 0.5,
       };
 
-      return svgAppend(p, createLine(element.waypoints, attrs));
+      var attrs2 = {
+        strokeLinejoin: 'round',
+        //markerStart: marker('negated2', 'white', element.color,x,y),
+        stroke: COLOR_RED,
+        strokeWidth: 1,
+      };
 
+      //(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
+      svgAppend(p, drawCrossedLine(element.waypoints,attrs2));
+      svgAppend(p, drawCrossedLine2(element.waypoints,attrs2));
+
+      
+      return svgAppend(p, createLine(element.waypoints, attrs));
+      //return svgAppend(p, drawCrossedLine(element.waypoints,attrs))
     },
     
-    'custom:HistoryConnectorActivityInstance':(p,element)=>{
+    'custom:solidLine':(p,element)=>{
       var attrs = {
         stroke: element.color || BLACK,
-        strokeWidth: 1.5,
+        strokeWidth: 0.5,
         strokeLinejoin: 'round',
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     },
-    'custom:HistoryConnectorSameOrPreviousInstance':(p,element)=>{
+    'custom:solidLineWithCircle':(p,element)=>{
       var attrs = {
         strokeLinejoin: 'round',
         stroke: BLACK,
-        strokeWidth: 1.5,
+        strokeWidth: 0.5,
         markerEnd: marker('history-source-another-start', 'white',BLACK),
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     },
-    'custom:HistoryConnectorPreviousInstance':(p,element)=>{
+    'custom:dashedLine':(p,element)=>{
       var attrs = {
         strokeLinejoin: 'round',
         stroke: element.color || BLACK,
-        strokeWidth: 1.5,
+        strokeWidth: 0.5,
+        strokeDasharray: [8,5],
+       // markerEnd: marker('history-source-another-start', 'white',BLACK),
+      };
+
+      return svgAppend(p, createLine(element.waypoints, attrs));
+    },
+    'custom:dashedLineWithCircle':(p,element)=>{
+      var attrs = {
+        strokeLinejoin: 'round',
+        stroke: element.color || BLACK,
+        strokeWidth: 0.5,
         strokeDasharray: [8,5],
         markerEnd: marker('history-source-another-start', 'white',BLACK),
       };
@@ -989,7 +1179,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         strokeLinejoin: 'round',
         markerEnd: marker('sequenceflow-end', 'white', element.color),
         stroke: element.color || BLACK,
-        strokeWidth: 1.5,
+        strokeWidth: 0.5,
         //strokeDasharray: [8,5]
       };
 
@@ -998,9 +1188,9 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     'custom:reportsTo': (p,element)=>{
       var attrs = {
         strokeLinejoin: 'round',
-        markerEnd: marker('test', 'white', element.color),
+        markerEnd: marker('doubleArrow', 'white', element.color),
         stroke: element.color || BLACK,
-        strokeWidth: 1.5,
+        strokeWidth: 0.5,
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));
@@ -1083,7 +1273,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ]
 
       return componentsToPath(d);
-    },/*'custom:ResourceArc':(element)=>{
+    },'custom:ResourceArc':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1117,7 +1307,24 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ]
 
       return componentsToPath(d);
-    },*/'custom:Rolecap':(element)=>{
+    },'custom:negatedAssignment':(element)=>{
+      var x = element.x,
+          y = element.y,
+          width = element.width,
+          height = element.height;
+          
+
+      var d = [
+        ['M', x , y],
+        ['h', 60 ],
+        ['v', 90 ],
+        ['h', -50 ],
+        ['v', -50 ],
+        ['z']
+      ]
+
+      return componentsToPath(d);
+    },'custom:Rolecap':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1141,19 +1348,25 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
           height = element.height;
           
 
-      var d = [
-        ['M', x , y],
-        ['h', 50 ],
-        ['v', 50 ],
-        ['h', -50 ],
-        ['v', -50 ],
-        ['z']
-      ]
+      var borderRadius = 20;
 
-      return componentsToPath(d);
+      var roundRectPath = [
+            ['M', x + borderRadius, y],
+            ['l', width - borderRadius * 2, 0],
+            ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+            ['l', 0, height - borderRadius * 2],
+            ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+            ['l', borderRadius * 2 - width, 0],
+            ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+            ['l', 0, borderRadius * 2 - height],
+            ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+            ['z']
+      ];
+
+      return componentsToPath(roundRectPath);
 
 
-    },'custom:Position':(element)=>{
+    },'custom:DelegateTo':(p,element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1168,6 +1381,37 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         ['v', -50 ],
         ['z']
       ]
+
+      return componentsToPath(d);
+    },
+    'custom:Position':(element)=>{
+      var x = element.x,
+          y = element.y,
+          width = element.width,
+          height = element.height,
+          borderRadius=20;
+      /*
+      var d = [
+        ['M', x , y],
+        ['h', 50 ],
+        ['v', 50 ],
+        ['h', -50 ],
+        ['v', -50 ],
+        ['z']
+      ]
+      */
+     var d = [
+      ['M', x + borderRadius, y],
+      ['l', width - borderRadius * 2, 0],
+      ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+      ['l', 0, height - borderRadius * 2],
+      ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+      ['l', borderRadius * 2 - width, 0],
+      ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+      ['l', 0, borderRadius * 2 - height],
+      ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+      ['z']
+      ];
 
       return componentsToPath(d);
 
@@ -1175,8 +1419,9 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var x = element.x,
         y = element.y,
         width = element.width,
-        height = element.height;
-        
+        height = element.height,
+        borderRadius=20;
+        /*
         var d = [
           ['M', x , y],
           ['h', 55 ],
@@ -1184,7 +1429,19 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
           ['h', -50 ],
           ['v', -30 ],
           ['z']
-        ]
+        ]*/
+      var d = [
+          ['M', x + borderRadius, y],
+          ['l', width - borderRadius * 2, 0],
+          ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+          ['l', 0, height - borderRadius * 2],
+          ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+          ['l', borderRadius * 2 - width, 0],
+          ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+          ['l', 0, borderRadius * 2 - height],
+          ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+          ['z']
+       ];
 
       return componentsToPath(d);
 
@@ -1192,16 +1449,22 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         var x = element.x,
           y = element.y,
           width = element.width,
-          height = element.height;
+          height = element.height,
+          borderRadius=20;
+
           
           var d = [
-            ['M', x , y],
-            ['h', 50 ],
-            ['v', 50 ],
-            ['h', -50 ],
-            ['v', -30 ],
+            ['M', x + borderRadius, y],
+            ['l', width - borderRadius * 2, 0],
+            ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+            ['l', 0, height - borderRadius * 2],
+            ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+            ['l', borderRadius * 2 - width, 0],
+            ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+            ['l', 0, borderRadius * 2 - height],
+            ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
             ['z']
-          ]
+         ];
 
         return componentsToPath(d);
 
@@ -1209,48 +1472,66 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         var x = element.x,
         y = element.y,
         width = element.width,
-        height = element.height;
+        height = element.height,
+        borderRadius=20;
         
         var d = [
-          ['M', x , y],
-          ['h', 50 ],
-          ['v', 50 ],
-          ['h', -50 ],
-          ['v', -30 ],
+          ['M', x + borderRadius, y],
+          ['l', width - borderRadius * 2, 0],
+          ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+          ['l', 0, height - borderRadius * 2],
+          ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+          ['l', borderRadius * 2 - width, 0],
+          ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+          ['l', 0, borderRadius * 2 - height],
+          ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
           ['z']
-        ]
+       ];
 
           return componentsToPath(d);
+
     },'custom:History-Same':(element)=>{
       var x = element.x,
       y = element.y,
       width = element.width,
-      height = element.height;
-      
-      var d = [
-        ['M', x , y],
-        ['h', 50 ],
-        ['v', 50 ],
-        ['h', -50 ],
-        ['v', -30 ],
-        ['z']
-      ]
+      height = element.height,
+      borderRadius=30;
 
-        return componentsToPath(d);
+      var d = [
+        ['M', x + borderRadius, y],
+        ['l', width - borderRadius * 2, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+        ['l', 0, height - borderRadius * 2],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+        ['l', borderRadius * 2 - width, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+        ['l', 0, borderRadius * 2 - height],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+        ['z']
+     ];
+
+
+    return componentsToPath(d);
+
   },'custom:History-Any':(element)=>{
     var x = element.x,
     y = element.y,
     width = element.width,
-    height = element.height;
+    height = element.height,
+    borderRadius=30;
     
     var d = [
-      ['M', x , y],
-      ['h', 50 ],
-      ['v', 50 ],
-      ['h', -50 ],
-      ['v', -30 ],
+      ['M', x + borderRadius, y],
+      ['l', width - borderRadius * 2, 0],
+      ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+      ['l', 0, height - borderRadius * 2],
+      ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+      ['l', borderRadius * 2 - width, 0],
+      ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+      ['l', 0, borderRadius * 2 - height],
+      ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
       ['z']
-    ]
+   ];
 
       return componentsToPath(d);
 },
@@ -1310,6 +1591,25 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ];
 
       return componentsToPath(resourcePath);
+
+    },'custom:RedCross':(element)=>{
+      var x = element.x,
+      y = element.y,
+      width = element.width,
+      height = element.height;
+
+
+    var resourcePath = [
+      ['M', x , y],
+      ['v', 78],
+      ['h', 54],
+      ['v', -78],
+      ['h', -54],
+      ['z']
+    ];
+
+    return componentsToPath(resourcePath);
+
     },
     'custom:RoleAbsence': (element) => {
       return paths['custom:Role'](element)
@@ -1422,6 +1722,7 @@ CustomRenderer.prototype.getConnectionPath = function(connection) {
     ['M', waypoints[0].x, waypoints[0].y]
   ];
 
+  
   waypoints.forEach(function(waypoint, index) {
     if (index !== 0) {
       connectionPath.push(['L', waypoint.x, waypoint.y]);

@@ -5,16 +5,18 @@ import {
 import inherits from 'inherits';
 
 import {
+  getBusinessObject,
   is
 } from 'bpmn-js/lib/util/ModelUtil';
 
+import customModeler from'./CustomModeling';
+
 import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
 import {isAny} from "bpmn-js/lib/features/modeling/util/ModelingUtil";
-import {isCustomResourceArcElement, isCustomShape,isCustomResourceArc2Element,HistoryConnectorActivityInstanceElements,isHistoryConnectorActivityInstance,isHistoryConnectorSameOrPreviousInstance,isHistoryConnectorPreviousInstanceElements} from "./Types";
+import {isCustomResourceArcElement, isCustomShape,isCustomResourceArc2Element,isHistoryConnectorActivityInstance,isHistoryConnectorSameOrPreviousInstance,isHistoryConnectorPreviousInstanceElements} from "./Types";
 import {isLabel} from "bpmn-js/lib/util/LabelUtil";
 
 var HIGH_PRIORITY = 1500;
-
 
 function isCustom(element) {
   return element && /^custom:/.test(element.type);
@@ -29,11 +31,16 @@ function isDefaultValid2(element) {
 }
 
 function isValidForHistoryConnectors(element){
-  return element && (is(element, 'bpmn:Task'))
+  var cond=false;
+
+  if(is(element, 'bpmn:Task'))
+    cond=true;
+
+  return cond;
 }
 
 function isValidForResourceEntities(element){
-  return element && (is(element,'custom:Person') || is(element,'custom:RoleRALph') || is(element,'custom:Personcap') || is(element,'custom:Orgunit'))
+  return element && (is(element,'custom:Person') || is(element,'custom:RoleRALph') || is(element,'custom:Personcap') || is(element,'custom:Orgunit') || is(element,'custom:Position'))
 }
 
 /**
@@ -46,7 +53,8 @@ export default function CustomRules(eventBus) {
 
 inherits(CustomRules, RuleProvider);
 
-CustomRules.$inject = [ 'eventBus' ];
+CustomRules.$inject = [ 'eventBus',
+                        'elementRegistry' ];
 
 function canConnect(source, target, connection) {
 
@@ -90,25 +98,14 @@ function canConnect(source, target, connection) {
       return false
       
   }
-  else if(is(target, 'custom:TimeSlot')) {
-    if(isDefaultValid(source)) {
-      if(connection === 'custom:TimeDistandStartArc')
-        return { type: connection }
-      else
-        return { type: 'custom:ResourceArc'}
-    }
-    else
-      return false
-
-   } 
-   else if(is(target, 'custom:Person')) {
+   /*else if(is(target, 'custom:Person')) {
         if(isCustom(source)) {
-          if(connection === 'custom:HistoryConnectorActivityInstance') // 'custom:ConsequenceFlow' }
+          if(connection === 'custom:solidLine') // 'custom:ConsequenceFlow' }
             return { type: connection }
         }
         else
           return false
-    }
+    }*/
     else if(is(source, 'custom:Person')) {
         if(isCustom(target)) {
             if(connection === 'custom:ConsequenceFlow')
@@ -134,56 +131,86 @@ function canConnect(source, target, connection) {
     }
     else
       return false*/
-   } else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArcElement(source)) || (isDefaultValid(target) && isCustomShape(source) &&  isCustomResourceArcElement(target))){
+   /*} else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArcElement(source)) || (isDefaultValid(target) && isCustomShape(source) &&  isCustomResourceArcElement(target))){
       return { type: 'custom:ResourceArc' }
    } else if((isDefaultValid(source) && isCustomShape(target) && isCustomResourceArc2Element(source)) || (isDefaultValid(target) && isCustomShape(source) && isCustomResourceArc2Element(target))){
-      return { type: 'custom:ResourceArc2' }
+      return { type: 'custom:ResourceArc2' }*/
   }else
     return;
 }
 
+
+
 function canConnect2(source, target, connection) {
+  //console.log(target);
+  //console.log(source);
+
+  var sourceOutgoingConnections=source.outgoing;
+  console.log(sourceOutgoingConnections);
+ 
+  let cond=true;
+  //it checks if the source of a connection has already been connected to that target
+  //if it is already connected, cond will be false and it will not be possible to 
+  //connect the other elements.
+  if(target!==null){
+    
+    var targetIncomingConnections=target.incoming;
+    console.log(targetIncomingConnections);
+
+    for(let i of sourceOutgoingConnections){
+      if(targetIncomingConnections.includes(i)){
+        cond=false;
+      }
+    }
+
+  }
+
   if (nonExistingOrLabel(source) || nonExistingOrLabel(target)) {
     return null;
   }
-  /*if(connection === 'custom:ConsequenceFlow') {
-    if(isDefaultValid(source) && isDefaultValid(target))
-      return { type: connection }
-    else if(is(source, 'custom:TimeSlot') && isDefaultValid(target))
-      return { type: connection }
-    else
-      return false
-  }*/
 
-  if(connection === 'custom:negatedAssignment'){
+  if(connection ===  'bpmn:DataOutputAssociation'){
+    if( is(target, 'bpmn:DataObjectReference') && is(source,'bpmn:Task') ){
+        return { type: connection}
+    }
+  }
+
+  if(connection === 'custom:negatedAssignment' && cond === true){
     if(isValidForResourceEntities(source) && is(target, 'bpmn:Task')){
       return { type: connection }
     }
   }
 
-  if(connection === 'custom:ResourceArc') {
-    if(isDefaultValid(target) || isDefaultValid(source) || ( is(target, 'custom:Orgunit') && is(source,'custom:RoleRALph') ) )
+  if(connection === 'custom:ResourceArc' && cond === true){//if the connection is resourceArc, if source and target have not been connected previously
+    //check if the target is one of the possible targets of resourceArc (Orgunit,role,task...etc)
+    if( ( is(target, 'custom:Orgunit') && is(source,'custom:RoleRALph')) || is(target, 'bpmn:Task') || is(target, 'bpmn:Event') || is(target,'bpmn:DataObjectReference') || is(target,'bpmn:ExclusiveGateway') || is(target,'bpmn:EndEvent') || is(target,'bpmn:DataStoreReference')){
     return { type: connection }
+    }
   }
 
-  if(connection === 'custom:ResourceArc2') {
-    if(isDefaultValid(target) || isDefaultValid(source))
+
+  if(connection === 'custom:solidLine' && cond === true){
+    if(isValidForHistoryConnectors(target) === true){//check if the target is in the list of valid targets for history connectors.
       return { type: connection }
+    }
   }
 
-  if(connection === 'custom:HistoryConnectorActivityInstance'){
-    if(isValidForHistoryConnectors(target))
+  if(connection === 'custom:solidLineWithCircle' && cond === true) {
+    if(isValidForHistoryConnectors(target)){
       return { type: connection }
+    }
   }
 
-  if(connection === 'custom:HistoryConnectorSameOrPreviousInstance'){
-    if(isValidForHistoryConnectors(target))
+  if(connection === 'custom:dashedLine' && cond === true){
+    if(isValidForHistoryConnectors(target)){
       return { type: connection }
+    }
   }
 
-  if(connection === 'custom:HistoryConnectorPreviousInstance'){
-    if(isValidForHistoryConnectors(target))
+  if(connection === 'custom:dashedLineWithCircle' && cond === true){
+    if(isValidForHistoryConnectors(target)){
       return { type: connection }
+    }
   }
 
   else if(connection === 'custom:TimeDistanceArcStart') {
@@ -201,13 +228,6 @@ function canConnect2(source, target, connection) {
   else {
     if (!isCustom(source) && !isCustom(target))
       return;
-      
-    /*else if( (isDefaultValid(source) && isCustomResourceArcElement(target)) || (isDefaultValid(target) && isCustomResourceArcElement(source)) ) {
-        return { type: 'custom:ResourceArc'}
-    }else if((isDefaultValid(source) && isCustomResourceArc2Element(target)) || (isDefaultValid(target) && isCustomResourceArc2Element(source))) 
-        return { type: 'custom:ResourceArc2'}
-    else*/
-      return
   }
 }
 
@@ -243,9 +263,9 @@ CustomRules.prototype.init = function() {
 
   function canConnectMultipleCustomElement(source, target) {
       if( is(source,'custom:Position') && is(target,'bpmn:Task') ) { 
-        return {type3: 'custom:HistoryConnectorActivityInstance' , type4: 'custom:ConsequenceFlow' }
-      }else if( is(source,'bpmn:Task') && is(target,'custom:Position') ){
-        return {type3: 'custom:HistoryConnectorActivityInstance' , type4:'custom:reportsTo'} //'custom:reportsTo' }
+        return {type3: 'custom:solidLine' , type4: 'custom:ConsequenceFlow' }
+      }else if( is(source,'bpmn:Task') && is(target,'custom:Position')  ){
+        return {type3: 'custom:solidLine' , type4:'custom:reportsTo'} //'custom:reportsTo' }
       }
   }
 
@@ -261,7 +281,7 @@ CustomRules.prototype.init = function() {
         else
           return false
       }
-      else if(connection.type === 'custom:ResourceArc') {
+      /*else if(connection.type === 'custom:ResourceArc') {
         if((!isCustom(source) && isCustomShape(target)) || (isCustomShape(source) && !isCustom(target)))
           return { type: connection.type }
         else
@@ -271,7 +291,7 @@ CustomRules.prototype.init = function() {
           return { type: connection.type }
         else
           return;
-      }
+      }*/
       // add time distance
       else {
         return canConnect(source, target, connection.type)
@@ -326,11 +346,8 @@ CustomRules.prototype.init = function() {
     var source = context.source,
         target = context.target,
         type = context.type;
-
-    if(type === 'custom:ConsequenceTimedFlow' || type === 'custom:TimeDistance')
-      return canConnectMultiple(source, target, type)
     //if(source === "custom:Position" && target === "bpmn:Task")
-    if(type === 'custom:Delegate' || type==='custom:Report')
+    if(type === 'custom:Delegate' || type==='custom:Report' || type==='custom:negatedAssignment2')
       return canConnectMultipleCustomElement(source,target)
 
     return canConnect2(source, target, type);
@@ -348,8 +365,10 @@ CustomRules.prototype.init = function() {
     var connection = context.connection,
         source = connection.source,
         target = context.hover || context.target;
+
     return canConnect2(source, target, connection.type);
   });
+
 
 };
 
@@ -358,6 +377,7 @@ function nonExistingOrLabel(element) {
 }
 
 CustomRules.prototype.canConnect = function (source, target, connection) {
+
   if (nonExistingOrLabel(source) || nonExistingOrLabel(target)) {
     return null;
   }

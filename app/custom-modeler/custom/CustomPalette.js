@@ -46,7 +46,7 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       globalConnect = this._globalConnect,
       translate = this._translate;
 
-  function createAction(type, group, className,title, options,url) {
+  function createAction(type, group, className,title, options) {
 
     function createListener(event) {
       var shape = elementFactory.createShape(assign({ type: type }, options));
@@ -59,7 +59,7 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     }
 
     var shortType = type.replace(/^bpmn:/, '');
-      if(url === null){
+      
       return {
         group: group,
         className: className,
@@ -69,18 +69,7 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
           click: createListener
         }
       };
-    }else{
-      return {
-        group: group,
-        className: className,
-        title: title || 'Create ' + shortType,
-        imageUrl:url,
-        action: {
-          dragstart: createListener,
-          click: createListener
-        }
-      };
-    }
+
   }
 
   function createSubprocess(event) {
@@ -240,35 +229,35 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       group: 'resources',
       separator: true
     },
-    'custom-Person': createAction(
-      "custom:Person", 'resources', 'icon-custom-person',null,null,Cat.dataPerson2//Cat.dataURLpersonSVG
-    ),
-    'custom-Role':createAction(
-      "custom:RoleRALph", 'resources' , 'icon-custom-roleRalph',null,null,Cat.dataRole2
-    ),
     
+    'custom-Person': createAction(
+      "custom:Person", 'resources', 'icon-custom-person'//,null,null,Cat.dataURLpersonSVG2
+    ),
+  
+    'custom-Role':createAction(
+      "custom:RoleRALph", 'resources' , 'icon-custom-roleRalph'
+    ),
+        
     'custom-Orgunit':createAction(
-      'custom:Orgunit','resources','icom-custom-Orgunit',null,null,Cat.dataOrgUnit
+      'custom:Orgunit','resources','icom-custom-Orgunit'
     ),
     'custom-Position':createAction(
-      'custom:Position','resources','icom-custom-Position',null,null,Cat.dataPosition
+      'custom:Position','resources','icom-custom-Position'
     ),
     'custom-Personcap':createAction(
-      'custom:Personcap','resources','icom-custom-Personcap',null,null,Cat.dataPersonCap
+      'custom:Personcap','resources','icom-custom-Personcap'
     ),
+    
     'history-based-assignment-separator': {
       group: 'history-based-assignments',
       separator: true
     },
-    'custom-History':createAction(
-      'custom:History-Same','history-based-assignments','icom-custom-History',null,null,Cat.dataHistory
+    'custom-History-Same':createAction(
+      'custom:History-Same','history-based-assignments','icom-custom-Same'
     ),
     'custom-History-Any':createAction(
-      'custom:History-Any','history-based-assignments','icom-custom-History-Any',null,null,Cat.dataHistoryAny
+      'custom:History-Any','history-based-assignments','icom-custom-History-Any'
     ),
-   'custom-HistoryConnectorActivityInstance': createAction(
-    'custom:HistoryConnectorActivityInstance','history-based-assignments','icom-custom-History-Any',null,null,Cat.dataHistoryConnectorSame
-   ),
 
 
   });

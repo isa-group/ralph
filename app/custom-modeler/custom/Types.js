@@ -29,9 +29,8 @@ export const externalLabel = [
     'custom:Person',
     'custom:RoleRALph',
     'custom:ResourceArc',
-    'custom:ResourceArc2'
-    //'custom:Personcap'
-    
+    'custom:ResourceArc2',
+    'custom:Personcap'
     
 ]
 
@@ -43,11 +42,11 @@ export const connections = [
     'custom:TimeDistanceArcStart',
     'custom:TimeDistanceArcEnd',
 
-    'custom:HistoryConnectorActivityInstance',
-    'custom:HistoryConnectorSameOrPreviousInstance',
-    'custom:HistoryConnectorPreviousInstance',
-
-    'custom:negatedAssignment'
+    'custom:negatedAssignment',
+    'custom:solidLine',
+    'custom:solidLineWithCircle',
+    'custom:dashedLine',
+    'custom:dashedLineWithCircle'
 ]
 
 export const directEdit = [
@@ -84,9 +83,10 @@ export const resourceArcElements = [
     
 ]
 
-export const HistoryConnectorActivityInstanceElements =[//solo linea solida
+export const solidLineElements =[//solo linea solida
     'custom:History-Same',
-    'custom:History-Any'
+    'custom:History-Any',
+    'custom:DelegateTo'
 ]
 
 export const HistoryConnectorSameOrPreviousInstanceElements =[//linea solida con punto
@@ -124,13 +124,13 @@ export const custom = [
     'custom:Personcap',
     'custom:Orgunit',
     'custom:Position',
-
-
+    'custom:DelegateTo',
+    'custom:RedCross',
     'custom:History',
     'custom:History-Any',
     'custom:HistoryConnectorActivityInstance',
-    'custom:HistoryConnectorSameOrPreviousInstance',
-    'custom:HistoryConnectorPreviousInstance'
+    'custom:solidLineWithCircle',
+    'custom:dashedLine',
     //añadir conexiones aqui también
 ]
 
@@ -176,7 +176,7 @@ export function isCustomResourceArc2Element(type) {
        type = type.type
     }
 
-    return HistoryConnectorActivityInstanceElements.includes(type)
+    return solidLineElements.includes(type)
 }
 
 

@@ -163,13 +163,13 @@ CustomElementFactory.prototype._getCustomElementSize = function(type) {
     'custom:Group': { width: 60, height: 80 },
     'custom:GroupAbsence': { width: 60, height: 80 },
     'custom:nyanCat':{ width:300, height: 300},
-    'custom:Person':{width: 75, height: 75},
-    'custom:RoleRALph':{width: 75, height: 75},
-    'custom:Personcap':{width:75,height:75},
-    'custom:Orgunit':{width:75,height:75},
-    'custom:Position':{width:75,height:75},
-    'custom:History-Same':{width:75,height:75},
-    'custom:History-Any':{width:75,height:75},
+    'custom:Person':{width: 58, height: 75},
+    'custom:RoleRALph':{width: 51, height: 75},
+    'custom:Personcap':{width:74,height:85},
+    'custom:Orgunit':{width:79,height:56},
+    'custom:Position':{width:99,height:79},
+    'custom:History-Same':{width:36,height:45},
+    'custom:History-Any':{width:54,height:60},
   };
 
   return shapes[type] || shapes.__default;
