@@ -122,13 +122,13 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         assign(actions, {
             'connect1': appendConnectAction(
                 'RALph:ResourceArc',
-                'icom-RALph-solidLineTest2',
+                'icom-RALph-solidLineDef',
                 'Connect using simple resource assignment'
             ),
             
             'connect2': appendConnectAction(
                     'RALph:negatedAssignment',
-                    'icom-RALph-negated2',//'icom-RALph-Negated',
+                    'icom-RALph-negatedDef',//'icom-RALph-Negated',
                     'Connect using negated connection'
                 )
         });
@@ -138,7 +138,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         assign(actions, {
             'connectPos': appendConnectAction(
                 'RALph:Delegate',
-                'icom-RALph-DelegateTest',
+                'icom-RALph-Delegate',
                 'Connect using delegate'
             ),
         });
@@ -162,34 +162,19 @@ export default function CustomContextPadProvider(config, injector, elementFactor
 
 
 
-    if(isAny(businessObject,resourceArcElements2) && element.type !== 'label') {
-        assign(actions, {
-            'connect1': appendConnectAction(
-                'RALph:ResourceArc',
-                'bpmn-icon-connection-multi',
-                'Connect using ResourceArc'
-            ),
-            'connect2': appendConnectAction(
-                'RALph:ResourceArc2',
-                'bpmn-icon-connection-multi',
-                'Connect using ResourceArc2'
-            )
-        });
-    }
-
     if(isAny(businessObject,solidLineElements) && element.type !== 'label') {
         assign(actions, {
             'connect1': appendConnectAction(
                 'RALph:solidLine',
-                'icom-RALph-solidLineTest2',//'icom-RALph-SolidLine',
+                'icom-RALph-solidLineDef',//'icom-RALph-SolidLine',
                 'Connect using a solid line'
             ),'connect2': appendConnectAction(
                 'RALph:solidLineWithCircle',
-                'icom-RALph-solidLineWithCircleTest2',
+                'icom-RALph-solidLineWithCircleDef',
                 'Connect using a solid line with a circle'
             ),'connect3': appendConnectAction(
                 'RALph:dashedLine',
-                'icom-RALph-dashedLineTest',//'icom-RALph-dashedLine2',
+                'icom-RALph-dashedLineDef',//'icom-RALph-dashedLine2',
                 'Connect using a dashed line'
             ),'connect4': appendConnectAction(
                 'RALph:dashedLineWithCircle',
@@ -203,7 +188,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         assign(actions, {
             'connect4': appendConnectAction(
                 'RALph:Report',
-                'icom-RALph-ReportTest',//'bpmn-icon-connection-multi',
+                'icom-RALph-Report',//'bpmn-icon-connection-multi',
                 'Connect using report connection'
             ),
             'connect5': appendConnectAction(
