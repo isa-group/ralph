@@ -17,8 +17,6 @@ import {isCustomResourceArcElement, isCustomShape,isCustomResourceArc2Element,is
 import {isLabel} from "bpmn-js/lib/util/LabelUtil";
 
 var HIGH_PRIORITY = 1500;
-let historyConnectors=[];
-let resourceEntities=[];
 
 function isCustom(element) {
   return element && /^custom:/.test(element.type);
@@ -59,7 +57,6 @@ CustomRules.$inject = [ 'eventBus',
                         'elementRegistry' ];
 
 function canConnect(source, target, connection) {
-
 
   // only judge about custom elements
   if (!isCustom(source) && !isCustom(target)) {
@@ -141,12 +138,10 @@ function canConnect(source, target, connection) {
   }else
     return;
 }
-function giveHistory(){
-    return historyConnectors;
-}
 
 
-function canConnect2(source, target, connection,historyConnectors) {
+
+function canConnect2(source, target, connection) {
   //console.log(target);
   //console.log(source);
 
@@ -154,7 +149,9 @@ function canConnect2(source, target, connection,historyConnectors) {
   console.log(sourceOutgoingConnections);
  
   let cond=true;
-
+  //it checks if the source of a connection has already been connected to that target
+  //if it is already connected, cond will be false and it will not be possible to 
+  //connect the other elements.
   if(target!==null){
     
     var targetIncomingConnections=target.incoming;
@@ -184,7 +181,8 @@ function canConnect2(source, target, connection,historyConnectors) {
     }
   }
 
-  if(connection === 'custom:ResourceArc' && cond === true){
+  if(connection === 'custom:ResourceArc' && cond === true){//if the connection is resourceArc, if source and target have not been connected previously
+    //check if the target is one of the possible targets of resourceArc (Orgunit,role,task...etc)
     if( ( is(target, 'custom:Orgunit') && is(source,'custom:RoleRALph')) || is(target, 'bpmn:Task') || is(target, 'bpmn:Event') || is(target,'bpmn:DataObjectReference') || is(target,'bpmn:ExclusiveGateway') || is(target,'bpmn:EndEvent') || is(target,'bpmn:DataStoreReference')){
     return { type: connection }
     }
@@ -192,12 +190,11 @@ function canConnect2(source, target, connection,historyConnectors) {
 
 
   if(connection === 'custom:solidLine' && cond === true){
-    if(isValidForHistoryConnectors(target) === true){
+    if(isValidForHistoryConnectors(target) === true){//check if the target is in the list of valid targets for history connectors.
       return { type: connection }
     }
   }
 
-  //historyConnectors.forEach(function(element) {if (element === [source,target]){cond=false } } ) === true)
   if(connection === 'custom:solidLineWithCircle' && cond === true) {
     if(isValidForHistoryConnectors(target)){
       return { type: connection }
@@ -231,13 +228,6 @@ function canConnect2(source, target, connection,historyConnectors) {
   else {
     if (!isCustom(source) && !isCustom(target))
       return;
-      
-    /*else if( (isDefaultValid(source) && isCustomResourceArcElement(target)) || (isDefaultValid(target) && isCustomResourceArcElement(source)) ) {
-        return { type: 'custom:ResourceArc'}
-    }else if((isDefaultValid(source) && isCustomResourceArc2Element(target)) || (isDefaultValid(target) && isCustomResourceArc2Element(source))) 
-        return { type: 'custom:ResourceArc2'}
-    else*/
-      return
   }
 }
 
@@ -355,33 +345,20 @@ CustomRules.prototype.init = function() {
   this.addRule('connection.create', HIGH_PRIORITY, function(context) {
     var source = context.source,
         target = context.target,
-        type = context.type,
-        hints = context.hints || {},
-        targetParent = hints.targetParent,
-        targetAttach = hints.targetAttach;
-
-    // don't allow incoming connections on
-    // newly created boundary events
-    // to boundary events
-    if (targetAttach) {
-      return false;
-    }
-
-    var hist=giveHistory()
+        type = context.type;
     //if(source === "custom:Position" && target === "bpmn:Task")
     if(type === 'custom:Delegate' || type==='custom:Report' || type==='custom:negatedAssignment2')
       return canConnectMultipleCustomElement(source,target)
 
-    return canConnect2(source, target, type,hist);
+    return canConnect2(source, target, type);
   });
 
   this.addRule('connection.reconnectStart', HIGH_PRIORITY*2, function(context) {
     var connection = context.connection,
         source = context.hover || context.source,
         target = connection.target;
-    var hist=giveHistory()
 
-    return canConnect2(source, target, connection.type,hist);
+    return canConnect2(source, target, connection.type);
   });
 
   this.addRule('connection.reconnectEnd', HIGH_PRIORITY*2, function(context) {
@@ -389,25 +366,9 @@ CustomRules.prototype.init = function() {
         source = connection.source,
         target = context.hover || context.target;
 
-    var hist=giveHistory()
-
-    return canConnect2(source, target, connection.type,hist);
+    return canConnect2(source, target, connection.type);
   });
 
-  this.addRule('connection.delete', HIGH_PRIORITY*2, function(context) {
-    var connection = context.connection,
-        source = connection.source,
-        target = context.target;
-
-    var source2=getBusinessObject(source);//source.businessObject;
-    var target2=getBusinessObject(target);
-    var indexOfDeletedElement=historyConnectors.indexOf(source2.id+target2.id);
-
-    if (index !== -1) {
-      historyConnectors=historyConnectors.splice(indexOfDeletedElement,1);
-    }
-
-  })
 
 };
 
@@ -416,11 +377,10 @@ function nonExistingOrLabel(element) {
 }
 
 CustomRules.prototype.canConnect = function (source, target, connection) {
-  var hist=giveHistory()
 
   if (nonExistingOrLabel(source) || nonExistingOrLabel(target)) {
     return null;
   }
-  return canConnect2(source, target, connection.type,hist)
+  return canConnect2(source, target, connection.type)
 
 }
