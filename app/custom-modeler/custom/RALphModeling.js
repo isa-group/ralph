@@ -4,8 +4,8 @@ import { isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
 import {label} from "./Types";
 
-import CustomUpdateLabelHandler from "./handlers/CustomUpdateLabelHandler";
-import CustomCreateConnectionHandler from "./handlers/CustomCreateConnectionHandler";
+import CustomUpdateLabelHandler from "./handlers/RALphUpdateLabelHandler";
+import CustomCreateConnectionHandler from "./handlers/RALphCreateConnectionHandler";
 import CreateConnectionHandler from "diagram-js/lib/features/modeling/cmd/CreateConnectionHandler";
 
 export default class CustomModeling extends Modeling {
