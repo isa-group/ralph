@@ -303,6 +303,38 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         }
       });
     }
+    if(type === "doubleArrow"){
+      var dobleFlecha=svgCreate('path');
+      //M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
+      //svgAttr(dobleFlecha,{d: 'M 33.105 473.415 L 0 428.339 L 234.096 256.411 L 0 84.49 L 33.104 39.413 L 297.889 233.872 C 305.063 239.141 309.3 247.51 309.3 256.411 C 309.3 265.311 305.063 273.681 297.889 278.949 L 33.105 473.415 Z M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
+      svgAttr(dobleFlecha,{d:'M 0 0 L 3 3 L 0 6 M 3 6 L 6 3 L 3 0'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
+      /*
+      var d = [
+        ['M', 33.105 , 473.415],
+        ['l', 0, 428.339],
+        ['l',234.096,256.411 ],
+        ['l',0,84.49],
+        ['l',33.104,39.413],
+        ['l', 297.889, 233.872],
+        ['c', 305.063 ,239.141 ,309.3 ,247.51 ,309.3, 256.411], 
+        ['c', 309.3, 265.311, 305.063, 273.681, 297.889, 278.949],
+        ['l', 33.105, 473.415],
+        ['z']
+      ]
+      var comp=componentsToPath(d);
+      svgAttr(dobleFlecha,comp);
+      */
+  
+      addMarker(id, {
+        element: dobleFlecha,
+        attrs: {
+          stroke: stroke
+        },
+        ref: {x:6,y:3},//{ x: 10, y: 5},
+        scale: 3
+      });
+
+    }
 
     if (type === 'messageflow-start') {
       var messageflowStart = svgCreate('circle');
@@ -426,38 +458,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     }
 
 
-    if(type === "doubleArrow"){
-      var dobleFlecha=svgCreate('path');
-      //M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
-      //svgAttr(dobleFlecha,{d: 'M 33.105 473.415 L 0 428.339 L 234.096 256.411 L 0 84.49 L 33.104 39.413 L 297.889 233.872 C 305.063 239.141 309.3 247.51 309.3 256.411 C 309.3 265.311 305.063 273.681 297.889 278.949 L 33.105 473.415 Z M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
-      svgAttr(dobleFlecha,{d:'M 0 0 L 3 3 L 0 6 M 3 6 L 6 3 L 3 0'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
-      /*
-      var d = [
-        ['M', 33.105 , 473.415],
-        ['l', 0, 428.339],
-        ['l',234.096,256.411 ],
-        ['l',0,84.49],
-        ['l',33.104,39.413],
-        ['l', 297.889, 233.872],
-        ['c', 305.063 ,239.141 ,309.3 ,247.51 ,309.3, 256.411], 
-        ['c', 309.3, 265.311, 305.063, 273.681, 297.889, 278.949],
-        ['l', 33.105, 473.415],
-        ['z']
-      ]
-      var comp=componentsToPath(d);
-      svgAttr(dobleFlecha,comp);
-      */
-  
-      addMarker(id, {
-        element: dobleFlecha,
-        attrs: {
-          //stroke: stroke
-        },
-        ref: {x:6,y:3},//{ x: 10, y: 5},
-        scale: 2.5
-      });
-
-    }
 
     if(type === "negated"){
       var dobleFlecha=svgCreate('path');
@@ -1175,8 +1175,20 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     },
+    'custom:doubleArrow':(p,element)=>{
+      var attrs = {
+        strokeLinejoin: 'round',
+        markerEnd: marker('doubleArrow', 'white', element.color),
+        stroke: element.color || BLACK,
+        strokeWidth: 0.5,
+        //strokeDasharray: [8,5]
+      };
+
+      return svgAppend(p, createLine(element.waypoints, attrs));
+
+    }
     
-    'custom:solidLine':(p,element)=>{
+    ,'custom:solidLine':(p,element)=>{
       var attrs = {
         stroke: element.color || BLACK,
         strokeWidth: 0.5,

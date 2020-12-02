@@ -48,7 +48,8 @@ export const connections = [
     'custom:dashedLine',
     'custom:dashedLineWithCircle',
 
-    'custom:simpleArrow'
+    'custom:simpleArrow',
+    'custom:doubleArrow'
 ]
 
 export const directEdit = [
@@ -134,7 +135,8 @@ export const custom = [
     'custom:solidLineWithCircle',
     'custom:dashedLine',
     'custom:simpleArrow',
-    'custom:reportsTo'
+    'custom:reportsTo',
+    'custom:doubleArrow'
     //añadir conexiones aqui también
 ]
 
