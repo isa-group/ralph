@@ -563,7 +563,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataPersonCap
+      href:Cat.dataCapabilityRALph2
     });
 
     return cap;
@@ -628,18 +628,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
   }
 
 
-  function drawCanDelegate(shape){
-
-    var delegate = svgCreate('image', {
-      x: 0,
-      y: 0,
-      width: shape.width,
-      height: shape.height,
-      href:Cat.dataCanDelegate
-    });
-
-    return delegate;
-  }
+ 
 
   var renderers = this.renderers = {
     
