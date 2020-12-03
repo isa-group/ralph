@@ -575,7 +575,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataOrgUnit
+      href:Cat.dataOrgUnitRALph2
     });
 
     return org;
