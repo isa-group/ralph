@@ -52,19 +52,28 @@ export const solidLineElements =[//solo linea solida
     'RALph:History-Same',
     'RALph:History-Any',
     'RALph:DelegateTo',
-    'RALph:History-Any-Red'
+    'RALph:History-Any-Red',
+    'RALph:History-Any-Green',
+    'RALph:History-Same-Green',
+    'RALph:History-Same-Red'
 ]
 
 export const HistoryConnectorSameOrPreviousInstanceElements =[//linea solida con punto
     'RALph:History-Same',
     'RALph:History-Any',
-    'RALph:History-Any-Red'
+    'RALph:History-Any-Red',
+    'RALph:History-Any-Green',
+    'RALph:History-Same-Green',
+    'RALph:History-Same-Red'
 ]
 
 export const HistoryConnectorPreviousInstanceElements =[//linea con rayas con punto
     'RALph:History-Same',
     'RALph:History-Any',
-    'RALph:History-Any-Red'
+    'RALph:History-Any-Red',
+    'RALph:History-Any-Green',
+    'RALph:History-Same-Green',
+    'RALph:History-Same-Red'
 ]
 
 
@@ -86,7 +95,10 @@ export const custom = [
     'RALph:reportsTo',
     'RALph:doubleArrow',
     'RALph:dataField',
-    'RALph:History-Any-Red'
+    'RALph:History-Any-Red',
+    'RALph:History-Any-Green',
+    'RALph:History-Same-Green',
+    'RALph:History-Same-Red'
     //añadir conexiones aqui también
 ]
 

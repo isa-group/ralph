@@ -233,6 +233,13 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     'RALph-History-Any-Red':createAction(
       'RALph:History-Any-Red','history-based-assignments','icom-RALph2-history-any-red'
     ),
+    'RALph-History-Same-Green':createAction(
+      'RALph:History-Same-Green','history-based-assignments','icom-RALph2-history-same-green'
+    ),
+    'RALph-History-Same-Red':createAction(
+      'RALph:History-Same-Red','history-based-assignments','icom-RALph2-history-same-red'
+    ),
+
 
 
 
