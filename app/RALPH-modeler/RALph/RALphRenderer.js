@@ -568,6 +568,18 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     return cap;
   }
+  function drawHistoryAnyRedConnector(shape){
+    var hist = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataHistoryAnyRed
+    });
+
+    return hist;
+
+  }
 
   function drawOrgunit(shape){
     var org = svgCreate('image', {
@@ -670,14 +682,20 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     },'RALph:History-Same':(p,element)=>{
       let connector=drawHistoryConnector(element)
 
-      renderEmbeddedLabel(p,element,'center-middle')
+      
       svgAppend(p,connector)
       return connector;
 
     },'RALph:History-Any':(p,element)=>{
       let connector2=drawHistoryAnyConnector(element)
 
-      renderEmbeddedLabel(p,element,'center-middle')
+      
+      svgAppend(p,connector2)
+      return connector2;
+
+    },'RALph:History-Any-Red':(p,element)=>{
+      let connector2=drawHistoryAnyRedConnector(element)
+
       svgAppend(p,connector2)
       return connector2;
 
@@ -1158,7 +1176,30 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ];
 
       return componentsToPath(rectPath);
-    }
+    },
+    'RALph:History-Any-Red':(element)=>{
+      var x = element.x,
+      y = element.y,
+      width = element.width,
+      height = element.height,
+      borderRadius=30;
+    
+      var d = [
+        ['M', x + borderRadius, y],
+        ['l', width - borderRadius * 2, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+        ['l', 0, height - borderRadius * 2],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+        ['l', borderRadius * 2 - width, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+        ['l', 0, borderRadius * 2 - height],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+        ['z']
+    ];
+
+      return componentsToPath(d);
+
+    },
   }
 }
 

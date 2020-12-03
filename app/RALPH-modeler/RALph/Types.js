@@ -51,35 +51,32 @@ export const resourceArcElements = [
 export const solidLineElements =[//solo linea solida
     'RALph:History-Same',
     'RALph:History-Any',
-    'RALph:DelegateTo'
+    'RALph:DelegateTo',
+    'RALph:History-Any-Red'
 ]
 
 export const HistoryConnectorSameOrPreviousInstanceElements =[//linea solida con punto
     'RALph:History-Same',
-    'RALph:History-Any'
+    'RALph:History-Any',
+    'RALph:History-Any-Red'
 ]
 
 export const HistoryConnectorPreviousInstanceElements =[//linea con rayas con punto
     'RALph:History-Same',
     'RALph:History-Any',
+    'RALph:History-Any-Red'
 ]
 
-
-export const resourceArcElements2 = [
-
-]
 
 export const custom = [
     
     'RALph:ResourceArc',
-    'RALph:nyanCat',
     'RALph:Person',
     'RALph:RoleRALph',
     'RALph:Personcap',
     'RALph:Orgunit',
     'RALph:Position',
     'RALph:DelegateTo',
-    'RALph:RedCross',
     'RALph:History',
     'RALph:History-Any',
     'RALph:HistoryConnectorActivityInstance',
@@ -88,7 +85,8 @@ export const custom = [
     'RALph:simpleArrow',
     'RALph:reportsTo',
     'RALph:doubleArrow',
-    'RALph:dataField'
+    'RALph:dataField',
+    'RALph:History-Any-Red'
     //añadir conexiones aqui también
 ]
 

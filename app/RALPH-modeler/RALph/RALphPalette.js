@@ -227,6 +227,13 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     'RALph-History-Any':createAction(
       'RALph:History-Any','history-based-assignments','icom-RALph-History-Any'
     ),
+    'RALph-History-Any-Green':createAction(
+      'RALph:History-Any-Green','history-based-assignments','icom-RALph2-history-any-green'
+    ),
+    'RALph-History-Any-Red':createAction(
+      'RALph:History-Any-Red','history-based-assignments','icom-RALph2-history-any-red'
+    ),
+
 
 
   });

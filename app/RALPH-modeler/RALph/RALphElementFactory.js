@@ -161,6 +161,9 @@ RALphElementFactory.prototype._getCustomElementSize = function(type) {
     'RALph:Position':{width:75,height:75},
     'RALph:History-Same':{width:36,height:45},
     'RALph:History-Any':{width:54,height:60},
+    'RALph:History-Any-Red':{width:54,height:60},
+    'RALph:History-Any-Green':{width:54,height:60}
+
   };
 
   return shapes[type] || shapes.__default;
