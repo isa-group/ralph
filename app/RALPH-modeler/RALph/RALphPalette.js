@@ -200,33 +200,33 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     },
     
     'RALph-Person': createAction(
-      "RALph:Person", 'resources', 'icon-RALph-person'
+      "RALph:Person", 'resources','icom-RALph2-person' //'icon-RALph-person'
     ),
   
     'RALph-Role':createAction(
-      "RALph:RoleRALph", 'resources' , 'icon-RALph-roleRalph'
+      "RALph:RoleRALph", 'resources' , 'icom-RALph2-role'//'icon-RALph-roleRalph'
     ),
         
     'RALph-Orgunit':createAction(
-      'RALph:Orgunit','resources','icom-RALph-Orgunit'
+      'RALph:Orgunit','resources','icom-RALph2-orgunit'
     ),
     'RALph-Position':createAction(
-      'RALph:Position','resources','icom-RALph-Position'
+      'RALph:Position','resources','icom-RALph2-position'
     ),
     'RALph-Personcap':createAction(
-      'RALph:Personcap','resources','icom-RALph-Personcap'
+      'RALph:Personcap','resources','icom-RALph2-capability'
     ),
     
     'history-based-assignment-separator': {
       group: 'history-based-assignments',
       separator: true
     },
-    'RALph-History-Same':createAction(
+    /*'RALph-History-Same':createAction(
       'RALph:History-Same','history-based-assignments','icom-RALph-Same'
     ),
     'RALph-History-Any':createAction(
       'RALph:History-Any','history-based-assignments','icom-RALph-History-Any'
-    ),
+    ),*/
     'RALph-History-Any-Green':createAction(
       'RALph:History-Any-Green','history-based-assignments','icom-RALph2-history-any-green'
     ),
