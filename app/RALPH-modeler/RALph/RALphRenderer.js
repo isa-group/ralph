@@ -38,17 +38,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
   var markers = {};
 
-  function toSVGPoints(points) {
-    var result = '';
-  
-    for (var i = 0, p; (p = points[i]); i++) {
-      result += p.x + ',' + p.y + ' ';
-    }
-  
-    return result;
-  }
-
-
 
   function drawCrossedLine(points,attrs){
     var line = svgCreate('polyline');
@@ -118,13 +107,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
   //}
     
-
-   /*
-   var path=svgCreate('path')
-   svgAttr(path, {
-    d: componentsToPath(d)
-   });
-   */
 
     if (attrs) {
       svgAttr(line, attrs);
@@ -204,8 +186,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     var scale = options.scale || 1;
 
-    // fix for safari / chrome / firefox bug not correctly
-    // resetting stroke dash array
     if (attrs.strokeDasharray === 'none') {
       attrs.strokeDasharray = [10000, 1];
     }
@@ -305,32 +285,15 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     }
     if(type === "doubleArrow"){
       var dobleFlecha=svgCreate('path');
-      //M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
-      //svgAttr(dobleFlecha,{d: 'M 33.105 473.415 L 0 428.339 L 234.096 256.411 L 0 84.49 L 33.104 39.413 L 297.889 233.872 C 305.063 239.141 309.3 247.51 309.3 256.411 C 309.3 265.311 305.063 273.681 297.889 278.949 L 33.105 473.415 Z M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
-      svgAttr(dobleFlecha,{d:'M 0 0 L 3 3 L 0 6 M 3 6 L 6 3 L 3 0'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
-      /*
-      var d = [
-        ['M', 33.105 , 473.415],
-        ['l', 0, 428.339],
-        ['l',234.096,256.411 ],
-        ['l',0,84.49],
-        ['l',33.104,39.413],
-        ['l', 297.889, 233.872],
-        ['c', 305.063 ,239.141 ,309.3 ,247.51 ,309.3, 256.411], 
-        ['c', 309.3, 265.311, 305.063, 273.681, 297.889, 278.949],
-        ['l', 33.105, 473.415],
-        ['z']
-      ]
-      var comp=componentsToPath(d);
-      svgAttr(dobleFlecha,comp);
-      */
+     
+      svgAttr(dobleFlecha,{d:'M 0 0 L 3 3 L 0 6 M 3 6 L 6 3 L 3 0'});
   
       addMarker(id, {
         element: dobleFlecha,
         attrs: {
           stroke: stroke
         },
-        ref: {x:6,y:3},//{ x: 10, y: 5},
+        ref: {x:6,y:3},
         scale: 3
       });
 
@@ -471,9 +434,8 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var y2=parseInt(y2)
 
       var dpath='M '+zero+' '+zero+' L '+ten+' '+ten+' M '+ten+' '+zero+' L '+zero+' '+ ten
-      //var dpath='M '+(x2-x1)+' '+(y2-y1)+' L '+(x1)+' '+(y1)+' M '+(x1+x2)+' '+(y1+x2)+' L '+(x1)+' '+ (y1)
 
-      svgAttr(dobleFlecha,{d:dpath,orient:'auto'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
+      svgAttr(dobleFlecha,{d:dpath,orient:'auto'});
       addMarker(id, {
         element: dobleFlecha,
         attrs: {
@@ -482,23 +444,15 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         ref: {x:90 , y:5}, //{ x: 50, y: 5},
         orient:'auto',
         scale: 4.0
-      })
-
-      //dpath+=dpath+'M '+(parseInt(x)-5).toString()+' '+(0).toString()+' L '+ (parseInt(x)+5).toString()+' '+(parseInt(y)+5).toString()
-
-      //dpath+=dpath+'M '+zero+' '+zero+' L '+ten+' '+ten
-
-      //svgAttr(dobleFlecha,{d:'M 0 0 L 10 10',orient:'auto'})            
+      });
 
     }
 
     if(type === "negated2"){
       var dobleFlecha=svgCreate('path');
-      //M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
-      //svgAttr(dobleFlecha,{d: 'M 33.105 473.415 L 0 428.339 L 234.096 256.411 L 0 84.49 L 33.104 39.413 L 297.889 233.872 C 305.063 239.141 309.3 247.51 309.3 256.411 C 309.3 265.311 305.063 273.681 297.889 278.949 L 33.105 473.415 Z M 236.635 473.415 L 203.53 428.339 L 437.624 256.411 L 203.53 84.49 L 236.634 39.413 L 501.417 233.872 C 508.591 239.14 512.828 247.509 512.828 256.41 C 512.828 265.309 508.591 273.681 501.417 278.948 L 236.635 473.415 Z'});
-      svgAttr(dobleFlecha,{d:'M 10 0 L 0 10',orient:'auto'})//svgAttr(dobleFlecha,{d:'M 0 0 L 8 3 L 0 6 M 5 6 L 10 3 L 5 0'})
-      //version cutre: M 0 0 L 1 2 L 3 6 V 0 L 0 6
-  
+     
+      svgAttr(dobleFlecha,{d:'M 10 0 L 0 10',orient:'auto'});
+     
       addMarker(id, {
         element: dobleFlecha,
         attrs: {
@@ -527,31 +481,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return path;
   }
 
-  function drawRedCross(shape){
-    
-    var catGfx = svgCreate('image', {
-      x: 0,
-      y: 0,
-      width: shape.width,
-      height: shape.height,
-      href:Cat.dataRedCross
-    });
-
-    return  catGfx;
-  }
-
-  function drawNyanCat(shape){
-
-    var catGfx = svgCreate('image', {
-      x: 0,
-      y: 0,
-      width: shape.width,
-      height: shape.height,
-      href:Cat.dataURL3
-    });
-
-    return  catGfx;
-  }
 
   function drawDataField(shape){
 
@@ -698,18 +627,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return polygon
   }
 
-  function drawTimeDistanceArc(p, element, options) {
-    var pathData = createPathFromConnection(element);
-    var attrs = {
-      strokeLinejoin: 'round',
-      stroke: element.color || BLACK,
-      strokeWidth: 1.5
-    };
-
-    attrs = assign(attrs, options)
-
-    return drawPath(p, pathData, attrs);
-  }
 
   function drawCanDelegate(shape){
 
@@ -831,18 +748,15 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       var attrs2 = {
         strokeLinejoin: 'round',
-        //markerStart: marker('negated2', 'white', element.color,x,y),
         stroke: COLOR_RED,
         strokeWidth: 1,
       };
 
-      //(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
       svgAppend(p, drawCrossedLine(element.waypoints,attrs2));
       svgAppend(p, drawCrossedLine2(element.waypoints,attrs2));
 
       
       return svgAppend(p, createLine(element.waypoints, attrs));
-      //return svgAppend(p, drawCrossedLine(element.waypoints,attrs))
     },
     'RALph:simpleArrow':(p, element)=>{
       var attrs = {
@@ -893,7 +807,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         stroke: element.color || BLACK,
         strokeWidth: 0.5,
         strokeDasharray: [8,5],
-       // markerEnd: marker('history-source-another-start', 'white',BLACK),
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));
@@ -919,22 +832,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));
-    },
-    'RALph:TimeDistanceArcStart': (p, element) => {
-      var attrs = {
-        markerStart: marker('timedistance-start', 'white', element.color),
-      };
-
-      return drawTimeDistanceArc(p, element, attrs)
-
-    },
-    'RALph:TimeDistanceArcEnd': (p, element) => {
-      var attrs = {
-        markerEnd: marker('timedistance-end', 'blue', element.color),
-      };
-
-      return drawTimeDistanceArc(p, element, attrs)
-
     },
     'label': (p, element) => {
       return renderExternalLabel(p, element);
@@ -981,23 +878,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ];
 
       return componentsToPath(roundRectPath);
-    },'RALph:nyanCat':(element)=>{
-      var x = element.x,
-          y = element.y,
-          width = element.width,
-          height = element.height;
-          
-
-      var d = [
-        ['M', x , y],
-        ['h', 50 ],
-        ['v', 50 ],
-        ['h', -50 ],
-        ['v', -50 ],
-        ['z']
-      ]
-
-      return componentsToPath(d);
     },'RALph:ResourceArc':(element)=>{
       var x = element.x,
           y = element.y,
@@ -1009,23 +889,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         ['M', x , y],
         ['h', 50 ],
         ['v', 50 ],
-        ['h', -50 ],
-        ['v', -50 ],
-        ['z']
-      ]
-
-      return componentsToPath(d);
-    },'RALph:ResourceArc2':(element)=>{
-      var x = element.x,
-          y = element.y,
-          width = element.width,
-          height = element.height;
-          
-
-      var d = [
-        ['M', x , y],
-        ['h', 60 ],
-        ['v', 90 ],
         ['h', -50 ],
         ['v', -50 ],
         ['z']
@@ -1141,16 +1004,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
           width = element.width,
           height = element.height,
           borderRadius=20;
-      /*
-      var d = [
-        ['M', x , y],
-        ['h', 50 ],
-        ['v', 50 ],
-        ['h', -50 ],
-        ['v', -50 ],
-        ['z']
-      ]
-      */
+
      var d = [
       ['M', x + borderRadius, y],
       ['l', width - borderRadius * 2, 0],
@@ -1172,15 +1026,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         width = element.width,
         height = element.height,
         borderRadius=20;
-        /*
-        var d = [
-          ['M', x , y],
-          ['h', 55 ],
-          ['v', 50 ],
-          ['h', -50 ],
-          ['v', -30 ],
-          ['z']
-        ]*/
+        
       var d = [
           ['M', x + borderRadius, y],
           ['l', width - borderRadius * 2, 0],
@@ -1285,25 +1131,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
    ];
 
       return componentsToPath(d);
-},
-'RALph:Clock': (element) => {
-      var x = element.x,
-          y = element.y,
-          width = element.width,
-          height = element.height;
-
-      var d = [
-        ['M', x , y],
-        ['h', 50 ],
-        ['v', 50 ],
-        ['h', -50 ],
-        ['v', -50 ],
-        ['z']
-      ]
-
-      return componentsToPath(d);
-      
-    },'RALph:dataField':(element)=>{
+},'RALph:dataField':(element)=>{
       var x = element.x,
       y = element.y,
       width = element.width,
@@ -1326,106 +1154,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       return componentsToPath(d);
 
     },
-    'RALph:Resource': (element) => {
-      var x = element.x,
-          y = element.y,
-          width = element.width,
-          height = element.height;
-
-      var resourcePath = [
-        ['M', x+35 , y+25],
-        ['a', 14, 14, 79, 0, 0, 5, -10],
-        ['a', 6, 6, 79, 0, 0, -30, 0],
-        ['a', 14, 14, 79, 0, 0, 5, 10],
-        ['a', 60, 60, 0, 0, 0, -15, 50],
-        ['h', 50 ],
-        ['a', 60, 60, 0, 0, 0, -15, -50],
-        ['z']
-      ];
-
-      return componentsToPath(resourcePath);
-    },
-    'RALph:ResourceAbsence': (element) => {
-      return paths['RALph:Resource'](element)
-    },
-    'RALph:Role': (element) => {
-      var x = element.x,
-          y = element.y,
-          width = element.width,
-          height = element.height;
-
-
-      var resourcePath = [
-        ['M', x , y],
-        ['v', 78],
-        ['h', 54],
-        ['v', -78],
-        ['h', -54],
-        ['z']
-      ];
-
-      return componentsToPath(resourcePath);
-
-    },'RALph:RedCross':(element)=>{
-      var x = element.x,
-      y = element.y,
-      width = element.width,
-      height = element.height;
-
-
-    var resourcePath = [
-      ['M', x , y],
-      ['v', 78],
-      ['h', 54],
-      ['v', -78],
-      ['h', -54],
-      ['z']
-    ];
-
-    return componentsToPath(resourcePath);
-
-    },
-    'RALph:RoleAbsence': (element) => {
-      return paths['RALph:Role'](element)
-    },
-    'RALph:Group': (element) => {
-      var x = element.x,
-          y = element.y,
-          width = element.width,
-          height = element.height;
-
-      var resourcePath = [
-        ['M', x+42 , y+26],
-        ['a', 14, 14, 79, 0, 0, 5, -10],
-        ['a', 6, 6, 79, 0, 0, -30, 0],
-        ['a', 14, 14, 79, 0, 0, 5, 10],
-        ['a', 60, 60, 0, 0, 0, -15, 50],
-        ['h', 50 ],
-        ['a', 60, 60, 0, 0, 0, -15, -50],
-        ['M', x+37 , y+28],
-        ['a', 14, 14, 79, 0, 0, 5, -10],
-        ['a', 6, 6, 79, 0, 0, -30, 0],
-        ['a', 14, 14, 79, 0, 0, 5, 10],
-        ['a', 60, 60, 0, 0, 0, -15, 50],
-        ['h', 50 ],
-        ['a', 60, 60, 0, 0, 0, -15, -50],
-        ['z']
-      ];
-
-      return componentsToPath(resourcePath);
-    },
-    'RALph:GroupAbsence': (element) => {
-      return paths['RALph:Group'](element)
-    },
-    // 'RALph:ResourceArc': (connection) => {
-    //   return getConnectionPath(connection)
-    // },
-    // 'RALph:ConsequenceFlow': (connection) => {
-    //   return paths['RALph:ResourceArc'](connection)
-    // },
-    // 'RALph:TimeDistance': (connection) => {
-    //   return paths['RALph:ResourceArc'](connection)
-    // },
     'label': (element) => {
       var x = element.x,
           y = element.y,
