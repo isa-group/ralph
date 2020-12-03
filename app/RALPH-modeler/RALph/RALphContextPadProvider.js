@@ -17,7 +17,7 @@ import {isLabel} from "./utils/LabelUtil";
 import {resourceArcElements,resourceArcElements2,solidLineElements,HistoryConnectorSameOrPreviousInstanceElements,HistoryConnectorPreviousInstanceElements} from "./Types";
 
 
-export default function CustomContextPadProvider(config, injector, elementFactory, connect, create, translate) {
+export default function RALphContextPadProvider(config, injector, elementFactory, connect, create, translate) {
 
     injector.invoke(ContextPadProvider, this);
 
@@ -104,19 +104,6 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         connect.customStart2(event, element, 'RALph:ConsequenceTimedFlow', elementFactory, autoActivate);
     }
 
-    /*if (isAny(businessObject, resourceArcElements) && element.type !== 'label') {
-        assign(actions, {
-          'connect': {
-              group: 'connect',
-              className: 'bpmn-icon-connection-multi',
-              title: translate('Connect using custom connection'),
-              action: {
-                  click: startConnect,
-                  dragstart: startConnect
-              }
-          }
-        });
-    }*/
 
     if (isAny(businessObject, resourceArcElements) && element.type !== 'label') {
         assign(actions, {
@@ -144,24 +131,7 @@ export default function CustomContextPadProvider(config, injector, elementFactor
         });
     }
 
-
-   /* if (isAny(businessObject, resourceArcElements2) && element.type !== 'label') {
-        assign(actions, {
-          'connect': {
-              group: 'connect',
-              className: 'bpmn-icon-connection-multi',
-              title: translate('Connect using custom connection 2'),
-              action: {
-                  click: startConnect,
-                  dragstart: startConnect
-              }
-          }
-        });
-    }*/
     
-
-
-
     if(isAny(businessObject,solidLineElements) && element.type !== 'label') {
         assign(actions, {
             'connect1': appendConnectAction(
@@ -213,9 +183,9 @@ export default function CustomContextPadProvider(config, injector, elementFactor
   };
 }
 
-inherits(CustomContextPadProvider, ContextPadProvider);
+inherits(RALphContextPadProvider, ContextPadProvider);
 
-CustomContextPadProvider.$inject = [
+RALphContextPadProvider.$inject = [
     'config',
     'injector',
     'elementFactory',

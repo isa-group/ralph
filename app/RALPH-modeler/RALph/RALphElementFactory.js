@@ -18,7 +18,7 @@ import {custom, isCustomShape} from "./Types";
 /**
  * A custom factory that knows how to create BPMN _and_ custom elements.
  */
-export default function CustomElementFactory(bpmnFactory, moddle, translate) {
+export default function RALphElementFactory(bpmnFactory, moddle, translate) {
   BpmnElementFactory.call(this, bpmnFactory, moddle, translate);
 
   /**
@@ -31,17 +31,17 @@ export default function CustomElementFactory(bpmnFactory, moddle, translate) {
    */
 }
 
-inherits(CustomElementFactory, BpmnElementFactory);
+inherits(RALphElementFactory, BpmnElementFactory);
 
-CustomElementFactory.$inject = [
+RALphElementFactory.$inject = [
   'bpmnFactory',
   'moddle',
   'translate'
 ];
 
-CustomElementFactory.prototype.baseCreate = BaseElementFactory.prototype.create;
+RALphElementFactory.prototype.baseCreate = BaseElementFactory.prototype.create;
 
-CustomElementFactory.prototype.create = function(elementType, attrs) {
+RALphElementFactory.prototype.create = function(elementType, attrs) {
   if(attrs.type1) return
   var type = attrs.type;
 
@@ -53,7 +53,7 @@ CustomElementFactory.prototype.create = function(elementType, attrs) {
     return this.createBpmnElement(elementType, attrs);
 };
 
-CustomElementFactory.prototype._ensureId = function(element) {
+RALphElementFactory.prototype._ensureId = function(element) {
 
   // generate semantic ids for elements
   // bpmn:SequenceFlow -> SequenceFlow_ID
@@ -65,7 +65,7 @@ CustomElementFactory.prototype._ensureId = function(element) {
   }
 };
 
-CustomElementFactory.prototype._initBO = function(businessObject) {
+RALphElementFactory.prototype._initBO = function(businessObject) {
   Object.defineProperty(businessObject, '$model', {
     value: this._moddle
   });
@@ -93,7 +93,7 @@ CustomElementFactory.prototype._initBO = function(businessObject) {
   return businessObject
 }
 
-CustomElementFactory.prototype._createCustomBO = function(elementType, attrs) {
+RALphElementFactory.prototype._createCustomBO = function(elementType, attrs) {
   let businessObject = Object.assign({}, attrs.businessObject)
   if (!businessObject.type)
     businessObject.type = elementType
@@ -124,7 +124,7 @@ CustomElementFactory.prototype._createCustomBO = function(elementType, attrs) {
   return businessObject
 }
 
-CustomElementFactory.prototype.createCustomElement = function(elementType, attrs) {
+RALphElementFactory.prototype.createCustomElement = function(elementType, attrs) {
   var size,
       translate = this._translate;
 
@@ -151,18 +151,9 @@ CustomElementFactory.prototype.createCustomElement = function(elementType, attrs
   return this.baseCreate(elementType, attrs);
 };
 
-CustomElementFactory.prototype._getCustomElementSize = function(type) {
+RALphElementFactory.prototype._getCustomElementSize = function(type) {
   var shapes = {
     __default: { width: 100, height: 80 },
-    'RALph:Clock': { width: 50, height: 50 },
-    'RALph:TimeSlot': { width: 100, height: 30 },
-    'RALph:Resource': { width: 50, height: 75 },
-    'RALph:ResourceAbsence': { width: 50, height: 75 },
-    'RALph:Role': { width: 50, height: 75 },
-    'RALph:RoleAbsence': { width: 50, height: 75 },
-    'RALph:Group': { width: 60, height: 80 },
-    'RALph:GroupAbsence': { width: 60, height: 80 },
-    'RALph:nyanCat':{ width:300, height: 300},
     'RALph:Person':{width: 58, height: 75},
     'RALph:RoleRALph':{width: 51, height: 75},
     'RALph:Personcap':{width:74,height:85},

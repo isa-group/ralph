@@ -18,7 +18,7 @@ import { directEdit, label} from "./Types";
 
 import LabelEditingProvider from "bpmn-js/lib/features/label-editing/LabelEditingProvider";
 
-export default function CustomLabelEditingProvider(
+export default function RALphLabelEditingProvider(
     eventBus, canvas, directEditing,
     modeling, resizeHandles, textRenderer) {
 
@@ -109,7 +109,7 @@ export default function CustomLabelEditingProvider(
 
 }
 
-CustomLabelEditingProvider.$inject = [
+RALphLabelEditingProvider.$inject = [
     'eventBus',
     'canvas',
     'directEditing',
@@ -125,7 +125,7 @@ CustomLabelEditingProvider.$inject = [
  *
  * @return {Object} an object with properties bounds (position and size), text and options
  */
-CustomLabelEditingProvider.prototype.activate = function(element) {
+RALphLabelEditingProvider.prototype.activate = function(element) {
 
     // text
     let text = getLabel(element);
@@ -198,7 +198,7 @@ CustomLabelEditingProvider.prototype.activate = function(element) {
  * @return {Object} an object containing information about position
  *                  and size (fixed or minimum and/or maximum)
  */
-CustomLabelEditingProvider.prototype.getEditingBBox = function(element) {
+RALphLabelEditingProvider.prototype.getEditingBBox = function(element) {
     var canvas = this._canvas;
 
     var target = element.label || element;
@@ -366,7 +366,7 @@ CustomLabelEditingProvider.prototype.getEditingBBox = function(element) {
     return { bounds: bounds, style: style };
 };
 
-CustomLabelEditingProvider.prototype.update = LabelEditingProvider.prototype.update
+RALphLabelEditingProvider.prototype.update = LabelEditingProvider.prototype.update
 
 // helpers //////////////////////
 

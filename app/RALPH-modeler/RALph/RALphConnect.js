@@ -6,7 +6,7 @@ import {getNewShapePosition} from "bpmn-js/lib/features/auto-place/AutoPlaceUtil
 import {assign} from "min-dash";
 
 
-export default function CustomConnect(eventBus, dragging, modeling, rules) {
+export default function RALphConnect(eventBus, dragging, modeling, rules) {
 
     // rules
 
@@ -217,7 +217,7 @@ export default function CustomConnect(eventBus, dragging, modeling, rules) {
     };
 }
 
-CustomConnect.$inject = [
+RALphConnect.$inject = [
     'eventBus',
     'dragging',
     'modeling',
