@@ -515,7 +515,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataPosition
+      href:Cat.dataPositionRALph2
     });
 
     return pos;
@@ -527,7 +527,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataURLpersonSVG
+      href:Cat.dataPersonRalph2
     });
 
     return  person;
@@ -551,7 +551,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataURLrole
+      href:Cat.dataRoleRalph2
     });
 
     return role;
