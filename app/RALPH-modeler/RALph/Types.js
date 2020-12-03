@@ -1,48 +1,25 @@
 export const label = [
-    'RALph:Resource',
-    'RALph:ResourceAbsence',
-    'RALph:Role',
-    'RALph:RoleAbsence',
-    'RALph:Group',
-    'RALph:GroupAbsence',
-    'RALph:Clock',
-    'RALph:TimeSlot',
-    'RALph:nyanCat',
+    
     'RALph:Person',
     'RALph:RoleRALph',
     'RALph:Personcap',
     'RALph:Orgunit',
     'RALph:Position',
-    'RALph:ResourceArc',
-    'RALph:ResourceArc2'
+
 ]
 
 export const externalLabel = [
-    'RALph:Resource',
-    'RALph:ResourceAbsence',
-    'RALph:Role',
-    'RALph:RoleAbsence',
-    'RALph:Group',
-    'RALph:GroupAbsence',
-    'RALph:Clock',
-    'RALph:nyanCat',
+    
     'RALph:Person',
     'RALph:RoleRALph',
-    'RALph:ResourceArc',
-    'RALph:ResourceArc2',
     'RALph:Personcap'
     
 ]
 
 export const connections = [
     'RALph:ResourceArc',
-    'RALph:ResourceArc2',
-    
-    'RALph:ConsequenceFlow',
-    'RALph:TimeDistanceArcStart',
-    'RALph:TimeDistanceArcEnd',
-
     'RALph:negatedAssignment',
+
     'RALph:solidLine',
     'RALph:solidLineWithCircle',
     'RALph:dashedLine',
@@ -53,31 +30,16 @@ export const connections = [
 ]
 
 export const directEdit = [
-    // 'RALph:Resource',
-    // 'RALph:Role',
-    // 'RALph:Group',
-    'RALph:Clock',
-    'RALph:TimeSlot',
-    'RALph:nyanCat',
-    'RALph:Person',
-    'RALph:RoleRALph',
-    'RALph:Personcap',
+    //'RALph:Person',
+    //'RALph:RoleRALph',
+    //'RALph:Personcap',
     'RALph:Orgunit',
     'RALph:Position',
-    'RALph:ResourceArc',
-    'RALph:ResourceArc2'
+
 ]
 
 export const resourceArcElements = [
-    /*'RALph:Clock',
-    'RALph:Resource',
-    'RALph:ResourceAbsence',
-    'RALph:Role',
-    'RALph:RoleAbsence',
-    'RALph:Group',
-    'RALph:GroupAbsence',
-    'RALph:TimeSlot',
-    'RALph:nyanCat',*/
+   
     'RALph:Person',
     'RALph:RoleRALph',
     'RALph:Personcap',
@@ -108,19 +70,8 @@ export const resourceArcElements2 = [
 ]
 
 export const custom = [
-    /*'RALph:Clock',
-    'RALph:Resource',
-    'RALph:ResourceAbsence',
-    'RALph:Role',
-    'RALph:RoleAbsence',
-    'RALph:Group',
-    'RALph:GroupAbsence',
-    'RALph:TimeSlot',*/
+    
     'RALph:ResourceArc',
-    'RALph:ResourceArc2',
-    'RALph:ConsequenceFlow',
-    'RALph:TimeDistanceArcStart',
-    'RALph:TimeDistanceArcEnd',
     'RALph:nyanCat',
     'RALph:Person',
     'RALph:RoleRALph',
