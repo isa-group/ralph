@@ -200,21 +200,21 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     },
     
     'RALph-Person': createAction(
-      "RALph:Person", 'resources','icom-RALph2-person' //'icon-RALph-person'
+      "RALph:Person", 'resources','icon-RALph2-person' //'icon-RALph-person'
     ),
   
     'RALph-Role':createAction(
-      "RALph:RoleRALph", 'resources' , 'icom-RALph2-role'//'icon-RALph-roleRalph'
+      "RALph:RoleRALph", 'resources' , 'icon-RALph2-role'//'icon-RALph-roleRalph'
     ),
         
     'RALph-Orgunit':createAction(
-      'RALph:Orgunit','resources','icom-RALph2-orgunit'
+      'RALph:Orgunit','resources','icon-RALph2-orgunit'
     ),
     'RALph-Position':createAction(
-      'RALph:Position','resources','icom-RALph2-position'
+      'RALph:Position','resources','icon-RALph2-position'
     ),
     'RALph-Personcap':createAction(
-      'RALph:Personcap','resources','icom-RALph2-capability'
+      'RALph:Personcap','resources','icon-RALph2-capability'
     ),
     
     'history-based-assignment-separator': {
@@ -222,22 +222,31 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       separator: true
     },
     /*'RALph-History-Same':createAction(
-      'RALph:History-Same','history-based-assignments','icom-RALph-Same'
+      'RALph:History-Same','history-based-assignments','icon-RALph-Same'
     ),
     'RALph-History-Any':createAction(
-      'RALph:History-Any','history-based-assignments','icom-RALph-History-Any'
+      'RALph:History-Any','history-based-assignments','icon-RALph-History-Any'
     ),*/
     'RALph-History-Any-Green':createAction(
-      'RALph:History-Any-Green','history-based-assignments','icom-RALph2-history-any-green'
+      'RALph:History-Any-Green','history-based-assignments','icon-RALph2-history-any-green'
     ),
     'RALph-History-Any-Red':createAction(
-      'RALph:History-Any-Red','history-based-assignments','icom-RALph2-history-any-red'
+      'RALph:History-Any-Red','history-based-assignments','icon-RALph2-history-any-red'
     ),
     'RALph-History-Same-Green':createAction(
-      'RALph:History-Same-Green','history-based-assignments','icom-RALph2-history-same-green'
+      'RALph:History-Same-Green','history-based-assignments','icon-RALph2-history-same-green'
     ),
     'RALph-History-Same-Red':createAction(
-      'RALph:History-Same-Red','history-based-assignments','icom-RALph2-history-same-red'
+      'RALph:History-Same-Red','history-based-assignments','icon-RALph2-history-same-red'
+    ),
+    'Complex-assignments': {
+      group: 'Complex',
+      separator: true
+    },'RALph-OR':createAction(
+      'RALph:OR-assignments','Complex-assignments','icon-RALph2-OR'
+    ),
+    'RALph-AND':createAction(
+      'RALph:AND-assignments','Complex-assignments','icon-RALph2-AND'
     ),
 
 

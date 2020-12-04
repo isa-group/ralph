@@ -109,13 +109,13 @@ export default function RALphContextPadProvider(config, injector, elementFactory
         assign(actions, {
             'connect1': appendConnectAction(
                 'RALph:ResourceArc',
-                'icom-RALph-solidLineDef',
+                'icon-RALph-solidLineDef',
                 'Connect using simple resource assignment'
             ),
             
             'connect2': appendConnectAction(
                     'RALph:negatedAssignment',
-                    'icom-RALph-negatedDef',//'icom-RALph-Negated',
+                    'icon-RALph-negatedDef',//'icon-RALph-Negated',
                     'Connect using negated connection'
                 )
         });
@@ -125,7 +125,7 @@ export default function RALphContextPadProvider(config, injector, elementFactory
         assign(actions, {
             'connectPos': appendConnectAction(
                 'RALph:Delegate',
-                'icom-RALph-Delegate',
+                'icon-RALph-Delegate',
                 'Connect using delegate'
             ),
         });
@@ -136,19 +136,19 @@ export default function RALphContextPadProvider(config, injector, elementFactory
         assign(actions, {
             'connect1': appendConnectAction(
                 'RALph:solidLine',
-                'icom-RALph-solidLineDef',//'icom-RALph-SolidLine',
+                'icon-RALph-solidLineDef',//'icon-RALph-SolidLine',
                 'Connect using a solid line'
             ),'connect2': appendConnectAction(
                 'RALph:solidLineWithCircle',
-                'icom-RALph-solidLineWithCircleDef',
+                'icon-RALph-solidLineWithCircleDef',
                 'Connect using a solid line with a circle'
             ),'connect3': appendConnectAction(
                 'RALph:dashedLine',
-                'icom-RALph-dashedLineDef',//'icom-RALph-dashedLine2',
+                'icon-RALph-dashedLineDef',//'icon-RALph-dashedLine2',
                 'Connect using a dashed line'
             ),'connect4': appendConnectAction(
                 'RALph:dashedLineWithCircle',
-                'icom-RALph-dashedLineWithCircle',//'bpmn-icon-connection-multi',
+                'icon-RALph-dashedLineWithCircle',//'bpmn-icon-connection-multi',
                 'Connect using a dashed line with circle'
             )
         });
@@ -158,7 +158,7 @@ export default function RALphContextPadProvider(config, injector, elementFactory
         assign(actions, {
             'connect4': appendConnectAction(
                 'RALph:Report',
-                'icom-RALph-Report',//'bpmn-icon-connection-multi',
+                'icon-RALph-Report',//'bpmn-icon-connection-multi',
                 'Connect using report connection'
             ),
             'connect5': appendConnectAction(
