@@ -190,25 +190,25 @@ function canConnect2(source, target, connection) {
 
 
   if(connection === 'RALph:solidLine' && cond === true){
-    if(isValidForHistoryConnectors(target) === true){//check if the target is in the list of valid targets for history connectors.
+    if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2){//check if the target is in the list of valid targets for history connectors.
       return { type: connection }
     }
   }
 
   if(connection === 'RALph:solidLineWithCircle' && cond === true) {
-    if(isValidForHistoryConnectors(target)){
+    if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2){
       return { type: connection }
     }
   }
 
   if(connection === 'RALph:dashedLine' && cond === true){
-    if(isValidForHistoryConnectors(target)){
+    if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2){
       return { type: connection }
     }
   }
 
   if(connection === 'RALph:dashedLineWithCircle' && cond === true){
-    if(isValidForHistoryConnectors(target)){
+    if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2){
       return { type: connection }
     }
   }

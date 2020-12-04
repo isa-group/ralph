@@ -88,7 +88,7 @@ export const custom = [
     'RALph:Orgunit',
     'RALph:Position',
     'RALph:DelegateTo',
-    'RALph:History',
+    'RALph:History-Same',
     'RALph:History-Any',
     'RALph:HistoryConnectorActivityInstance',
     'RALph:solidLineWithCircle',
