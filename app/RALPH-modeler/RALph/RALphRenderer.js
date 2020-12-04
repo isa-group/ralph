@@ -521,6 +521,30 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return pos;
   }
 
+  function drawAND(shape){
+    var AND = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataAND
+    });
+
+    return AND;
+  }
+
+  function drawOR(shape){
+    var OR = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataOR
+    });
+
+    return OR;
+  }
+
   function drawPerson(shape){
     var person = svgCreate('image', {
       x: 0,
@@ -689,9 +713,23 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       svgAppend(p,pos)
       //renderEmbeddedLabel(p,element,'center-middle')
       return pos;
+    },'RALph:Complex-Assignment-OR':(p,element)=>{
+      let OR=drawOR(element)
 
-    },
-    'RALph:Orgunit':(p,element) =>{
+      svgAppend(p,OR)
+      //renderEmbeddedLabel(p,element,'center-middle')
+      return OR;
+
+    
+    },'RALph:Complex-Assignment-AND':(p,element)=>{
+      let AND=drawAND(element)
+
+      svgAppend(p,AND)
+      //renderEmbeddedLabel(p,element,'center-middle')
+      return AND;
+
+
+    },'RALph:Orgunit':(p,element) =>{
       let org=drawOrgunit(element)
 
       svgAppend(p,org)
@@ -1322,6 +1360,68 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ];
 
       return componentsToPath(d);
+
+    },'RALph:Complex-Assignment-OR':(element)=>{
+      var x = element.x,
+      y = element.y,
+      width = element.width,
+      height = element.height,
+      borderRadius=10;
+    
+      /*var d = [
+        ['M', x + borderRadius, y],
+        ['l', width - borderRadius * 2, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+        ['l', 0, height - borderRadius * 2],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+        ['l', borderRadius * 2 - width, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+        ['l', 0, borderRadius * 2 - height],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+        ['z']
+      ];*/
+      var d = [
+        ['M', x , y],
+        ['h', 50 ],
+        ['v', 50 ],
+        ['h', -50 ],
+        ['v', -50 ],
+        ['z']
+      ]
+
+      return componentsToPath(d);
+
+    
+    },'RALph:Complex-Assignment-AND':(element)=>{
+      var x = element.x,
+      y = element.y,
+      width = element.width,
+      height = element.height,
+      borderRadius=10;
+    
+      /*var d = [
+        ['M', x + borderRadius, y],
+        ['l', width - borderRadius * 2, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+        ['l', 0, height - borderRadius * 2],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+        ['l', borderRadius * 2 - width, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+        ['l', 0, borderRadius * 2 - height],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+        ['z']
+      ];*/
+      var d = [
+        ['M', x , y],
+        ['h', 50 ],
+        ['v', 50 ],
+        ['h', -50 ],
+        ['v', -50 ],
+        ['z']
+      ]
+
+      return componentsToPath(d);
+
     }
   }
 }

@@ -243,10 +243,10 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       group: 'Complex',
       separator: true
     },'RALph-OR':createAction(
-      'RALph:OR-assignments','Complex-assignments','icon-RALph2-OR'
+      'RALph:Complex-Assignment-OR','Complex-assignments','icon-RALph2-OR'
     ),
     'RALph-AND':createAction(
-      'RALph:AND-assignments','Complex-assignments','icon-RALph2-AND'
+      'RALph:Complex-Assignment-AND','Complex-assignments','icon-RALph2-AND'
     ),
 
 

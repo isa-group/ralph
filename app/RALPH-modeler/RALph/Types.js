@@ -100,7 +100,9 @@ export const custom = [
     'RALph:History-Any-Red',
     'RALph:History-Any-Green',
     'RALph:History-Same-Green',
-    'RALph:History-Same-Red'
+    'RALph:History-Same-Red',
+    'RALph:Complex-Assignment-AND',
+    'RALph:Complex-Assignment-OR'
     //añadir conexiones aqui también
 ]
 
