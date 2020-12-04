@@ -515,7 +515,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataPositionRALph2
+      href:Cat.dataPositionTest//Cat.dataPositionRALph2
     });
 
     return pos;
@@ -527,7 +527,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataPersonRalph2
+      href:Cat.personTest//dataPersonRalph2
     });
 
     return  person;
@@ -551,7 +551,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataRoleRalph2
+      href:Cat.dataRoleTest//Cat.dataRoleRalph2
     });
 
     return role;
@@ -563,7 +563,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataCapabilityRALph2
+      href:Cat.dataCapabilityTest//dataCapabilityRALph2
     });
 
     return cap;
@@ -1300,7 +1300,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       ];
 
       return componentsToPath(d);
-      
+
     },'RALph:History-Any-Red':(element)=>{
       var x = element.x,
       y = element.y,

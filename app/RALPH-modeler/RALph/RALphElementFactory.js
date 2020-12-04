@@ -155,14 +155,16 @@ RALphElementFactory.prototype._getCustomElementSize = function(type) {
   var shapes = {
     __default: { width: 100, height: 80 },
     'RALph:Person':{width: 58, height: 75},
-    'RALph:RoleRALph':{width: 51, height: 75},
-    'RALph:Personcap':{width:74,height:85},
+    'RALph:RoleRALph':{width: 58, height: 81},
+    'RALph:Personcap':{width:58,height:75},
     'RALph:Orgunit':{width:79,height:56},
-    'RALph:Position':{width:75,height:75},
+    'RALph:Position':{width:58,height:75},
     'RALph:History-Same':{width:36,height:45},
     'RALph:History-Any':{width:54,height:60},
     'RALph:History-Any-Red':{width:54,height:60},
-    'RALph:History-Any-Green':{width:54,height:60}
+    'RALph:History-Any-Green':{width:54,height:60},
+    'RALph:History-Same-Red':{width:36,height:45},
+    'RALph:History-Same-Green':{width:36,height:45}
 
   };
 
