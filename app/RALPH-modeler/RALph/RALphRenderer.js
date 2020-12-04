@@ -687,7 +687,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       let pos=drawPosition(element)
 
       svgAppend(p,pos)
-      renderEmbeddedLabel(p,element,'center-middle')
+      //renderEmbeddedLabel(p,element,'center-middle')
       return pos;
 
     },
@@ -695,7 +695,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       let org=drawOrgunit(element)
 
       svgAppend(p,org)
-      renderEmbeddedLabel(p,element,'center-middle')
+      //renderEmbeddedLabel(p,element,'center-middle')
 
       return org;
 

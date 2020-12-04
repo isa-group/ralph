@@ -12,7 +12,9 @@ export const externalLabel = [
     
     'RALph:Person',
     'RALph:RoleRALph',
-    'RALph:Personcap'
+    'RALph:Personcap',
+    'RALph:Orgunit',
+    'RALph:Position',
     
 ]
 
@@ -33,8 +35,8 @@ export const directEdit = [
     //'RALph:Person',
     //'RALph:RoleRALph',
     //'RALph:Personcap',
-    'RALph:Orgunit',
-    'RALph:Position',
+    //'RALph:Orgunit',
+    //'RALph:Position',
 
 ]
 
