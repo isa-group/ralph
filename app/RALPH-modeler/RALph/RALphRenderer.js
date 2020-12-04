@@ -22,6 +22,7 @@ var COLOR_GREEN = '#52B415',
     COLOR_RED = '#cc0000',
     COLOR_YELLOW = '#ffc800',
     BLACK = '#000',
+    GRAY='#807e7e',
     WHITE="#fff";
 
 
@@ -286,14 +287,31 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     if(type === "doubleArrow"){
       var dobleFlecha=svgCreate('path');
      
-      svgAttr(dobleFlecha,{d:'M 0 0 L 3 3 L 0 6 M 3 6 L 6 3 L 3 0'});
+      svgAttr(dobleFlecha,{d:'M 0 0 L 3 3 L 0 6 M 3 6 L 6 3 L 3 0'}); //{d:'M 0 0 L 3 3 M 3 3 L 0 6 M 2 0 L 6 3 M 6 3 L 2 6'});
   
       addMarker(id, {
         element: dobleFlecha,
         attrs: {
+          fill:stroke,
           stroke: stroke
         },
         ref: {x:6,y:3},
+        scale: 3
+      });
+
+    }
+
+    if(type === "simpleArrow"){
+      var simpleFlecha=svgCreate('path');
+     
+      svgAttr(simpleFlecha,{d:'M 0 0 L 3 3 M 3 3 L 0 6'});//{d:'M 0 0 L 3 3 L 0 6 M 3 6 L 6 3 L 3 0'});
+  
+      addMarker(id, {
+        element: simpleFlecha,
+        attrs: {
+          stroke: stroke
+        },
+        ref: {x:3,y:3},
         scale: 3
       });
 
@@ -864,8 +882,8 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     'RALph:simpleArrow':(p, element)=>{
       var attrs = {
         strokeLinejoin: 'round',
-        markerEnd: marker('sequenceflow-end', 'white', element.color),
-        stroke: element.color || BLACK,
+        markerEnd: marker('sequenceflow-end', 'white',GRAY),//'simpleArrow', 'white',GRAY),
+        stroke: GRAY,
         strokeWidth: 0.5,
         //strokeDasharray: [8,5]
       };
@@ -875,8 +893,8 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     'RALph:doubleArrow':(p,element)=>{
       var attrs = {
         strokeLinejoin: 'round',
-        markerEnd: marker('doubleArrow', 'white', element.color),
-        stroke: element.color || BLACK,
+        markerEnd: marker('doubleArrow', 'white',GRAY),//createMarker(id, type, fill, stroke,x,y,x2,y2)
+        stroke: GRAY,
         strokeWidth: 0.5,
         //strokeDasharray: [8,5]
       };
