@@ -347,6 +347,7 @@ CustomRules.prototype.init = function() {
     var source = context.source,
         target = context.target,
         type = context.type;
+
     //if(source === "RALph:Position" && target === "bpmn:Task")
     if(type === 'RALph:Delegate' || type==='RALph:Report' || type==='RALph:dataFieldConnection')
       return canConnectMultipleCustomElement(source,target)

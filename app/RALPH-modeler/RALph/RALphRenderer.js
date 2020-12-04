@@ -757,7 +757,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     },'RALph:Personcap':(p,element) =>{
       let cap=drawPersoncap(element)
-
+      
       svgAppend(p,cap)
 
       return cap;
@@ -898,7 +898,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         strokeWidth: 0.5,
         //strokeDasharray: [8,5]
       };
-
+      element.businessObject.name = 'custom text';
       return svgAppend(p, createLine(element.waypoints, attrs));
 
     }
