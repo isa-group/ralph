@@ -502,7 +502,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataReports
+      href:Cat.dataReports2
     });
 
     return  catGfx;
@@ -539,7 +539,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataCanDelegate
+      href:Cat.dataCanDelegate2
     });
 
     return delegate;
