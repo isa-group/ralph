@@ -207,14 +207,16 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       "RALph:RoleRALph", 'resources' , 'icon-RALph2-role'//'icon-RALph-roleRalph'
     ),
         
-    'RALph-Orgunit':createAction(
-      'RALph:Orgunit','resources','icon-RALph2-orgunit'
+    'RALph-Personcap':createAction(
+      'RALph:Personcap','resources','icon-RALph2-capability'
     ),
+    
     'RALph-Position':createAction(
       'RALph:Position','resources','icon-RALph2-position'
     ),
-    'RALph-Personcap':createAction(
-      'RALph:Personcap','resources','icon-RALph2-capability'
+
+    'RALph-Orgunit':createAction(
+      'RALph:Orgunit','resources','icon-RALph2-orgunit'
     ),
     
     'history-based-assignment-separator': {
