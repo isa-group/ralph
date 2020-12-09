@@ -605,7 +605,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataCapabilityTest//dataCapabilityRALph2
+      href:Cat.dataCapabilityTest2//dataCapabilityRALph2
     });
 
     return cap;
@@ -674,7 +674,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return org;
   }
 
-  function drawHistoryConnector(shape){
+  function drawHistorySameConnector(shape){
     var org = svgCreate('image', {
       x: 0,
       y: 0,
@@ -775,7 +775,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         return role;
 
     },'RALph:History-Same':(p,element)=>{
-      let connector=drawHistoryConnector(element)
+      let connector=drawHistorySameConnector(element)
 
       
       svgAppend(p,connector)
