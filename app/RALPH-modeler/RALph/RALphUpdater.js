@@ -52,6 +52,8 @@ export default function CustomUpdater(eventBus, modeling, bpmnjs) {
         target = connection.target,
         businessObject = connection.businessObject;
 
+    console.log("llama aqui");
+    console.log(source);
     var parent = connection.parent;
 
     var customElements = bpmnjs._customElements;
@@ -64,9 +66,17 @@ export default function CustomUpdater(eventBus, modeling, bpmnjs) {
     }
 
     // update waypoints
+    
     assign(businessObject, {
       waypoints: copyWaypoints(connection)
     });
+
+    if(target.type==='RALph:reportsDirectly'){
+      assign(target.businessObject, {
+        x: source.x,
+        y: source.y-550 
+      });
+    }
 
     if (source && target) {
       assign(businessObject, {

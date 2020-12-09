@@ -139,6 +139,24 @@ export default function RALphConnect(eventBus, dragging, modeling, rules) {
                 modeling.connect(newShape, target, attrs, hints);
                 return;
 
+            }else if(canExecute.type9){
+                let shape = elementFactory.createShape({ type: 'RALph:reportsDirectly' });
+                let pos = {
+                    x: sourcePosition.x,
+                    y: (sourcePosition.y - 550),
+                }
+                let newShape = modeling.appendShape(source, shape, pos, source.parent, {
+                    connection: { type: canExecute.type9}
+                });
+
+                hints = {
+                    connectionStart: sourcePosition,
+                    connectionEnd: pos,
+                }
+               
+                modeling.connect(newShape, target, attrs, hints);
+                return;
+
             }
             else
                 attrs = canExecute;

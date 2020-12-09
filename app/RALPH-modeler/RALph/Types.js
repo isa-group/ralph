@@ -28,7 +28,9 @@ export const connections = [
     'RALph:dashedLineWithCircle',
 
     'RALph:simpleArrow',
-    'RALph:doubleArrow'
+    'RALph:doubleArrow',
+
+    'RALph:Curve'
 ]
 
 export const directEdit = [
@@ -102,7 +104,9 @@ export const custom = [
     'RALph:History-Same-Green',
     'RALph:History-Same-Red',
     'RALph:Complex-Assignment-AND',
-    'RALph:Complex-Assignment-OR'
+    'RALph:Complex-Assignment-OR',
+    'RALph:reportsDirectly',
+    'RALph:Curve'
     //añadir conexiones aqui también
 ]
 

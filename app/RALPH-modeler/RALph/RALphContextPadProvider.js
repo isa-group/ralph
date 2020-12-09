@@ -165,6 +165,11 @@ export default function RALphContextPadProvider(config, injector, elementFactory
                 'bpmn:DataOutputAssociation',
                 'bpmn-icon-connection-multi',//'bpmn-icon-connection-multi',
                 'Connect using data output association'
+            ),
+            'connect6':appendConnectAction(
+                'RALph:ReportsDirectlyAssignment',
+                'icon-RALph-Report',//'bpmn-icon-connection-multi',
+                'Connect using report directly connection'
             )
             
         });

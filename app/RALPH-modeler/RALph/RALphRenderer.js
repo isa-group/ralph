@@ -116,6 +116,23 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return line
   }
 
+
+  function drawCurvedLine(points,attrs){
+
+    var line = svgCreate('polyline');
+    var result='';
+
+    //result +=(points[0].x).toString()+ ',' + (points[0].y).toString()+ ','+ points[0].x, waypoint.y-10,waypoint.x+7, waypoint.y-10 
+    svgAttr(line, {points: result });
+
+
+    if (attrs) {
+      svgAttr(line, attrs);
+    }
+  }
+
+
+
   function renderLabel(parentGfx, label, options) {
     options = assign({
       size: {
@@ -698,6 +715,18 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return org;
   }
 
+  function drawReportsDirectly(shape){
+    var reportsDirectly = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataReportsDirectly
+    });
+
+    return reportsDirectly;
+  }
+
 
   function drawTimeSlot(width, height, color) {
     var attrs = computeStyle(attrs, {
@@ -723,7 +752,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
  
 
-  var renderers = this.renderers = {
+   this.renderers = {
     
     'RALph:Position':(p,element) =>{
       let pos=drawPosition(element)
@@ -746,6 +775,11 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       //renderEmbeddedLabel(p,element,'center-middle')
       return AND;
 
+
+    },'RALph:reportsDirectly':(p,element)=>{
+      let reportsDirectly=drawReportsDirectly(element);
+      svgAppend(p,reportsDirectly);
+      return reportsDirectly;
 
     },'RALph:Orgunit':(p,element) =>{
       let org=drawOrgunit(element)
@@ -889,6 +923,15 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       };
 
       return svgAppend(p, createLine(element.waypoints, attrs));
+    }, 
+    'RALph:Curve':(p, element)=>{
+      var attrs = {
+        stroke: GRAY,
+        strokeWidth: 0.5,
+        //strokeDasharray: [8,5]
+      };
+
+      return svgAppend(p, createLine(element.waypoints, attrs));
     },
     'RALph:doubleArrow':(p,element)=>{
       var attrs = {
@@ -977,7 +1020,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
      return componentsToPath(connectionPath);
    }*/
 
-  var paths = this.paths = {
+   this.paths = {
     'RALph:TimeSlot': (shape) => {
       var x = shape.x,
           y = shape.y,
@@ -1440,6 +1483,28 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return componentsToPath(d);
 
+    },'RALph:reportsDirectly':(element)=>{
+      var x = element.x,
+      y = element.y,
+      width = element.width,
+      height = element.height,
+      borderRadius=30;
+
+      var d = [
+        ['M', x + borderRadius, y],
+        ['l', width - borderRadius * 2, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+        ['l', 0, height - borderRadius * 2],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+        ['l', borderRadius * 2 - width, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+        ['l', 0, borderRadius * 2 - height],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+        ['z']
+      ];
+
+      return componentsToPath(d);
+
     }
   }
 }
@@ -1464,6 +1529,7 @@ CustomRenderer.prototype.drawShape = function(p, element) {
 };
 
 CustomRenderer.prototype.getShapePath = function(shape) {
+
   var type = shape.type;
   var h = this.paths[type];
 
@@ -1487,6 +1553,7 @@ CustomRenderer.prototype.getConnectionPath = function(connection) {
   //
   // /* jshint -W040 */
   // return h(connection);
+  
   var waypoints = connection.waypoints.map(function(p) {
     return p.original || p;
   });
@@ -1495,12 +1562,12 @@ CustomRenderer.prototype.getConnectionPath = function(connection) {
     ['M', waypoints[0].x, waypoints[0].y]
   ];
 
-  
   waypoints.forEach(function(waypoint, index) {
-    if (index !== 0) {
-      connectionPath.push(['L', waypoint.x, waypoint.y]);
-    }
+      if (index !== 0) {
+        connectionPath.push(['L', waypoint.x, waypoint.y]);
+      }
   });
+ 
 
   return componentsToPath(connectionPath);
 

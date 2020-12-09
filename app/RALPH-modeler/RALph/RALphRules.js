@@ -146,7 +146,7 @@ function canConnect2(source, target, connection) {
   //console.log(source);
 
   var sourceOutgoingConnections=source.outgoing;
-  console.log(sourceOutgoingConnections);
+  console.log(source);
  
   let cond=true;
   //it checks if the source of a connection has already been connected to that target
@@ -194,6 +194,8 @@ function canConnect2(source, target, connection) {
       return { type: connection }
     }
   }
+
+  
 
   if(connection === 'RALph:solidLineWithCircle' && cond === true) {
     if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2){
@@ -264,12 +266,20 @@ CustomRules.prototype.init = function() {
   function canConnectMultipleCustomElement(source, target) {
       if( is(source,'RALph:Position') && is(target,'bpmn:Task') ) { 
         return {type3: 'RALph:solidLine' , type4: 'RALph:simpleArrow' }
-      }else if( is(source,'bpmn:Task') && is(target,'RALph:Position')  ){
+      /*}else if( is(source,'bpmn:Task') && is(target,'RALph:Position')  ){
         return {type5: 'RALph:solidLine' , type6:'RALph:doubleArrow'} //'RALph:reportsTo' }
-      }else if( is(source,'bpmn:DataObjectReference') && is(target,'RALph:Person')  ){
+      */}else if( is(source,'bpmn:DataObjectReference') && is(target,'RALph:Person')  ){
         return {type7:'RALph:ResourceArc', type8:'RALph:simpleArrow'}
-     }
+      }
   }
+
+  function connectHierarchyConnectors(source,target,type) {
+    if(is(source,'bpmn:Task') && type === "RALph:ReportsDirectlyAssignment"){
+
+        return {type9:'RALph:ResourceArc'}
+      }
+  }
+
   function canReconnect(source, target, connection) {
     if(!isCustom(connection) && !isCustom(source) && !isCustom(target))
       return;
@@ -348,10 +358,14 @@ CustomRules.prototype.init = function() {
         target = context.target,
         type = context.type;
 
-    //if(source === "RALph:Position" && target === "bpmn:Task")
-    if(type === 'RALph:Delegate' || type==='RALph:Report' || type==='RALph:dataFieldConnection')
+    if(type === 'RALph:Delegate' || type==='RALph:Report' || type==='RALph:dataFieldConnection'){
+    
       return canConnectMultipleCustomElement(source,target)
 
+    }else if(type==='RALph:ReportsDirectlyAssignment'){
+      return connectHierarchyConnectors(source,target,type);
+    }
+    
     return canConnect2(source, target, type);
   });
 
