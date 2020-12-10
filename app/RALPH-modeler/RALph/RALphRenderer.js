@@ -42,20 +42,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
   function drawCrossedLine(points,attrs){
     var line = svgCreate('polyline');
-    var result='';//toSVGPoints(points)
-
-    /*if(points[0].y===points[1].y){
-    //result +=(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
-    
-      result +=(points[0].x + parseInt(points[1].x-points[0].x)/4).toString()+ ',' + (parseInt(points[0].y)+20).toString()+ ','+(points[0].x + parseInt(points[1].x-points[0].x)*3/4).toString()+ ',' + (parseInt(points[0].y)-20).toString();
-      svgAttr(line, {points: result });
-
-    }else if(points[0].x===points[1].x){
-  
-      result +=(points[0].x + 20).toString()+ ',' + (parseInt(points[0].y + parseInt(points[1].y-points[0].y)/4)).toString()+ ','+(points[0].x -20).toString()+ ',' + (points[0].y + parseInt(points[1].y-points[0].y)*3/4).toString();
-      svgAttr(line, {points: result });
-
-    }else{*/
+    var result='';
 
       var middlePosition=points.length/2;
       middlePosition=Math.round(middlePosition)
@@ -63,10 +50,8 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       var middlePointX=(points[middlePosition].x+points[middlePosition-1].x)/2;
       var middlePointY=(points[middlePosition].y+points[middlePosition-1].y)/2;
       result +=(middlePointX-20).toString()+ ',' + (middlePointY+20).toString()+ ','+(middlePointX+20).toString()+ ',' +  parseInt(middlePointY-20).toString();
-      //result +=(middlePointX).toString()+ ',' + (middlePointY+5).toString()+ ','+(middlePointX).toString()+ ',' +  parseInt(middlePointY-5).toString();
+      
       svgAttr(line, {points: result });
-
-    //}
 
 
     if (attrs) {
@@ -82,31 +67,17 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     var line = svgCreate('polyline');
     var result='';
-    //result +=(parseInt(points[0].x)).toString()+ ',' + (parseInt(points[0].y)-30).toString()+ ','+(parseInt(points[0].x+50)).toString()+ ',' + (parseInt(points[0].y+30)).toString();
-    /*if(points[0].y === points[1].y){
     
-      result +=(points[0].x + parseInt(points[1].x-points[0].x)*3/4).toString()+ ',' + (parseInt(points[0].y)+20).toString()+ ','+(points[0].x + parseInt(points[1].x-points[0].x)/4).toString()+ ',' + (parseInt(points[0].y)-20).toString();
-      svgAttr(line, {points: result });
+    var middlePosition;
 
-    }else if(points[0].x === points[1].x){
+    middlePosition=points.length/2;
+    middlePosition=Math.round(middlePosition)
 
-      result +=(parseInt(points[0].x)+20).toString()+ ',' + (points[0].y + parseInt(points[1].y-points[0].y)*3/4).toString()+ ','+(parseInt(points[0].x) -20).toString()+ ',' + (points[0].y + parseInt(points[1].y-points[0].y)/4).toString();
-      svgAttr(line, {points: result });
-  }else{*/
-      var middlePosition;
+    var middlePointX=(points[middlePosition].x+points[middlePosition-1].x)/2;
+    var middlePointY=(points[middlePosition].y+points[middlePosition-1].y)/2;
 
-      middlePosition=points.length/2;
-      middlePosition=Math.round(middlePosition)
-
-      var middlePointX=(points[middlePosition].x+points[middlePosition-1].x)/2;
-      var middlePointY=(points[middlePosition].y+points[middlePosition-1].y)/2;
-
-      //result +=(middlePointX+5).toString()+ ',' + (middlePointY+5).toString()+ ','+(middlePointX-5).toString()+ ',' +  parseInt(middlePointY-5).toString();
-      //result +=(middlePointX+5).toString()+ ',' + (middlePointY).toString()+ ','+(middlePointX-5).toString()+ ',' +  parseInt(middlePointY).toString();
-      result +=(middlePointX+20).toString()+ ',' + (middlePointY+20).toString()+ ','+(middlePointX-20).toString()+ ',' +  parseInt(middlePointY-20).toString();
-      svgAttr(line, {points: result });
-
-  //}
+    result +=(middlePointX+20).toString()+ ',' + (middlePointY+20).toString()+ ','+(middlePointX-20).toString()+ ',' +  parseInt(middlePointY-20).toString();
+    svgAttr(line, {points: result });
     
 
     if (attrs) {
@@ -116,20 +87,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return line
   }
 
-
-  function drawCurvedLine(points,attrs){
-
-    var line = svgCreate('polyline');
-    var result='';
-
-    //result +=(points[0].x).toString()+ ',' + (points[0].y).toString()+ ','+ points[0].x, waypoint.y-10,waypoint.x+7, waypoint.y-10 
-    svgAttr(line, {points: result });
-
-
-    if (attrs) {
-      svgAttr(line, attrs);
-    }
-  }
 
 
 
@@ -182,15 +139,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     });
   }
 
-  function createPathFromConnection(connection) {
-    var waypoints = connection.waypoints;
-
-    var pathData = 'm  ' + waypoints[0].x + ',' + waypoints[0].y;
-    for (var i = 1; i < waypoints.length; i++) {
-      pathData += 'L' + waypoints[i].x + ',' + waypoints[i].y + ' ';
-    }
-    return pathData;
-  }
+  
 
   function addMarker(id, options) {
     var attrs = assign({
@@ -304,8 +253,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     if(type === "doubleArrow"){
       var dobleFlecha=svgCreate('path');
      
-      svgAttr(dobleFlecha,{d:'M 0 0 L 3 3 L 0 6 M 3 6 L 6 3 L 3 0'}); //{d:'M 0 0 L 3 3 M 3 3 L 0 6 M 2 0 L 6 3 M 6 3 L 2 6'});
-  
+      svgAttr(dobleFlecha,{d:'M 0 0 L 3 3 L 0 6 M 3 6 L 6 3 L 3 0'}); 
       addMarker(id, {
         element: dobleFlecha,
         attrs: {
@@ -321,7 +269,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     if(type === "simpleArrow"){
       var simpleFlecha=svgCreate('path');
      
-      svgAttr(simpleFlecha,{d:'M 0 0 L 3 3 M 3 3 L 0 6'});//{d:'M 0 0 L 3 3 L 0 6 M 3 6 L 6 3 L 3 0'});
+      svgAttr(simpleFlecha,{d:'M 0 0 L 3 3 M 3 3 L 0 6'});
   
       addMarker(id, {
         element: simpleFlecha,
@@ -500,21 +448,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     }
   }
 
-  function drawPath(parentGfx, d, attrs) {
-
-    attrs = computeStyle(attrs, [ 'no-fill' ], {
-      strokeWidth: 2,
-      stroke: 'black'
-    });
-
-    var path = svgCreate('path');
-    svgAttr(path, { d: d });
-    svgAttr(path, attrs);
-
-    svgAppend(parentGfx, path);
-
-    return path;
-  }
+  
 
 
   function drawDataField(shape){
@@ -563,7 +497,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataPositionTest//Cat.dataPositionRALph2
+      href:Cat.dataPositionDef
     });
 
     return pos;
@@ -599,7 +533,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.personTest//dataPersonRalph2
+      href:Cat.personDef
     });
 
     return  person;
@@ -623,7 +557,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataRoleTest//Cat.dataRoleRalph2
+      href:Cat.dataRoleDef
     });
 
     return role;
@@ -635,7 +569,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataCapabilityTest2//dataCapabilityRALph2
+      href:Cat.dataCapabilityDef
     });
 
     return cap;
@@ -698,7 +632,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       y: 0,
       width: shape.width,
       height: shape.height,
-      href:Cat.dataOrgUnitRALph2
+      href:Cat.dataOrgUnitDef
     });
 
     return org;
@@ -763,29 +697,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     });
 
     return delegatesTransitively;
-  }
-
-
-
-  function drawTimeSlot(width, height, color) {
-    var attrs = computeStyle(attrs, {
-      stroke: color || '#fff',
-      strokeWidth: 2,
-      fill: '#fff'
-    });
-
-    var polygon = svgCreate('rect');
-
-    svgAttr(polygon, {
-      width: width,
-      height: height,
-      rx: 20,
-      ry: 20
-    });
-
-    svgAttr(polygon, attrs);
-
-    return polygon
   }
 
 
