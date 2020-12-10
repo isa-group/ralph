@@ -52,8 +52,6 @@ export default function CustomUpdater(eventBus, modeling, bpmnjs) {
         target = connection.target,
         businessObject = connection.businessObject;
 
-    console.log("llama aqui");
-    console.log(source);
     var parent = connection.parent;
 
     var customElements = bpmnjs._customElements;

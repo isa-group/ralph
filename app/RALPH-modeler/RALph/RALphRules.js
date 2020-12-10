@@ -146,7 +146,6 @@ function canConnect2(source, target, connection) {
   //console.log(source);
 
   var sourceOutgoingConnections=source.outgoing;
-  console.log(source);
  
   let cond=true;
   //it checks if the source of a connection has already been connected to that target
@@ -155,7 +154,6 @@ function canConnect2(source, target, connection) {
   if(target!==null){
     
     var targetIncomingConnections=target.incoming;
-    console.log(targetIncomingConnections);
 
     for(let i of sourceOutgoingConnections){
       if(targetIncomingConnections.includes(i)){
@@ -274,10 +272,17 @@ CustomRules.prototype.init = function() {
   }
 
   function connectHierarchyConnectors(source,target,type) {
+    console.log(source);
+    
     if(is(source,'bpmn:Task') && type === "RALph:ReportsDirectlyAssignment"){
 
-        return {type9:'RALph:ResourceArc'}
-      }
+      return {type9:'RALph:ResourceArc'}
+
+    }else if(is(source,'bpmn:Task') && type === "RALph:ReportsTransitivelyAssignment"){
+     
+      return {type10:'RALph:ResourceArc'}
+
+    }
   }
 
   function canReconnect(source, target, connection) {
@@ -354,6 +359,7 @@ CustomRules.prototype.init = function() {
   });
 
   this.addRule('connection.create', HIGH_PRIORITY, function(context) {
+    console.log(context);
     var source = context.source,
         target = context.target,
         type = context.type;
@@ -362,8 +368,19 @@ CustomRules.prototype.init = function() {
     
       return canConnectMultipleCustomElement(source,target)
 
-    }else if(type==='RALph:ReportsDirectlyAssignment'){
-      return connectHierarchyConnectors(source,target,type);
+    }else if(type==='RALph:ReportsDirectlyAssignment' || type==="RALph:ReportsTransitivelyAssignment"){
+      var cond=true;
+      var sourceOutgoingConnections=source.outgoing;
+      
+      for(let connection of sourceOutgoingConnections){
+        if(connection.businessObject.target.includes("reports")){
+          cond=false;
+        }
+      }
+
+      if(cond===true){
+        return connectHierarchyConnectors(source,target,type);
+      }
     }
     
     return canConnect2(source, target, type);

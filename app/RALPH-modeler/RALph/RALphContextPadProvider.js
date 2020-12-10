@@ -156,20 +156,25 @@ export default function RALphContextPadProvider(config, injector, elementFactory
 
     if(is(businessObject, 'bpmn:Task') && element.type !== 'label') {
         assign(actions, {
-            'connect4': appendConnectAction(
+            'connect1': appendConnectAction(
                 'RALph:Report',
                 'icon-RALph-Report',//'bpmn-icon-connection-multi',
                 'Connect using report connection'
             ),
-            'connect5': appendConnectAction(
+            'connect2': appendConnectAction(
                 'bpmn:DataOutputAssociation',
                 'bpmn-icon-connection-multi',//'bpmn-icon-connection-multi',
                 'Connect using data output association'
             ),
-            'connect6':appendConnectAction(
+            'connect3':appendConnectAction(
                 'RALph:ReportsDirectlyAssignment',
                 'icon-RALph-Report',//'bpmn-icon-connection-multi',
                 'Connect using report directly connection'
+            ),
+            'connect4':appendConnectAction(
+                'RALph:ReportsTransitivelyAssignment',
+                'icon-RALph-Report',//'bpmn-icon-connection-multi',
+                'Connect using report transitively connection'
             )
             
         });

@@ -543,6 +543,19 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return  catGfx;
   }
 
+  function drawReportsTransitively(shape){
+
+    var reportsTransitively = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataReportsTransitively
+    });
+
+    return reportsTransitively;
+  }
+
   function drawPosition(shape){
 
     var pos = svgCreate('image', {
@@ -777,9 +790,16 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
 
     },'RALph:reportsDirectly':(p,element)=>{
+
       let reportsDirectly=drawReportsDirectly(element);
       svgAppend(p,reportsDirectly);
       return reportsDirectly;
+
+    },'RALph:reportsTransitively':(p,element)=>{
+
+      let reportsTransitively=drawReportsTransitively(element);
+      svgAppend(p,reportsTransitively);
+      return reportsTransitively;
 
     },'RALph:Orgunit':(p,element) =>{
       let org=drawOrgunit(element)
@@ -1484,6 +1504,28 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       return componentsToPath(d);
 
     },'RALph:reportsDirectly':(element)=>{
+      var x = element.x,
+      y = element.y,
+      width = element.width,
+      height = element.height,
+      borderRadius=30;
+
+      var d = [
+        ['M', x + borderRadius, y],
+        ['l', width - borderRadius * 2, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+        ['l', 0, height - borderRadius * 2],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+        ['l', borderRadius * 2 - width, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+        ['l', 0, borderRadius * 2 - height],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+        ['z']
+      ];
+
+      return componentsToPath(d);
+
+    },'RALph:reportsTransitively':(element)=>{
       var x = element.x,
       y = element.y,
       width = element.width,
