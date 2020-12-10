@@ -141,10 +141,13 @@ function canConnect(source, target, connection) {
 
 
 
-function canConnect2(source, target, connection) {
+function simpleConnection(source, target, connection) { //function to connect elements
   //console.log(target);
   //console.log(source);
 
+  //The outgoing connections of the source are saved so that it is checked that the target does not have another connection from the source.
+  //This is important for history connector in order to avoid more than one connection between him and the task, or to avoid the possibility of
+  //connecting an element with a negated and simple connection.
   var sourceOutgoingConnections=source.outgoing;
  
   let cond=true;
@@ -167,9 +170,10 @@ function canConnect2(source, target, connection) {
     return null;
   }
 
+  //usually the structure is enter if is connection X and check that the target and the source can be connected.
   if(connection ===  'bpmn:DataOutputAssociation'){
-    if( is(target, 'bpmn:DataObjectReference') && is(source,'bpmn:Task') ){
-        return { type: connection}
+    if( is(target, 'bpmn:DataObjectReference') && is(source,'bpmn:Task') ){//for instance, if the source is a Task and the target is DataObjectReference, it is possible to connect them
+        return { type: connection}//and the 
     }
   }
 
@@ -188,7 +192,7 @@ function canConnect2(source, target, connection) {
 
 
   if(connection === 'RALph:solidLine' && cond === true){
-    if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2){//check if the target is in the list of valid targets for history connectors.
+    if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2){//check if the target is in the list of valid targets for history connectors and that the history connector does not have more than two connections, which is not possible.
       return { type: connection }
     }
   }
@@ -212,19 +216,6 @@ function canConnect2(source, target, connection) {
       return { type: connection }
     }
   }
-
-  else if(connection === 'RALph:TimeDistanceArcStart') {
-    if(isDefaultValid(source) && is(target, 'RALph:TimeSlot'))
-      return { type: connection }
-    else
-      return false
-  }
-  else if(connection === 'RALph:TimeDistanceArcEnd') {
-    if(isDefaultValid(target) && is(source, 'RALph:TimeSlot'))
-      return { type: connection }
-    else
-      return false
-  }
   else {
     if (!isCustom(source) && !isCustom(target))
       return;
@@ -247,21 +238,9 @@ CustomRules.prototype.init = function() {
     return is(target, 'bpmn:Process') || is(target, 'bpmn:Participant') || is(target, 'bpmn:Collaboration');
   }
 
-  /**
-   * Can source and target be connected?
-   */
+  
 
-
-  function canConnectMultiple(source, target, type) {
-    if (is(source, 'bpmn:Task') && is(target, 'bpmn:Task')) {
-      if(type === 'RALph:ConsequenceTimedFlow')//aqui parece definir la conexion compleja
-        return {type1: 'RALph:ResourceArc', type2:'RALph:ConsequenceFlow'}
-      else if(type === 'RALph:TimeDistance')
-        return {type1: 'RALph:TimeDistanceArcStart', type2:'RALph:TimeDistanceArcEnd'}
-    }
-  }
-
-  function canConnectMultipleCustomElement(source, target) {
+  function canConnectMultipleCustomElement(source, target) {//it allows to crwe
       if( is(source,'RALph:Position') && is(target,'bpmn:Task') ) { 
         return {type3: 'RALph:solidLine' , type4: 'RALph:simpleArrow' }
       /*}else if( is(source,'bpmn:Task') && is(target,'RALph:Position')  ){
@@ -399,7 +378,7 @@ CustomRules.prototype.init = function() {
       }
     }
     
-    return canConnect2(source, target, type);
+    return simpleConnection(source, target, type);
   });
 
   this.addRule('connection.reconnectStart', HIGH_PRIORITY*2, function(context) {
@@ -407,7 +386,7 @@ CustomRules.prototype.init = function() {
         source = context.hover || context.source,
         target = connection.target;
 
-    return canConnect2(source, target, connection.type);
+    return simpleConnection(source, target, connection.type);
   });
 
   this.addRule('connection.reconnectEnd', HIGH_PRIORITY*2, function(context) {
@@ -415,7 +394,7 @@ CustomRules.prototype.init = function() {
         source = connection.source,
         target = context.hover || context.target;
 
-    return canConnect2(source, target, connection.type);
+    return simpleConnection(source, target, connection.type);
   });
 
 
@@ -430,6 +409,6 @@ CustomRules.prototype.canConnect = function (source, target, connection) {
   if (nonExistingOrLabel(source) || nonExistingOrLabel(target)) {
     return null;
   }
-  return canConnect2(source, target, connection.type)
+  return simpleConnection(source, target, connection.type)
 
 }
