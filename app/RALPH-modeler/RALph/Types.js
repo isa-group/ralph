@@ -106,7 +106,9 @@ export const custom = [
     'RALph:Complex-Assignment-AND',
     'RALph:Complex-Assignment-OR',
     'RALph:reportsDirectly',
-    'RALph:reportsTransitively'
+    'RALph:reportsTransitively',
+    'RALph:delegatesDirectly',
+    'RALph:delegatesTransitively'
     //añadir conexiones aqui también
 ]
 

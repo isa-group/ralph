@@ -143,7 +143,7 @@ export default function RALphConnect(eventBus, dragging, modeling, rules) {
                 let shape = elementFactory.createShape({ type: 'RALph:reportsDirectly' });
                 let pos = {
                     x: sourcePosition.x,
-                    y: (sourcePosition.y - 550),
+                    y: (sourcePosition.y - 250),
                 }
                 let newShape = modeling.appendShape(source, shape, pos, source.parent, {
                     connection: { type: canExecute.type9}
@@ -161,10 +161,46 @@ export default function RALphConnect(eventBus, dragging, modeling, rules) {
                 let shape = elementFactory.createShape({ type: 'RALph:reportsTransitively' });
                 let pos = {
                     x: sourcePosition.x,
-                    y: (sourcePosition.y - 550),
+                    y: (sourcePosition.y - 250),
                 }
                 let newShape = modeling.appendShape(source, shape, pos, source.parent, {
                     connection: { type: canExecute.type10}
+                });
+
+                hints = {
+                    connectionStart: sourcePosition,
+                    connectionEnd: pos,
+                }
+               
+                modeling.connect(newShape, target, attrs, hints);
+                return;
+
+            }else if(canExecute.type11){
+                let shape = elementFactory.createShape({ type: 'RALph:delegatesDirectly' });
+                let pos = {
+                    x: sourcePosition.x,
+                    y: (sourcePosition.y + 250),
+                }
+                let newShape = modeling.appendShape(source, shape, pos, source.parent, {
+                    connection: { type: canExecute.type11}
+                });
+
+                hints = {
+                    connectionStart: sourcePosition,
+                    connectionEnd: pos,
+                }
+               
+                modeling.connect(newShape, target, attrs, hints);
+                return;
+
+            }else if(canExecute.type12){
+                let shape = elementFactory.createShape({ type: 'RALph:delegatesTransitively' });
+                let pos = {
+                    x: sourcePosition.x,
+                    y: (sourcePosition.y + 250),
+                }
+                let newShape = modeling.appendShape(source, shape, pos, source.parent, {
+                    connection: { type: canExecute.type12}
                 });
 
                 hints = {

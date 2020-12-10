@@ -168,7 +168,10 @@ RALphElementFactory.prototype._getCustomElementSize = function(type) {
     'RALph:Complex-Assignment-AND':{width:88,height:90},
     'RALph:Complex-Assignment-OR':{width:88,height:90},
     'RALph:reportsDirectly':{width:94, height:200},
-    'RALph:reportsTransitively':{width:94, height:200}
+    'RALph:reportsTransitively':{width:94, height:200},
+    'RALph:delegatesDirectly':{width:94, height:200},
+    'RALph:delegatesTransitively':{width:94, height:200},
+
 
   };
 

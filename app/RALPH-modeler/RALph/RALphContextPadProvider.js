@@ -175,6 +175,16 @@ export default function RALphContextPadProvider(config, injector, elementFactory
                 'RALph:ReportsTransitivelyAssignment',
                 'icon-RALph-Report',//'bpmn-icon-connection-multi',
                 'Connect using report transitively connection'
+            ),
+            'connect5':appendConnectAction(
+                'RALph:delegatesDirectlyAssignment',
+                'icon-RALph-Report',//'bpmn-icon-connection-multi',
+                'Connect using delegate directly connection'
+            ),
+            'connect6':appendConnectAction(
+                'RALph:delegatesTransitivelyAssignment',
+                'icon-RALph-Report',//'bpmn-icon-connection-multi',
+                'Connect using delegates transitively connection'
             )
             
         });

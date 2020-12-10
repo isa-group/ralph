@@ -275,13 +275,16 @@ CustomRules.prototype.init = function() {
     console.log(source);
     
     if(is(source,'bpmn:Task') && type === "RALph:ReportsDirectlyAssignment"){
-
       return {type9:'RALph:ResourceArc'}
 
     }else if(is(source,'bpmn:Task') && type === "RALph:ReportsTransitivelyAssignment"){
-     
       return {type10:'RALph:ResourceArc'}
+      
+    }else if(is(source,'bpmn:Task') && type === "RALph:delegatesTransitivelyAssignment"){
+      return {type11:'RALph:ResourceArc'}
 
+    }else if(is(source,'bpmn:Task') && type==="RALph:delegatesDirectlyAssignment"){
+      return {type12:'RALph:ResourceArc'}
     }
   }
 
@@ -371,9 +374,22 @@ CustomRules.prototype.init = function() {
     }else if(type==='RALph:ReportsDirectlyAssignment' || type==="RALph:ReportsTransitivelyAssignment"){
       var cond=true;
       var sourceOutgoingConnections=source.outgoing;
-      
+
       for(let connection of sourceOutgoingConnections){
         if(connection.businessObject.target.includes("reports")){
+          cond=false;
+        }
+      }
+
+      if(cond===true){
+        return connectHierarchyConnectors(source,target,type);
+      }
+    }else if(type==="RALph:delegatesTransitivelyAssignment" || type==="RALph:delegatesDirectlyAssignment"){
+      var cond=true;
+      var sourceOutgoingConnections=source.outgoing;
+
+      for(let connection of sourceOutgoingConnections){
+        if(connection.businessObject.target.includes("delegates")){
           cond=false;
         }
       }

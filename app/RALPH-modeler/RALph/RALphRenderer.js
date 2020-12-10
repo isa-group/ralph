@@ -740,6 +740,32 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return reportsDirectly;
   }
 
+  function drawDelegatesDirectly(shape){
+    var delegatesDirectly = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataDelegatesDirectly
+    });
+
+    return delegatesDirectly;
+  }
+
+  function drawDelegatesTransitively(shape){
+
+    var delegatesTransitively = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataDelegatesTransitively
+    });
+
+    return delegatesTransitively;
+  }
+
+
 
   function drawTimeSlot(width, height, color) {
     var attrs = computeStyle(attrs, {
@@ -801,6 +827,18 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       svgAppend(p,reportsTransitively);
       return reportsTransitively;
 
+    },'RALph:delegatesDirectly':(p,element)=>{
+
+      let delegatesDirectly=drawDelegatesDirectly(element);
+      svgAppend(p,delegatesDirectly);
+      return delegatesDirectly;
+
+    },'RALph:delegatesTransitively':(p,element)=>{
+
+      let delegatesTransitively=drawDelegatesTransitively(element);
+      svgAppend(p,delegatesTransitively);
+      return delegatesTransitively;
+      
     },'RALph:Orgunit':(p,element) =>{
       let org=drawOrgunit(element)
 
@@ -1547,6 +1585,44 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return componentsToPath(d);
 
+    },'RALph:delegatesDirectly':(element)=>{
+      var x = element.x,
+      y = element.y,
+      width = element.width,
+      height = element.height,
+      borderRadius=30;
+
+      var d = [
+        ['M', x + borderRadius, y],
+        ['l', width - borderRadius * 2, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+        ['l', 0, height - borderRadius * 2],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+        ['l', borderRadius * 2 - width, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+        ['l', 0, borderRadius * 2 - height],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+        ['z']
+      ];
+    },'RALph:delegatesTransitively':(element)=>{
+      var x = element.x,
+      y = element.y,
+      width = element.width,
+      height = element.height,
+      borderRadius=30;
+
+      var d = [
+        ['M', x + borderRadius, y],
+        ['l', width - borderRadius * 2, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+        ['l', 0, height - borderRadius * 2],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+        ['l', borderRadius * 2 - width, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+        ['l', 0, borderRadius * 2 - height],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+        ['z']
+      ];
     }
   }
 }
