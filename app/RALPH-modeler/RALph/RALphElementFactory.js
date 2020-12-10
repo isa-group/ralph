@@ -156,7 +156,7 @@ RALphElementFactory.prototype._getCustomElementSize = function(type) {
     __default: { width: 100, height: 80 },
     'RALph:Person':{width: 58, height: 75},
     'RALph:RoleRALph':{width: 58, height: 81},
-    'RALph:Personcap':{width:58,height:75},
+    'RALph:Personcap':{width:60,height:75},
     'RALph:Orgunit':{width:79,height:56},
     'RALph:Position':{width:58,height:75},
     'RALph:History-Same':{width:36,height:45},
