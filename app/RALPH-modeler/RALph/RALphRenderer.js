@@ -1481,55 +1481,32 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
       return componentsToPath(d);
 
     },'RALph:Complex-Assignment-OR':(element)=>{
-      var x = element.x,
-      y = element.y,
-      width = element.width,
+      var width = element.width,
       height = element.height,
-      borderRadius=10;
-    
-      /*var d = [
-        ['M', x + borderRadius, y],
-        ['l', width - borderRadius * 2, 0],
-        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
-        ['l', 0, height - borderRadius * 2],
-        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
-        ['l', borderRadius * 2 - width, 0],
-        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
-        ['l', 0, borderRadius * 2 - height],
-        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
-        ['z']
-      ];*/
-      var d = [
-        ['M', x , y],
-        ['h', 50 ],
-        ['v', 50 ],
-        ['h', -50 ],
-        ['v', -50 ],
-        ['z']
-      ]
+      x = element.x,
+      y = element.y,
+      halfWidth = width / 2,
+      halfHeight = height / 2;
 
-      return componentsToPath(d);
+      var diamondPath = [
+        ['M', x + halfWidth, y],
+        ['l', halfWidth, halfHeight],
+        ['l', -halfWidth, halfHeight],
+        ['l', -halfWidth, -halfHeight],
+        ['z']
+      ];
+
+      return componentsToPath(diamondPath);
 
     
     },'RALph:Complex-Assignment-AND':(element)=>{
-      var x = element.x,
+      /*var x = element.x,
       y = element.y,
       width = element.width,
       height = element.height,
       borderRadius=10;
     
-      /*var d = [
-        ['M', x + borderRadius, y],
-        ['l', width - borderRadius * 2, 0],
-        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
-        ['l', 0, height - borderRadius * 2],
-        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
-        ['l', borderRadius * 2 - width, 0],
-        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
-        ['l', 0, borderRadius * 2 - height],
-        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
-        ['z']
-      ];*/
+     
       var d = [
         ['M', x , y],
         ['h', 50 ],
@@ -1537,9 +1514,23 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         ['h', -50 ],
         ['v', -50 ],
         ['z']
-      ]
+      ]*/
+      var width = element.width,
+      height = element.height,
+      x = element.x,
+      y = element.y,
+      halfWidth = width / 2,
+      halfHeight = height / 2;
 
-      return componentsToPath(d);
+      var diamondPath = [
+        ['M', x + halfWidth, y],
+        ['l', halfWidth, halfHeight],
+        ['l', -halfWidth, halfHeight],
+        ['l', -halfWidth, -halfHeight],
+        ['z']
+      ];
+
+      return componentsToPath(diamondPath);
 
     },'RALph:reportsDirectly':(element)=>{
       var x = element.x,

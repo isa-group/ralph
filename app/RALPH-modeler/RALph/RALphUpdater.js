@@ -69,12 +69,6 @@ export default function CustomUpdater(eventBus, modeling, bpmnjs) {
       waypoints: copyWaypoints(connection)
     });
 
-    if(target.type==='RALph:reportsDirectly'){
-      assign(target.businessObject, {
-        x: source.x,
-        y: source.y-550 
-      });
-    }
 
     if (source && target) {
       assign(businessObject, {
