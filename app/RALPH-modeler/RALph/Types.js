@@ -48,9 +48,25 @@ export const resourceArcElements = [
     'RALph:RoleRALph',
     'RALph:Personcap',
     'RALph:Orgunit',
+    'RALph:Position',
+    'RALph:Complex-Assignment-AND',
+    'RALph:Complex-Assignment-OR'
+    
+]
+
+
+export const negatedElements = [
+   
+    'RALph:Person',
+    'RALph:RoleRALph',
+    'RALph:Personcap',
+    'RALph:Orgunit',
     'RALph:Position'
     
 ]
+
+
+
 
 export const solidLineElements =[//solo linea solida
     'RALph:History-Same',

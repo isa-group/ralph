@@ -14,7 +14,7 @@ import {
 } from 'min-dash';
 import {isLabel} from "./utils/LabelUtil";
 
-import {resourceArcElements,resourceArcElements2,solidLineElements,HistoryConnectorSameOrPreviousInstanceElements,HistoryConnectorPreviousInstanceElements} from "./Types";
+import {resourceArcElements,negatedElements,solidLineElements} from "./Types";
 
 
 export default function RALphContextPadProvider(config, injector, elementFactory, connect, create, translate) {
@@ -113,6 +113,15 @@ export default function RALphContextPadProvider(config, injector, elementFactory
                 'Connect using simple resource assignment'
             ),
             
+
+        });
+    }
+
+
+    if (isAny(businessObject,negatedElements) && element.type !== 'label') {
+        assign(actions, {
+        
+            
             'connect2': appendConnectAction(
                     'RALph:negatedAssignment',
                     'icon-RALph-negatedDef',//'icon-RALph-Negated',
@@ -120,6 +129,11 @@ export default function RALphContextPadProvider(config, injector, elementFactory
                 )
         });
     }
+
+
+
+
+
 
     if (is(businessObject, 'RALph:Position') && element.type !== 'label') {
         assign(actions, {
