@@ -143,7 +143,7 @@ function canConnect(source, target, connection) {
 
 function simpleConnection(source, target, connection) { //function to connect elements
   //console.log(target);
-  //console.log(source);
+  console.log(source.outgoing);
 
   //The outgoing connections of the source are saved so that it is checked that the target does not have another connection from the source.
   //This is important for history connector in order to avoid more than one connection between him and the task, or to avoid the possibility of
@@ -186,13 +186,27 @@ function simpleConnection(source, target, connection) { //function to connect el
   if(connection === 'RALph:ResourceArc' && cond === true){//if the connection is resourceArc, if source and target have not been connected previously
     //check if the target is one of the possible targets of resourceArc (Orgunit,role,task...etc)
     if( ( is(target, 'RALph:Orgunit') && is(source,'RALph:RoleRALph')) || is(target, 'bpmn:Task') || is(target, 'bpmn:Event') || is(target,'bpmn:DataObjectReference') || is(target,'bpmn:ExclusiveGateway') || is(target,'bpmn:EndEvent') || is(target,'bpmn:DataStoreReference') || is(target,'RALph:Complex-Assignment-AND') || is(target,'RALph:Complex-Assignment-OR') ){
-    return { type: connection }
+      if(is(source,'RALph:Complex-Assignment-AND') || is(source,'RALph:Complex-Assignment-OR')){
+        if(sourceOutgoingConnections.length<1){//if the source is an AND or an OR, it should not have more than one resourceArc  
+          return { type: connection }
+        }
+      }else{
+        return { type: connection }
+      }
     }
   }
 
 
   if(connection === 'RALph:solidLine' && cond === true){
-    if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2){//check if the target is in the list of valid targets for history connectors and that the history connector does not have more than two connections, which is not possible.
+
+    var cond2=true;
+    for(let connection of sourceOutgoingConnections){
+      if(connection.type.includes("dashed")){
+        cond2=false;
+      }
+    }
+
+    if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2 && cond2===true){//check if the target is in the list of valid targets for history connectors and that the history connector does not have more than two connections, which is not possible.
       return { type: connection }
     }
   }
@@ -200,19 +214,39 @@ function simpleConnection(source, target, connection) { //function to connect el
   
 
   if(connection === 'RALph:solidLineWithCircle' && cond === true) {
-    if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2){
+    var cond2=true;
+    for(let connection of sourceOutgoingConnections){
+      if(connection.type.includes("dashed")){
+        cond2=false;
+      }
+    }
+    if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2 && cond2===true){
       return { type: connection }
     }
   }
 
   if(connection === 'RALph:dashedLine' && cond === true){
-    if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2){
+    var cond2=true;
+    for(let connection of sourceOutgoingConnections){
+      if(connection.type.includes("solid")){
+        cond2=false;
+      }
+    }
+
+    if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2 && cond2===true){
       return { type: connection }
     }
   }
 
   if(connection === 'RALph:dashedLineWithCircle' && cond === true){
-    if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2){
+    var cond2=true;
+    for(let connection of sourceOutgoingConnections){
+      if(connection.type.includes("solid")){
+        cond2=false;
+      }
+    }
+
+    if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2 && cond2===true){
       return { type: connection }
     }
   }
@@ -251,7 +285,7 @@ CustomRules.prototype.init = function() {
   }
 
   function connectHierarchyConnectors(source,target,type) {
-    console.log(source);
+    //console.log(source);
     
     if(is(source,'bpmn:Task') && type === "RALph:ReportsDirectlyAssignment"){
       return {type9:'RALph:ResourceArc'}
@@ -341,7 +375,7 @@ CustomRules.prototype.init = function() {
   });
 
   this.addRule('connection.create', HIGH_PRIORITY, function(context) {
-    console.log(context);
+    //console.log(context);
     var source = context.source,
         target = context.target,
         type = context.type;

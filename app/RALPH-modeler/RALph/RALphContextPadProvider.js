@@ -187,13 +187,13 @@ export default function RALphContextPadProvider(config, injector, elementFactory
             ),
             'connect5':appendConnectAction(
                 'RALph:delegatesDirectlyAssignment',
-                'icon-RALph2-delegatesDirectly',//'bpmn-icon-connection-multi',
-                'Connect using delegate directly connection'
+                'icon-RALph2-delegatesTransitively',//'bpmn-icon-connection-multi',
+                'Connect using delegate transitively connection'
             ),
             'connect6':appendConnectAction(
                 'RALph:delegatesTransitivelyAssignment',
-                'icon-RALph2-delegatesTransitively',//'bpmn-icon-connection-multi',
-                'Connect using delegates transitively connection'
+                'icon-RALph2-delegatesDirectly',//'bpmn-icon-connection-multi',
+                'Connect using delegates direclty connection'
             )
             
         });
