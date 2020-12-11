@@ -1,4 +1,6 @@
-export const label = [
+//in this module is defined which elements belong to some connections,what is each element and the position of the labels 
+
+export const label = [//this array states which elements should have a label
     
     'RALph:Person',
     'RALph:RoleRALph',
@@ -8,7 +10,7 @@ export const label = [
 
 ]
 
-export const externalLabel = [
+export const externalLabel = [//this array states which elements should have a label
     
     'RALph:Person',
     'RALph:RoleRALph',
@@ -18,7 +20,7 @@ export const externalLabel = [
     
 ]
 
-export const connections = [
+export const connections = [//this array states which elements are connections
     'RALph:ResourceArc',
     'RALph:negatedAssignment',
 
@@ -42,7 +44,7 @@ export const directEdit = [
 
 ]
 
-export const resourceArcElements = [
+export const resourceArcElements = [//this array states which elements can use resourceArc connector
    
     'RALph:Person',
     'RALph:RoleRALph',
@@ -55,7 +57,7 @@ export const resourceArcElements = [
 ]
 
 
-export const negatedElements = [
+export const negatedElements = [//this array states which elements can use the negated connector
    
     'RALph:Person',
     'RALph:RoleRALph',
@@ -68,7 +70,7 @@ export const negatedElements = [
 
 
 
-export const solidLineElements =[//solo linea solida
+export const solidLineElements =[//this array states which elements can use the solid line connector
     'RALph:History-Same',
     'RALph:History-Any',
     'RALph:DelegateTo',
@@ -97,7 +99,7 @@ export const HistoryConnectorPreviousInstanceElements =[//linea con rayas con pu
 ]
 
 
-export const custom = [
+export const custom = [//this array states which elements are custom
     
     'RALph:ResourceArc',
     'RALph:Person',

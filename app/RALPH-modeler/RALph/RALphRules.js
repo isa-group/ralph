@@ -16,18 +16,17 @@ import {isAny} from "bpmn-js/lib/features/modeling/util/ModelingUtil";
 import {isCustomResourceArcElement, isCustomShape,isCustomResourceArc2Element,isHistoryConnectorActivityInstance,isHistoryConnectorSameOrPreviousInstance,isHistoryConnectorPreviousInstanceElements} from "./Types";
 import {isLabel} from "bpmn-js/lib/util/LabelUtil";
 
+//this module declares which elements can be connected by some connectors, and also declares the number of possible connections between the elements.
+
 var HIGH_PRIORITY = 1500;
 
+//these functions find out if an element is an instance of some element, and they are important to limit the possibilities in the connections.
 function isCustom(element) {
   return element && /^RALph:/.test(element.type);
 }
 
 function isDefaultValid(element) {
   return element && (is(element, 'bpmn:Task') || is(element, 'bpmn:Event') || is(element,'bpmn:DataObjectReference') || is(element,'bpmn:ExclusiveGateway') || is(element,'bpmn:EndEvent') || is(element,'bpmn:DataStoreReference') )
-}
-
-function isDefaultValid2(element) {
-  return element &&  (is(element, 'bpmn:Event'))
 }
 
 function isValidForHistoryConnectors(element){
@@ -140,26 +139,29 @@ function canConnect(source, target, connection) {
 }
 
 
-
+//
 function simpleConnection(source, target, connection) { //function to connect elements
   //console.log(target);
-  console.log(source.outgoing);
+  //console.log(source.outgoing);
 
-  //The outgoing connections of the source are saved so that it is checked that the target does not have another connection from the source.
+  //The outgoing connections of the source are saved to check that the target does not have another connection from the source.
   //This is important for history connector in order to avoid more than one connection between him and the task, or to avoid the possibility of
-  //connecting an element with a negated and simple connection.
+  //connecting an element with a negated and a resource connection.
   var sourceOutgoingConnections=source.outgoing;
  
-  let cond=true;
-  //it checks if the source of a connection has already been connected to that target
-  //if it is already connected, cond will be false and it will not be possible to 
-  //connect the other elements.
+  let cond=true;//cond will be the variable to check that
+
+  
+ 
   if(target!==null){
     
     var targetIncomingConnections=target.incoming;
 
     for(let i of sourceOutgoingConnections){
-      if(targetIncomingConnections.includes(i)){
+       
+      if(targetIncomingConnections.includes(i)){//here it is checked if the source of a connection has already been connected to that target
+
+        //if it is already connected, cond will be false and it will not be possible to connect the source and the target
         cond=false;
       }
     }
@@ -178,16 +180,18 @@ function simpleConnection(source, target, connection) { //function to connect el
   }
 
   if(connection === 'RALph:negatedAssignment' && cond === true){
-    if(isValidForResourceEntities(source) && is(target, 'bpmn:Task')){
+    if(isValidForResourceEntities(source) && is(target, 'bpmn:Task')){//only a task can receive the negated connection
       return { type: connection }
     }
   }
 
-  if(connection === 'RALph:ResourceArc' && cond === true){//if the connection is resourceArc, if source and target have not been connected previously
+  //connection === 'RALph:ResourceArc'=> if the connection is resourceArc
+  //cond === true => if source and target have not been connected previously
+  if(connection === 'RALph:ResourceArc' && cond === true){
     //check if the target is one of the possible targets of resourceArc (Orgunit,role,task...etc)
     if( ( is(target, 'RALph:Orgunit') && is(source,'RALph:RoleRALph')) || is(target, 'bpmn:Task') || is(target, 'bpmn:Event') || is(target,'bpmn:DataObjectReference') || is(target,'bpmn:ExclusiveGateway') || is(target,'bpmn:EndEvent') || is(target,'bpmn:DataStoreReference') || is(target,'RALph:Complex-Assignment-AND') || is(target,'RALph:Complex-Assignment-OR') ){
       if(is(source,'RALph:Complex-Assignment-AND') || is(source,'RALph:Complex-Assignment-OR')){
-        if(sourceOutgoingConnections.length<1){//if the source is an AND or an OR, it should not have more than one resourceArc  
+        if(sourceOutgoingConnections.length<1){//if the source is an AND or an OR, it should not be able to connect with more than one element 
           return { type: connection }
         }
       }else{
@@ -196,9 +200,11 @@ function simpleConnection(source, target, connection) { //function to connect el
     }
   }
 
-
+  //the same logic is applied:
   if(connection === 'RALph:solidLine' && cond === true){
 
+    //for solidline,solidLineWithCircle,dashedLine and dashedLineWithCircle it is checked that the history connector
+    //does not have incompatible connectors dashedLine with solidLine or vice versa.
     var cond2=true;
     for(let connection of sourceOutgoingConnections){
       if(connection.type.includes("dashed")){
@@ -206,7 +212,9 @@ function simpleConnection(source, target, connection) { //function to connect el
       }
     }
 
-    if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2 && cond2===true){//check if the target is in the list of valid targets for history connectors and that the history connector does not have more than two connections, which is not possible.
+    //it is also checked that the target is in the list of valid targets for history connectors 
+    //and that the history connector does not have more than two connections, which is not possible.
+    if(isValidForHistoryConnectors(target) && sourceOutgoingConnections.length<2 && cond2===true){
       return { type: connection }
     }
   }
@@ -274,9 +282,9 @@ CustomRules.prototype.init = function() {
 
   
 
-  function canConnectMultipleCustomElement(source, target) {//it allows to crwe
+  function canConnectMultipleCustomElement(source, target) {//it allows to automatically define an element and two connections between two elements.
       if( is(source,'RALph:Position') && is(target,'bpmn:Task') ) { 
-        return {type3: 'RALph:solidLine' , type4: 'RALph:simpleArrow' }
+        return {type3: 'RALph:solidLine' , type4: 'RALph:simpleArrow' }//the return structure because depending in the type some elements are automatically connected in RALph connect
       /*}else if( is(source,'bpmn:Task') && is(target,'RALph:Position')  ){
         return {type5: 'RALph:solidLine' , type6:'RALph:doubleArrow'} //'RALph:reportsTo' }
       */}else if( is(source,'bpmn:DataObjectReference') && is(target,'RALph:Person')  ){
@@ -332,7 +340,7 @@ CustomRules.prototype.init = function() {
 
   }
 
-  this.addRule('elements.move', HIGH_PRIORITY, function(context) {
+  this.addRule('elements.move', HIGH_PRIORITY, function(context) {//it allows to move elements.
 
     var target = context.target,
         shapes = context.shapes;
@@ -365,7 +373,7 @@ CustomRules.prototype.init = function() {
     return canCreate(shape, target);
   });
 
-  this.addRule('shape.resize', HIGH_PRIORITY, function(context) {
+  this.addRule('shape.resize', HIGH_PRIORITY, function(context) {//it allows to resize custom elements.
     var shape = context.shape;
 
     if (isCustom(shape)) {
@@ -374,12 +382,13 @@ CustomRules.prototype.init = function() {
     }
   });
 
-  this.addRule('connection.create', HIGH_PRIORITY, function(context) {
+  this.addRule('connection.create', HIGH_PRIORITY, function(context) {//it allows to create connections
     //console.log(context);
     var source = context.source,
         target = context.target,
         type = context.type;
 
+    //if it is one of these connections, it should be called another function (not the simple function to connect), because they require to automatically define some elements.
     if(type === 'RALph:Delegate' || type==='RALph:Report' || type==='RALph:dataFieldConnection'){
     
       return canConnectMultipleCustomElement(source,target)
@@ -387,7 +396,7 @@ CustomRules.prototype.init = function() {
     }else if(type==='RALph:ReportsDirectlyAssignment' || type==="RALph:ReportsTransitivelyAssignment"){
       var cond=true;
       var sourceOutgoingConnections=source.outgoing;
-
+      //it is checked that the source is not connected with another report element since it makes no sense, to be connected with transitive and direct report
       for(let connection of sourceOutgoingConnections){
         if(connection.businessObject.target.includes("reports")){
           cond=false;

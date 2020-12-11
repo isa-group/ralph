@@ -4,7 +4,7 @@ import {
  import Cat from './SVGs'
 
 /**
- * A palette that allows you to create BPMN _and_ custom elements.
+ * here is defined the palette of the editor
  */
 export default function PaletteProvider(
     palette, create, elementFactory,
@@ -98,6 +98,7 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     create.start(event, elementFactory.createParticipantShape(collapsed));
   }
 
+  //here we define the icons of the palette
   assign(actions, {
     'hand-tool': {
       group: 'tools',
@@ -193,12 +194,13 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
         'bpmn:Group', 'artifact', 'bpmn-icon-group',
         translate('Create Group')
     ),
-    
+    //to create groups in the palette it is needed a separator:
     'resources-entities-separator': {
       group: 'resources',
       separator: true
     },
-    
+    //it is used the function createAction to assign an icon to the palette 
+    ////the first argument is the element linked to the icon, the second the group separator, and the third is the icon, which is defined in the index.html 
     'RALph-Person': createAction(
       "RALph:Person", 'resources','icon-RALph2-person' //'icon-RALph-person'
     ),

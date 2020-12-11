@@ -16,7 +16,7 @@ import {custom, isCustomShape} from "./Types";
 
 
 /**
- * A custom factory that knows how to create BPMN _and_ custom elements.
+ * this module is used to define the properties of the custom elements and it is also used to define the default dimensiones of the elements 
  */
 export default function RALphElementFactory(bpmnFactory, moddle, translate) {
   BpmnElementFactory.call(this, bpmnFactory, moddle, translate);
@@ -151,7 +151,7 @@ RALphElementFactory.prototype.createCustomElement = function(elementType, attrs)
   return this.baseCreate(elementType, attrs);
 };
 
-RALphElementFactory.prototype._getCustomElementSize = function(type) {
+RALphElementFactory.prototype._getCustomElementSize = function(type) {//here it is defined the default dimensions (width and height) of the elements
   var shapes = {
     __default: { width: 100, height: 80 },
     'RALph:Person':{width: 58, height: 75},

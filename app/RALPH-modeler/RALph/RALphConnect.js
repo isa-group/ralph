@@ -66,32 +66,15 @@ export default function RALphConnect(eventBus, dragging, modeling, rules) {
                 connectionEnd: targetPosition
             };
 
-        if (typeof canExecute === 'object') {
-            if(canExecute.type1) {
-                // crea shape
-                let shape = elementFactory.createShape({ type: 'RALph:TimeSlot' });
+        if (typeof canExecute === 'object') {//here we define the connections that require to create automatically an element and one or two connections
+            
+             if(canExecute.type3){//if the return has type3 
+                let shape = elementFactory.createShape({ type: 'RALph:DelegateTo' });//it is created the shape RALph:DelegateTo
                 let pos = {
                     x: (sourcePosition.x + targetPosition.x)/2,
                     y: (sourcePosition.y + targetPosition.y)/2,
                 }
-                let newShape = modeling.appendShape(source, shape, pos, source.parent, {
-                    connection: { type: canExecute.type1}
-                });
-
-                hints = {
-                    connectionStart: pos,
-                    connectionEnd: targetPosition
-                }
-                attrs = { type: canExecute.type2}
-                modeling.connect(newShape, target, attrs, hints);
-                return;
-            }else if(canExecute.type3){
-                let shape = elementFactory.createShape({ type: 'RALph:DelegateTo' });
-                let pos = {
-                    x: (sourcePosition.x + targetPosition.x)/2,
-                    y: (sourcePosition.y + targetPosition.y)/2,
-                }
-                let newShape = modeling.appendShape(source, shape, pos, source.parent, {
+                let newShape = modeling.appendShape(source, shape, pos, source.parent, {//the connection of type3 is linked to the previous shape
                     connection: { type: canExecute.type3}
                 });
 
@@ -99,7 +82,7 @@ export default function RALphConnect(eventBus, dragging, modeling, rules) {
                     connectionStart: pos,
                     connectionEnd: targetPosition
                 }
-                attrs = { type: canExecute.type4}
+                attrs = { type: canExecute.type4}//the connection of type4 is also created
                 modeling.connect(newShape, target, attrs, hints);
                 return;
 

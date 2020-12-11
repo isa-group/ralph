@@ -16,7 +16,7 @@ import {isLabel} from "./utils/LabelUtil";
 
 import {resourceArcElements,negatedElements,solidLineElements} from "./Types";
 
-
+//This module is used to generate the icons of an object inside the diagram
 export default function RALphContextPadProvider(config, injector, elementFactory, connect, create, translate) {
 
     injector.invoke(ContextPadProvider, this);
@@ -104,10 +104,15 @@ export default function RALphContextPadProvider(config, injector, elementFactory
         connect.customStart2(event, element, 'RALph:ConsequenceTimedFlow', elementFactory, autoActivate);
     }
 
+    //here we declared the conditions to show an icon
 
+    //for instance, in this case the element (businessObject) must be contained in the list of resourceArcElements to have his corresponding button and it must not be a label
     if (isAny(businessObject, resourceArcElements) && element.type !== 'label') {
+        //in the case that the element accomplishes the conditions, with the function assign we state which button should appear, 
+        //additionally, with the function appendConnectAction ,it is linked an element defined in the renderer(RALph:ResourceArc in this case) 
+        //to an icon which is defined in the index.html (icon-RALph-solidLineDef in this case), and a description is added ('Connect using simple resource assignment' in this case)
         assign(actions, {
-            'connect1': appendConnectAction(
+            'connect1': appendConnectAction(//
                 'RALph:ResourceArc',
                 'icon-RALph-solidLineDef',
                 'Connect using simple resource assignment'
@@ -168,7 +173,7 @@ export default function RALphContextPadProvider(config, injector, elementFactory
         });
     }
 
-    if(is(businessObject, 'bpmn:Task') && element.type !== 'label') {
+    if(is(businessObject, 'bpmn:Task') && element.type !== 'label') {//it is also possible to limit the icons for an unique object.
         assign(actions, {
             'connect2': appendConnectAction(
                 'bpmn:DataOutputAssociation',
