@@ -1,4 +1,5 @@
-//in this module is defined which elements belong to some connections,what is each element and the position of the labels 
+//In this module are defined the groups of the elements, which are important to define connections later. Morevoer, it is defined also which elements must have a label
+// and the position of the labels 
 
 export const label = [//this array states which elements should have a label
     
