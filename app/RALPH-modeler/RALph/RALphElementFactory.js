@@ -143,7 +143,7 @@ RALphElementFactory.prototype.createCustomElement = function(elementType, attrs)
   else
     businessObject = this._initBO(businessObject)
 
-  attrs = assign({
+  attrs = assign({//here the properties of the objects in the diagram are defined:
     businessObject: businessObject,
     id: businessObject.id
   }, size ? size : {}, attrs);
@@ -151,7 +151,7 @@ RALphElementFactory.prototype.createCustomElement = function(elementType, attrs)
   return this.baseCreate(elementType, attrs);
 };
 
-RALphElementFactory.prototype._getCustomElementSize = function(type) {//here it is defined the default dimensions (width and height) of the elements
+RALphElementFactory.prototype._getCustomElementSize = function(type) {//here the default dimensions (width and height) of the elements are defined
   var shapes = {
     __default: { width: 100, height: 80 },
     'RALph:Person':{width: 58, height: 75},

@@ -46,6 +46,12 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       globalConnect = this._globalConnect,
       translate = this._translate;
 
+  //this function links the palette icons to objects, and requires this parameters:
+  //type:object to be linked
+  //group: group to which the icon belongs, inside the palette
+  //className:name of the icon in the index.html
+  //title:text that appears when you highlight the icon
+
   function createAction(type, group, className,title, options) {
 
     function createListener(event) {
@@ -200,7 +206,7 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       separator: true
     },
     //it is used the function createAction to assign an icon to the palette 
-    ////the first argument is the element linked to the icon, the second the group separator, and the third is the icon, which is defined in the index.html 
+    //the first argument is the element linked to the icon, the second the group separator, and the third is the icon, which is defined in the index.html 
     'RALph-Person': createAction(
       "RALph:Person", 'resources','icon-RALph2-person' //'icon-RALph-person'
     ),

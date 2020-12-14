@@ -14,7 +14,7 @@ import {getLabel} from "./utils/LabelUtil"
 import BaseElementFactory from "diagram-js/lib/core/ElementFactory";
 import {isCustomConnection, isCustomShape} from "./Types";
 
-// import * as svg from 'tiny-svg'
+//this module declares what should be rendered in the editor when an object is created
 
 var RENDERER_IDS = new Ids();
 
@@ -29,9 +29,9 @@ var COLOR_GREEN = '#52B415',
 /**
  * A renderer that knows how to render custom elements.
  */
-export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
+export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
 
-  BaseRenderer.call(this, eventBus, 2000);
+  BaseRenderer.call(this, eventBus, 2000);//makes that this 
 
   var computeStyle = styles.computeStyle;
 
@@ -39,11 +39,17 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
   var markers = {};
 
+  //if you want to create a connection you will have to receive the points that delimit the connection, the source and target points.
+  //If it is not a simple line, you will have to create a function with a path defining coordinates, you can preview line shapes in this page: https://yqnn.github.io/svg-path-editor/.
+  //Moreover you will have to change the function getConnectionPath
 
+  //Additionally, you can find more information about creating connections with different shape in this link: https://forum.bpmn.io/t/bezier-curve-drawing/1130
+
+  //This function and drawCrossedLine2 create red lines in the center of a simple connection to generate a negated connection
   function drawCrossedLine(points,attrs){
     var line = svgCreate('polyline');
     var result='';
-
+      //the middlepoint of the simple connection (to be negated) is calculated to put the red cross in that position.
       var middlePosition=points.length/2;
       middlePosition=Math.round(middlePosition)
 
@@ -190,17 +196,19 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     return str.replace(/[()\s,#]+/g, '_');
   }
 
+  //with this function, diverse shapes are added to a line (for instance an arrow), depenending the shape needed
   function marker(type, fill, stroke,x,y) {
     var id = type + '-' + colorEscape(fill) + '-' + colorEscape(stroke) + '-' + rendererId;
 
     if (!markers[id]) {
-      createMarker(id, type, fill, stroke,x,y);
+      createMarker(id, type, fill, stroke);
     }
 
     return 'url(#' + id + ')';
   }
 
-  function createMarker(id, type, fill, stroke,x,y,x2,y2) {
+  function createMarker(id, type, fill, stroke) {
+
 
     if (type === 'sequenceflow-end') {
       var sequenceflowEnd = svgCreate('path');
@@ -450,6 +458,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
   
 
+  //these functions define the shape to be rendered, adding the svgs as a href:
 
   function drawDataField(shape){
 
@@ -701,15 +710,16 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
 
  
-
+  //this property determines which shape must be rendered depending on the object.
    this.renderers = {
     
     'RALph:Position':(p,element) =>{
       let pos=drawPosition(element)
 
-      svgAppend(p,pos)
+      svgAppend(p,pos)//svgAppend links the shape to an element
       //renderEmbeddedLabel(p,element,'center-middle')
       return pos;
+
     },'RALph:Complex-Assignment-OR':(p,element)=>{
       let OR=drawOR(element)
 
@@ -830,6 +840,10 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     },'RALph:ResourceArc': (p, element) => {
 
+      //with computeStyle you can modify properties of the lines
+      // strokeWidth: width of the line
+      // strokeDasharray: [10,7] -> makes a line dashed
+
       var attrs = computeStyle(attrs, {
         stroke:BLACK,//-> PARA EL COLOR
         strokeWidth: 0.5,
@@ -837,7 +851,6 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
         /*Como definir history-source-another
         markerStart: marker('history-source-another-start', 'white',BLACK),*/
         //markerBetween: marker('history-source-another-end', 'white',BLACK),
-        //strokeDasharray: [10,7]//->para poner como una linea por rayas
       });
       
 
@@ -854,18 +867,9 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
     },
       'RALph:negatedAssignment': (p, element) => {
-      var points=element.waypoints;
-      var p1=points[0]
-      var x = p1.x
-      var y = p1.y
-
-      var p2=points[points.length-1]
-      var x2 = p2.x
-      var y2 = p2.y
+      
       var attrs = {
         strokeLinejoin: 'round',
-        //markerStart: marker('negated2', 'white', element.color,x,y),
-        //markerEnd: marker('negated', 'white', element.color,x,y,x2,y2),
         stroke: element.color || COLOR_RED,
         strokeWidth: 0.5,
       };
@@ -885,7 +889,7 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
     'RALph:simpleArrow':(p, element)=>{
       var attrs = {
         strokeLinejoin: 'round',
-        markerEnd: marker('sequenceflow-end', 'white',GRAY),//'simpleArrow', 'white',GRAY),
+        markerEnd: marker('sequenceflow-end', 'white',GRAY),
         stroke: GRAY,
         strokeWidth: 0.5,
         //strokeDasharray: [8,5]
@@ -893,19 +897,10 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
 
       return svgAppend(p, createLine(element.waypoints, attrs));
     }, 
-    'RALph:Curve':(p, element)=>{
-      var attrs = {
-        stroke: GRAY,
-        strokeWidth: 0.5,
-        //strokeDasharray: [8,5]
-      };
-
-      return svgAppend(p, createLine(element.waypoints, attrs));
-    },
     'RALph:doubleArrow':(p,element)=>{
       var attrs = {
         strokeLinejoin: 'round',
-        markerEnd: marker('doubleArrow', 'white',GRAY),//createMarker(id, type, fill, stroke,x,y,x2,y2)
+        markerEnd: marker('doubleArrow', 'white',GRAY),
         stroke: GRAY,
         strokeWidth: 0.5,
         //strokeDasharray: [8,5]
@@ -989,29 +984,9 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
      return componentsToPath(connectionPath);
    }*/
 
+   //this property determines the area of connectivity in a shape:
    this.paths = {
-    'RALph:TimeSlot': (shape) => {
-      var x = shape.x,
-          y = shape.y,
-          width = shape.width,
-          height = shape.height,
-          borderRadius = 20;
-
-      var roundRectPath = [
-        ['M', x + borderRadius, y],
-        ['l', width - borderRadius * 2, 0],
-        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
-        ['l', 0, height - borderRadius * 2],
-        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
-        ['l', borderRadius * 2 - width, 0],
-        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
-        ['l', 0, borderRadius * 2 - height],
-        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
-        ['z']
-      ];
-
-      return componentsToPath(roundRectPath);
-    },'RALph:ResourceArc':(element)=>{
+    'RALph:ResourceArc':(element)=>{
       var x = element.x,
           y = element.y,
           width = element.width,
@@ -1529,16 +1504,16 @@ export default function CustomRenderer(eventBus, styles, canvas, textRenderer) {
   }
 }
 
-inherits(CustomRenderer, BaseRenderer);
+inherits(RALphRenderer, BaseRenderer);
 
-//CustomRenderer.$inject = [ 'eventBus', 'styles', 'canvas', 'textRenderer' ];
-CustomRenderer.$inject = [ 'eventBus', 'styles', 'canvas', 'textRenderer' ];
+//RALphRenderer.$inject = [ 'eventBus', 'styles', 'canvas', 'textRenderer' ];
+RALphRenderer.$inject = [ 'eventBus', 'styles', 'canvas', 'textRenderer' ];
 
-CustomRenderer.prototype.canRender = function(element) {
+RALphRenderer.prototype.canRender = function(element) {
   return (/^RALph:/.test(element.type) || element.type === 'label') //|| (/^persons:/.test(element.type) || element.type === 'label') 
 };
 
-CustomRenderer.prototype.drawShape = function(p, element) {
+RALphRenderer.prototype.drawShape = function(p, element) {
   var type = element.type;
   var h = this.renderers[type];
   if(element.color == null)
@@ -1548,7 +1523,7 @@ CustomRenderer.prototype.drawShape = function(p, element) {
   return h(p, element);
 };
 
-CustomRenderer.prototype.getShapePath = function(shape) {
+RALphRenderer.prototype.getShapePath = function(shape) {
 
   var type = shape.type;
   var h = this.paths[type];
@@ -1557,7 +1532,7 @@ CustomRenderer.prototype.getShapePath = function(shape) {
   return h(shape);
 };
 
-CustomRenderer.prototype.drawConnection = function(p, element) {
+RALphRenderer.prototype.drawConnection = function(p, element) {
   var type = element.type;
   var h = this.renderers[type];
 
@@ -1567,7 +1542,7 @@ CustomRenderer.prototype.drawConnection = function(p, element) {
   return h(p, element);
 };
 
-CustomRenderer.prototype.getConnectionPath = function(connection) {
+RALphRenderer.prototype.getConnectionPath = function(connection) {
   // var type = connection.type;
   // var h = this.paths[type];
   //

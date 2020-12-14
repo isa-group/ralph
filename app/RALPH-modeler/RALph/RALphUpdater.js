@@ -17,7 +17,7 @@ import {
  * A handler responsible for updating the custom element's businessObject
  * once changes on the diagram happen.
  */
-export default function CustomUpdater(eventBus, modeling, bpmnjs) {
+export default function RALphUpdater(eventBus, modeling, bpmnjs) {
 
   CommandInterceptor.call(this, eventBus);
 
@@ -132,9 +132,9 @@ export default function CustomUpdater(eventBus, modeling, bpmnjs) {
   this.postExecute('canvas.updateRoot', updateCustomElementsRoot);
 }
 
-inherits(CustomUpdater, CommandInterceptor);
+inherits(RALphUpdater, CommandInterceptor);
 
-CustomUpdater.$inject = [ 'eventBus', 'modeling', 'bpmnjs' ];
+RALphUpdater.$inject = [ 'eventBus', 'modeling', 'bpmnjs' ];
 
 
 /////// helpers ///////////////////////////////////

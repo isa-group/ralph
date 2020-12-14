@@ -8,7 +8,7 @@ import CustomUpdateLabelHandler from "./handlers/RALphUpdateLabelHandler";
 import CustomCreateConnectionHandler from "./handlers/RALphCreateConnectionHandler";
 import CreateConnectionHandler from "diagram-js/lib/features/modeling/cmd/CreateConnectionHandler";
 
-export default class CustomModeling extends Modeling {
+export default class RALphModeling extends Modeling {
     constructor(eventBus, elementFactory, commandStack,
                 bpmnRules) {
         super(eventBus, elementFactory, commandStack, bpmnRules);
@@ -75,7 +75,7 @@ export default class CustomModeling extends Modeling {
     // };
 };
 
-CustomModeling.$inject = [
+RALphModeling.$inject = [
     'eventBus',
     'elementFactory',
     'commandStack',

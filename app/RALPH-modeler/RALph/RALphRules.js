@@ -45,14 +45,14 @@ function isValidForResourceEntities(element){
 /**
  * Specific rules for custom elements
  */
-export default function CustomRules(eventBus) {
+export default function RALphRules(eventBus) {
   RuleProvider.call(this, eventBus);
 
 }
 
-inherits(CustomRules, RuleProvider);
+inherits(RALphRules, RuleProvider);
 
-CustomRules.$inject = [ 'eventBus',
+RALphRules.$inject = [ 'eventBus',
                         'elementRegistry' ];
 
 function canConnect(source, target, connection) {
@@ -264,7 +264,7 @@ function simpleConnection(source, target, connection) { //function to connect el
   }
 }
 
-CustomRules.prototype.init = function() {
+RALphRules.prototype.init = function() {
 
   /**
    * Can shape be created on target container?
@@ -403,10 +403,10 @@ CustomRules.prototype.init = function() {
         }
       }
 
-      if(cond===true){
+      if(cond===true){// if it is connected with one report connection, creates the connection:
         return connectHierarchyConnectors(source,target,type);
       }
-    }else if(type==="RALph:delegatesTransitivelyAssignment" || type==="RALph:delegatesDirectlyAssignment"){
+    }else if(type==="RALph:delegatesTransitivelyAssignment" || type==="RALph:delegatesDirectlyAssignment"){//the same logic is applied for delegate connections
       var cond=true;
       var sourceOutgoingConnections=source.outgoing;
 
@@ -447,7 +447,7 @@ function nonExistingOrLabel(element) {
   return !element || isLabel(element);
 }
 
-CustomRules.prototype.canConnect = function (source, target, connection) {
+RALphRules.prototype.canConnect = function (source, target, connection) {
 
   if (nonExistingOrLabel(source) || nonExistingOrLabel(target)) {
     return null;
