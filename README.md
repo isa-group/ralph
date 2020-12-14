@@ -17,20 +17,20 @@ Icons:
 
 Shapes:
   If you want to create and render new shapes in the diagram, you should use a svg of that shape and you will have to modify these files:
-  -SVGs/index.js: it states the svgs in a base 64 format. I recommend you formatting a svg to base64 using this page:https://base64.guru/converter/encode/image/svg
-  -RALphElementFactory: it states the properties and dimensions of the objects of RALph.
-  -RALphRenderer.js: it states the shapes to render depending on the object.
+  - SVGs/index.js: it states the svgs in a base 64 format. I recommend you formatting a svg to base64 using this page:https://base64.guru/converter/encode/image/svg
+  - RALphElementFactory: it states the properties and dimensions of the objects of RALph.
+  - RALphRenderer.js: it states the shapes to render depending on the object.
 
   Additionally, if you want to add connectivity to a new shape you will have to modify these files:
-  -Types.js:it classifies objects into groups.
-  -RALphRules.js: it declares the connections of each object group.
+  - Types.js:it classifies objects into groups.
+  - RALphRules.js: it declares the connections of each object group.
   
 
 Connections:
   If you want to create new connections you will have to modify these files:
-  -Types.js: it also states what is a connection.
-  -RALphRenderer.js: it states the form of the connection.
-  -RALphConnect.js: if you need complex connections (involves a shape and a connection), you will have to modify this file,
+  - Types.js: it also states what is a connection.
+  - RALphRenderer.js: it states the form of the connection.
+  - RALphConnect.js: if you need complex connections (involves a shape and a connection), you will have to modify this file,
     declaring what happens when you create that complex connection.
     
 Finally, if you want to change the overlapping order, you will have to change RALphOrderingProvider.
