@@ -7,7 +7,8 @@ import pizzaDiagram from '../resources/diag.bpmn';
 import RALphModeler from './RALPH-modeler';
 
 import BpmnModdle from 'bpmn-moddle';
-//import custom from './custom-elements2.json'
+
+//this module generates the app to creates diagrams
 
 var moddle = new BpmnModdle();
 
@@ -115,6 +116,7 @@ function fixTaskData(task) {
   return task
 }
 
+//this function saves the diagram in two files, one which 
 function saveDiagram(done) {
 
   modeler.saveXML({ format: true }, function(err, xml) {

@@ -98,7 +98,7 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     create.start(event, elementFactory.createParticipantShape(collapsed));
   }
 
-  //here we define the icons of the palette
+  //here we define the icons of the palette with the assign function, which determines the elements to renderer in the palette
   assign(actions, {
     'hand-tool': {
       group: 'tools',
