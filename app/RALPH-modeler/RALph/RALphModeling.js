@@ -4,8 +4,8 @@ import { isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
 import {label} from "./Types";
 
-import CustomUpdateLabelHandler from "./handlers/RALphUpdateLabelHandler";
-import CustomCreateConnectionHandler from "./handlers/RALphCreateConnectionHandler";
+import RALphUpdateLabelHandler from "./handlers/RALphUpdateLabelHandler";
+import RALphCreateConnectionHandler from "./handlers/RALphCreateConnectionHandler";
 import CreateConnectionHandler from "diagram-js/lib/features/modeling/cmd/CreateConnectionHandler";
 
 export default class RALphModeling extends Modeling {
@@ -16,8 +16,8 @@ export default class RALphModeling extends Modeling {
 
     getHandlers() {
         let handlers = super.getHandlers();
-        handlers['element.customUpdateLabel'] = CustomUpdateLabelHandler;
-        // handlers['connection.create'] = CustomCreateConnectionHandler;
+        handlers['element.customUpdateLabel'] = RALphUpdateLabelHandler;
+        // handlers['connection.create'] = RALphCreateConnectionHandler;
 
 
         return handlers;
