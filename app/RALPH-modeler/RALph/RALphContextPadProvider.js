@@ -139,7 +139,7 @@ export default function RALphContextPadProvider(config, injector, elementFactory
 
 
 
-
+    /*
     if (is(businessObject, 'RALph:Position') && element.type !== 'label') {
         assign(actions, {
             'connectPos': appendConnectAction(
@@ -148,7 +148,7 @@ export default function RALphContextPadProvider(config, injector, elementFactory
                 'Connect using delegate'
             ),
         });
-    }
+    }*/
 
     
     if(isAny(businessObject,solidLineElements) && element.type !== 'label') {
