@@ -5,7 +5,7 @@ import RALphPalette from './RALphPalette';
 import RALphRenderer from './RALphRenderer';
 import RALphRules from './RALphRules';
 import RALphUpdater from './RALphUpdater';
-import RALphLabelEditingProvider from "./RALphLabelEdingProvider";
+import RALphLabelEditingProvider from "./RALphLabelEditingProvider";
 import RALphModeling from "./RALphModeling";
 import RALphConnect from "./RALphConnect";
 import RALphReplaceConnectionBehavior from "./behaviour/ReplaceConnectionBehaviour";

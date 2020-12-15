@@ -8,6 +8,8 @@ export const label = [//this array states which elements should have a label
     'RALph:Personcap',
     'RALph:Orgunit',
     'RALph:Position',
+    'RALph:ResourceArc',
+    'RALph:reportsDirectly'
 
 ]
 
@@ -18,6 +20,8 @@ export const externalLabel = [//this array states which elements should have a l
     'RALph:Personcap',
     'RALph:Orgunit',
     'RALph:Position',
+    'RALph:ResourceArc'
+   
     
 ]
 
@@ -31,9 +35,7 @@ export const connections = [//this array states which elements are connections
     'RALph:dashedLineWithCircle',
 
     'RALph:simpleArrow',
-    'RALph:doubleArrow',
-
-    'RALph:Curve'
+    'RALph:doubleArrow'
 ]
 
 export const directEdit = [
@@ -42,6 +44,8 @@ export const directEdit = [
     //'RALph:Personcap',
     //'RALph:Orgunit',
     //'RALph:Position',
+    
+ 
 
 ]
 

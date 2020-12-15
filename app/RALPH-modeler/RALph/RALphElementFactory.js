@@ -145,7 +145,8 @@ RALphElementFactory.prototype.createCustomElement = function(elementType, attrs)
 
   attrs = assign({//here the properties of the objects in the diagram are defined:
     businessObject: businessObject,
-    id: businessObject.id
+    id: businessObject.id,
+    text:elementType
   }, size ? size : {}, attrs);
 
   return this.baseCreate(elementType, attrs);

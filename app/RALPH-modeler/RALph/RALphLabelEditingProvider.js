@@ -39,7 +39,8 @@ export default function RALphLabelEditingProvider(
         'drag.init',
         'canvas.viewbox.changing',
         'autoPlace',
-        'popupMenu.open'
+        'popupMenu.open',
+
     ], function(event) {
 
         if (directEditing.isActive()) {
@@ -53,6 +54,19 @@ export default function RALphLabelEditingProvider(
             directEditing.cancel();
         }
     });
+    eventBus.on('commandStack.connection.create.preExecute', function(event) {
+  
+        var context = event.context;
+
+        if(context.type==="RALph:resourceArc"){
+            context.businessObject.name="prueba";
+        }
+      
+        // TODO: read context, extract connection, set businessObject name
+        // (if we detect the above pattern)
+      
+        // this will render the name post creation
+      });
 
 
     eventBus.on('directEditing.activate', function(event) {
@@ -134,6 +148,8 @@ RALphLabelEditingProvider.prototype.activate = function(element) {
     if(isAny(element, label) && !text)
         text = '';
     //END_CUSTOM
+
+
 
     if (text === undefined) {
         return;
