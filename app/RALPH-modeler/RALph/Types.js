@@ -10,7 +10,8 @@ export const label = [//this array states which elements should have a label
     'RALph:Position',
     'RALph:ResourceArc',
     'RALph:reportsDirectly',
-    'RALph:delegatesDirectly'
+    'RALph:reportsTransitively',
+
 
 ]
 
@@ -22,7 +23,9 @@ export const externalLabel = [//this array states which elements should have a l
     'RALph:Orgunit',
     'RALph:Position',
     'RALph:ResourceArc',
-    'RALph:delegatesDirectly'
+    //'RALph:reportsDirectly',
+    //'RALph:reportsTransitively'
+
    
     
 ]
@@ -46,6 +49,7 @@ export const directEdit = [
     //'RALph:Personcap',
     //'RALph:Orgunit',
     //'RALph:Position',
+    'RALph:ResourceArc'
     
  
 

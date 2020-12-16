@@ -71,25 +71,27 @@ export default function RALphLabelEditingProvider(
         }
       
       });
-      /*
-      eventBus.on(['command.connection.create.postExecute'], function(event) {
-        /*var element = e.context.shape;
+    
+      eventBus.on(['commandStack.connection.create.preExecute'],500, function(event) {
+        /*    var element = e.context.shape;
 
         if (is(element, 'bpmn:Task')) {
           // when the shape is a task, set custom text
           element.businessObject.name = 'custom text';
-        }
-        
+        }*/
+        console.log("entra aqui: label editing provider");
         var connection = event.context.connection;
         console.log(event.context)
-        if(connection.type ==="bpmn:MessageFlow"){
-            console.log(connection)
+        if(is(connection,"bpmn:SequenceFlow")){
+            console.log("pam");
+            connection.businessObject.name="prueba";
         }else if(connection.type ==="RALph:ResourceArc"){
-            console.log("entra aqui: label editing provider");
+            console.log("entra aqui: label editing provider2");
             connection.businessObject.text="prueba";
+            activateDirectEdit(event.context.connection,true);
         }
       
-      });*/
+      });
 
 
     eventBus.on('directEditing.activate', function(event) {
@@ -126,20 +128,28 @@ export default function RALphLabelEditingProvider(
         activateDirectEdit(element);
     });
 
+    /*eventBus.on('autoPlace.end', 500, function(event) {
+        activateDirectEdit(event.context.connection);
+    });*/
+
     eventBus.on('autoPlace.end', 500, function(event) {
+        console.log("entra en autoplace");
         activateDirectEdit(event.shape);
+        activateDirectEdit(event.context.connection,true);
     });
 
     function activateDirectEdit(element, force) {
         let types = [
             'bpmn:Task',
             'bpmn:TextAnnotation',
-            'bpmn:Group'
+            'bpmn:Group',
+            
         ].concat(directEdit)
         console.log(directEdit)
         if (force ||
             isAny(element, types) ||
-            isCollapsedSubProcess(element)) {
+            isCollapsedSubProcess(element)|| element.type==='RALph:ResourceArc') {
+            console.log("bingo")
             directEditing.activate(element);
         }
     }
@@ -196,6 +206,7 @@ RALphLabelEditingProvider.prototype.activate = function(element) {
             'bpmn:Participant',
             'bpmn:Lane',
             'bpmn:CallActivity',
+            "RALph:ResourceArc"
             //CUSTOM
             //'RALph:resource' // interni?
         ]) ||

@@ -129,8 +129,8 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
     var box = {
       width: 90,
       height: 10,
-      x: element.width / 2 + element.x,
-      y: element.height /2 + element.y
+      x: element.width / 2, //+ element.x,
+      y: element.height /2 //+ element.y
     };
     return renderLabel(parentGfx, getLabel(element), {
       box: box,
@@ -145,6 +145,31 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
     });
   }
 
+  function renderExternalLabelReports(parentGfx, element) {
+    var box = {
+      width: 90,
+      height: 10,
+      x: element.width / 2 + element.x,
+      y: element.height /2 + element.y
+    };
+    return renderLabel(parentGfx, getLabel(element), {
+      box: element,
+      fitBox: true,
+      style: assign(
+          {},
+          textRenderer.getExternalStyle(),
+          {
+            fill: element.color
+          }
+      ),
+      bounds: assign( {
+        width:50,
+        height:20,
+        x: (element.width / 2)-50,
+        y: (element.height /2)-30 
+        })
+    });
+  }
   
 
   function addMarker(id, options) {
@@ -740,6 +765,7 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
 
       let reportsDirectly=drawReportsDirectly(element);
       svgAppend(p,reportsDirectly);
+      renderExternalLabelReports(p, element)
       return reportsDirectly;
 
     },'RALph:reportsTransitively':(p,element)=>{

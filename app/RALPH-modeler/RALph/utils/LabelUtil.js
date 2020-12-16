@@ -88,9 +88,25 @@ export function getExternalLabelMid(element) {
  * @param {djs.model.Base} element
  */
 export function getExternalLabelBounds(semantic, element) {
-    if(semantic.di)
+    if(semantic.di){
         return labelUtils.getExternalLabelBounds(semantic, element)
-    else {
+    }else if(isAny(element, ['RALph:reportsDirectly','RALph:reportsTransitively'])){
+        var canvas = this._canvas;
+        var bbox = canvas.getAbsoluteBBox(target);
+    
+        var mid = {
+            x: bbox.x + bbox.width / 2,
+            y: bbox.y + bbox.height / 2
+        };
+
+        let size = DEFAULT_LABEL_SIZE;
+
+        return assign(bounds,{
+            x: mid.x-50,
+            y: mid.y-30 
+        });
+        
+    }else {
         let mid = getExternalLabelMid(element);
         let size = DEFAULT_LABEL_SIZE;
 
