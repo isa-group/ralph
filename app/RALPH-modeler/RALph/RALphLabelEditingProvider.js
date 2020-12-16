@@ -54,19 +54,42 @@ export default function RALphLabelEditingProvider(
             directEditing.cancel();
         }
     });
-    eventBus.on('commandStack.connection.create.preExecute', function(event) {
-  
-        var context = event.context;
+    
+    eventBus.on(['commandStack.shape.create.postExecute'/*connection.create.preExecute'*/], function(event) {
+        /*var element = e.context.shape;
 
-        if(context.type==="RALph:resourceArc"){
-            context.businessObject.name="prueba";
+        if (is(element, 'bpmn:Task')) {
+          // when the shape is a task, set custom text
+          element.businessObject.name = 'custom text';
+        }*/
+        
+        var shape = event.context.shape;
+        console.log(shape);
+
+        if(is(shape,"bpmn:Task")){
+            shape.businessObject.name="prueba";
         }
       
-        // TODO: read context, extract connection, set businessObject name
-        // (if we detect the above pattern)
-      
-        // this will render the name post creation
       });
+      /*
+      eventBus.on(['command.connection.create.postExecute'], function(event) {
+        /*var element = e.context.shape;
+
+        if (is(element, 'bpmn:Task')) {
+          // when the shape is a task, set custom text
+          element.businessObject.name = 'custom text';
+        }
+        
+        var connection = event.context.connection;
+        console.log(event.context)
+        if(connection.type ==="bpmn:MessageFlow"){
+            console.log(connection)
+        }else if(connection.type ==="RALph:ResourceArc"){
+            console.log("entra aqui: label editing provider");
+            connection.businessObject.text="prueba";
+        }
+      
+      });*/
 
 
     eventBus.on('directEditing.activate', function(event) {
@@ -220,8 +243,8 @@ RALphLabelEditingProvider.prototype.getEditingBBox = function(element) {
     var target = element.label || element;
 
     var bbox = canvas.getAbsoluteBBox(target);
-    console.log(element)
-    console.log(bbox)
+    //console.log(element)
+    //console.log(bbox)
     var mid = {
         x: bbox.x + bbox.width / 2,
         y: bbox.y + bbox.height / 2
@@ -276,7 +299,8 @@ RALphLabelEditingProvider.prototype.getEditingBBox = function(element) {
 
         assign(bounds, {
             width: bbox.width,
-            height: bbox.height
+            height: bbox.height,
+            
         });
 
         assign(style, {
@@ -289,6 +313,19 @@ RALphLabelEditingProvider.prototype.getEditingBBox = function(element) {
         });
     }
 
+    if (isAny(element, ['RALph:reportsDirectly']) ||
+        isCollapsedPool(element) ||
+        isCollapsedSubProcess(element)) {
+
+        assign(bounds, {
+            width:50,
+            height:20,
+            x: mid.x-50,
+            y: mid.y-30 
+        });
+
+       
+    }
 
     // internal labels for expanded sub processes
     if (isExpandedSubProcess(element)) {
