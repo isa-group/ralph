@@ -67,10 +67,44 @@ export default function RALphLabelEditingProvider(
         console.log(shape);
 
         if(is(shape,"bpmn:Task")){
-            shape.businessObject.name="prueba";
+            shape.businessObject.name="";
         }
       
       });
+
+      /*eventBus.on(['commandStack.label.create.preExecute'],500,function(event){
+        var context = event.context,
+        element = context.shape,
+        businessObject,
+        di;
+
+        businessObject = element.businessObject,
+        di = businessObject.di;
+        var canvas = this._canvas;
+
+        
+        var bbox = canvas.getAbsoluteBBox(target);
+    
+        var mid = {
+        x: bbox.x + bbox.width / 2,
+        y: bbox.y + bbox.height / 2
+        };
+
+        // we want to trigger on BPMN elements only
+        if (isAny(element.labelTarget || element, ['RALph:reportsDirectly'])) {
+            assign(di.label.bounds, {
+                width:50,
+                height:20,
+                x: mid.x-50,
+                y: mid.y-30 
+                });
+        
+        return;
+        }
+
+       
+
+      })*/
     
       eventBus.on(['commandStack.connection.create.preExecute'],500, function(event) {
         /*    var element = e.context.shape;
@@ -79,16 +113,19 @@ export default function RALphLabelEditingProvider(
           // when the shape is a task, set custom text
           element.businessObject.name = 'custom text';
         }*/
-        console.log("entra aqui: label editing provider");
+        //console.log("entra aqui: label editing provider");
         var connection = event.context.connection;
         console.log(event.context)
         if(is(connection,"bpmn:SequenceFlow")){
-            console.log("pam");
-            connection.businessObject.name="prueba";
+            //console.log("entra aqui: label editing provider1");
+            connection.businessObject.name="";
         }else if(connection.type ==="RALph:ResourceArc"){
-            console.log("entra aqui: label editing provider2");
-            connection.businessObject.text="prueba";
-            activateDirectEdit(event.context.connection,true);
+            //console.log(connection);
+            //console.log("entra aqui: label editing provider2");
+            //connection.businessObject.text="prueba";
+            connection.businessObject.name="";
+            activateDirectEdit(connection);
+            //activateDirectEdit(event.context.connection,true);
         }
       
       });
@@ -133,9 +170,9 @@ export default function RALphLabelEditingProvider(
     });*/
 
     eventBus.on('autoPlace.end', 500, function(event) {
-        console.log("entra en autoplace");
+
         activateDirectEdit(event.shape);
-        activateDirectEdit(event.context.connection,true);
+        //activateDirectEdit(event.context.connection);
     });
 
     function activateDirectEdit(element, force) {
@@ -145,7 +182,7 @@ export default function RALphLabelEditingProvider(
             'bpmn:Group',
             
         ].concat(directEdit)
-        console.log(directEdit)
+        //console.log(directEdit)
         if (force ||
             isAny(element, types) ||
             isCollapsedSubProcess(element)|| element.type==='RALph:ResourceArc') {
@@ -324,15 +361,23 @@ RALphLabelEditingProvider.prototype.getEditingBBox = function(element) {
         });
     }
 
-    if (isAny(element, ['RALph:reportsDirectly']) ||
+    if (isAny(element, ['RALph:reportsDirectly','RALph:reportsTransitively']) ||
         isCollapsedPool(element) ||
         isCollapsedSubProcess(element)) {
-
+        //console.log("entra aqui reports label editing provider")    
         assign(bounds, {
             width:50,
             height:20,
-            x: mid.x-50,
-            y: mid.y-30 
+            x: mid.x-25,
+            y: mid.y-10 
+        });
+        
+        paddingTop=(7 * zoom);
+        assign(style, {
+            fontSize: externalFontSize + 'px',
+            lineHeight: externalLineHeight,
+            paddingTop: paddingTop + 'px',
+            paddingBottom: paddingBottom + 'px'
         });
 
        
@@ -379,7 +424,7 @@ RALphLabelEditingProvider.prototype.getEditingBBox = function(element) {
     // external label not yet created
     if (isLabelExternal(target)
         && !hasExternalLabel(target)
-        && !isLabel(target)) {
+        && !isLabel(target) && !isAny(element, ['RALph:reportsDirectly']) ) {
 
         var externalLabelMid = getExternalLabelMid(element);
 

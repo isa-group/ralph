@@ -118,7 +118,7 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
     return renderLabel(parentGfx,semantic.text, {
       box: element,
       align: align,
-      padding: 5,
+      padding: 3,
       style: {
         fill: element.color
       }
@@ -511,18 +511,7 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
     return  catGfx;
   }
 
-  function drawReportsTransitively(shape){
-
-    var reportsTransitively = svgCreate('image', {
-      x: 0,
-      y: 0,
-      width: shape.width,
-      height: shape.height,
-      href:Cat.dataReportsTransitively
-    });
-
-    return reportsTransitively;
-  }
+  
 
   function drawPosition(shape){
 
@@ -733,6 +722,18 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
     return delegatesTransitively;
   }
 
+  function drawReportsTransitively(shape){
+
+    var reportsTransitively = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataReportsTransitively
+    });
+
+    return reportsTransitively;
+  }
 
  
   //this property determines which shape must be rendered depending on the object.
@@ -765,13 +766,14 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
 
       let reportsDirectly=drawReportsDirectly(element);
       svgAppend(p,reportsDirectly);
-      renderExternalLabelReports(p, element)
+      renderEmbeddedLabel(p,element,'center-middle')
       return reportsDirectly;
 
     },'RALph:reportsTransitively':(p,element)=>{
 
       let reportsTransitively=drawReportsTransitively(element);
       svgAppend(p,reportsTransitively);
+      renderEmbeddedLabel(p,element,'center-middle')
       return reportsTransitively;
 
     },'RALph:delegatesDirectly':(p,element)=>{

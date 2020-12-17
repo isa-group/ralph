@@ -142,11 +142,13 @@ RALphElementFactory.prototype.createCustomElement = function(elementType, attrs)
   }
   else
     businessObject = this._initBO(businessObject)
+    businessObject.name='prueba'
+
 
   attrs = assign({//here the properties of the objects in the diagram are defined:
     businessObject: businessObject,
     id: businessObject.id,
-    text:elementType
+    text:elementType,
   }, size ? size : {}, attrs);
 
   return this.baseCreate(elementType, attrs);
@@ -168,10 +170,10 @@ RALphElementFactory.prototype._getCustomElementSize = function(type) {//here the
     'RALph:History-Same-Green':{width:36,height:45},
     'RALph:Complex-Assignment-AND':{width:96,height:100},
     'RALph:Complex-Assignment-OR':{width:96,height:100},
-    'RALph:reportsDirectly':{width:94, height:200},
-    'RALph:reportsTransitively':{width:94, height:200},
-    'RALph:delegatesDirectly':{width:94, height:200},
-    'RALph:delegatesTransitively':{width:94, height:200},
+    'RALph:reportsDirectly':{width:110, height:216},
+    'RALph:reportsTransitively':{width:110, height:216},
+    'RALph:delegatesDirectly':{width:110, height:216},
+    'RALph:delegatesTransitively':{width:110, height:216},
 
 
   };

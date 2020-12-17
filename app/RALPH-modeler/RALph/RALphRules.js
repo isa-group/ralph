@@ -357,7 +357,7 @@ RALphRules.prototype.init = function() {
       if (type !== isCustom(s) || result === false) {
         return false;
       }
-
+      //console.log(target)
       return canCreate(s, target);
     }, undefined);
 
@@ -369,7 +369,7 @@ RALphRules.prototype.init = function() {
   this.addRule('shape.create', HIGH_PRIORITY, function(context) {
     var target = context.target,
         shape = context.shape;
-
+        
     return canCreate(shape, target);
   });
 

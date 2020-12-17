@@ -101,10 +101,10 @@ export function getExternalLabelBounds(semantic, element) {
 
         let size = DEFAULT_LABEL_SIZE;
 
-        return assign(bounds,{
+        return assign({
             x: mid.x-50,
             y: mid.y-30 
-        });
+        },size);
         
     }else {
         let mid = getExternalLabelMid(element);

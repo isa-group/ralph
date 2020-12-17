@@ -11,6 +11,8 @@ export const label = [//this array states which elements should have a label
     'RALph:ResourceArc',
     'RALph:reportsDirectly',
     'RALph:reportsTransitively',
+    'RALph:delegatesDirectly',
+    'RALph:delegatesTransitively',
 
 
 ]
@@ -23,8 +25,8 @@ export const externalLabel = [//this array states which elements should have a l
     'RALph:Orgunit',
     'RALph:Position',
     'RALph:ResourceArc',
-    //'RALph:reportsDirectly',
-    //'RALph:reportsTransitively'
+    'RALph:delegatesDirectly',
+    'RALph:delegatesTransitively',
 
    
     
