@@ -170,10 +170,10 @@ RALphElementFactory.prototype._getCustomElementSize = function(type) {//here the
     'RALph:History-Same-Green':{width:36,height:45},
     'RALph:Complex-Assignment-AND':{width:96,height:100},
     'RALph:Complex-Assignment-OR':{width:96,height:100},
-    'RALph:reportsDirectly':{width:110, height:216},
-    'RALph:reportsTransitively':{width:110, height:216},
-    'RALph:delegatesDirectly':{width:110, height:216},
-    'RALph:delegatesTransitively':{width:110, height:216},
+    'RALph:reportsDirectly':{width:126, height:232},
+    'RALph:reportsTransitively':{width:126, height:232},
+    'RALph:delegatesDirectly':{width:126, height:232},
+    'RALph:delegatesTransitively':{width:126, height:232},
 
 
   };
