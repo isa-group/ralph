@@ -18,7 +18,7 @@ var NULL_DIMENSIONS = {
 /**
  * A handler that updates the text of a BPMN element.
  */
-export default function CustomUpdateLabelHandler(modeling, textRenderer) {
+export default function RALphUpdateLabelHandler(modeling, textRenderer) {
 
     /**
      * Set the label and return the changed elements.
@@ -121,7 +121,7 @@ export default function CustomUpdateLabelHandler(modeling, textRenderer) {
     this.postExecute = postExecute;
 }
 
-CustomUpdateLabelHandler.$inject = [
+RALphUpdateLabelHandler.$inject = [
     'modeling',
     'textRenderer'
 ];

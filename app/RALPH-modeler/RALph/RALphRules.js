@@ -148,6 +148,8 @@ function simpleConnection(source, target, connection) { //function to connect el
   //This is important for history connector in order to avoid more than one connection between him and the task, or to avoid the possibility of
   //connecting an element with a negated and a resource connection.
   var sourceOutgoingConnections=source.outgoing;
+  console.log(sourceOutgoingConnections)
+  console.log(connection)
  
   let cond=true;//cond will be the variable to check that
 
@@ -159,7 +161,7 @@ function simpleConnection(source, target, connection) { //function to connect el
 
     for(let i of sourceOutgoingConnections){
        
-      if(targetIncomingConnections.includes(i)){//here it is checked if the source of a connection has already been connected to that target
+      if(targetIncomingConnections.includes(i) ){//here it is checked if the source of a connection has already been connected to that target
 
         //if it is already connected, cond will be false and it will not be possible to connect the source and the target
         cond=false;
@@ -204,10 +206,11 @@ function simpleConnection(source, target, connection) { //function to connect el
   if(connection === 'RALph:solidLine' && cond === true){
 
     //for solidline,solidLineWithCircle,dashedLine and dashedLineWithCircle it is checked that the history connector
-    //does not have incompatible connectors dashedLine with solidLine or vice versa.
+    //does not have incompatible connectors dashedLine with solidLine or vice versa. It is also checked that the source does not have already a solidline 
+    //this prevents the source of having two equal connectors 
     var cond2=true;
-    for(let connection of sourceOutgoingConnections){
-      if(connection.type.includes("dashed")){
+    for(let connectionOutgoing of sourceOutgoingConnections){
+      if(connectionOutgoing.type.includes("dashed") || connectionOutgoing.type==="RALph:solidLine"){
         cond2=false;
       }
     }
@@ -224,7 +227,7 @@ function simpleConnection(source, target, connection) { //function to connect el
   if(connection === 'RALph:solidLineWithCircle' && cond === true) {
     var cond2=true;
     for(let connection of sourceOutgoingConnections){
-      if(connection.type.includes("dashed")){
+      if(connection.type.includes("dashed") ||  connection.type==="RALph:solidLineWithCircle"){
         cond2=false;
       }
     }
@@ -236,7 +239,7 @@ function simpleConnection(source, target, connection) { //function to connect el
   if(connection === 'RALph:dashedLine' && cond === true){
     var cond2=true;
     for(let connection of sourceOutgoingConnections){
-      if(connection.type.includes("solid")){
+      if(connection.type.includes("solid") || connection.type==="RALph:dashedLine"){
         cond2=false;
       }
     }
@@ -249,7 +252,7 @@ function simpleConnection(source, target, connection) { //function to connect el
   if(connection === 'RALph:dashedLineWithCircle' && cond === true){
     var cond2=true;
     for(let connection of sourceOutgoingConnections){
-      if(connection.type.includes("solid")){
+      if(connection.type.includes("solid") || connection.type==="RALph:dashedLineWithCircle"){
         cond2=false;
       }
     }
@@ -387,6 +390,7 @@ RALphRules.prototype.init = function() {
     var source = context.source,
         target = context.target,
         type = context.type;
+        console.log(type);
 
     //if it is one of these connections, it should be called another function (not the simple function to connect), because they require to automatically define some elements.
     if(type === 'RALph:Delegate' || type==='RALph:Report' || type==='RALph:dataFieldConnection'){
@@ -398,7 +402,7 @@ RALphRules.prototype.init = function() {
       var sourceOutgoingConnections=source.outgoing;
       //it is checked that the source is not connected with another report element since it makes no sense, to be connected with transitive and direct report
       for(let connection of sourceOutgoingConnections){
-        if(connection.businessObject.target.includes("reports")){
+        if(connection.businessObject.target.includes("reports") ){
           cond=false;
         }
       }

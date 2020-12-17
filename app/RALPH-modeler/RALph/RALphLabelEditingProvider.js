@@ -115,7 +115,7 @@ export default function RALphLabelEditingProvider(
         }*/
         //console.log("entra aqui: label editing provider");
         var connection = event.context.connection;
-        console.log(event.context)
+        //console.log(event.context)
         if(is(connection,"bpmn:SequenceFlow")){
             //console.log("entra aqui: label editing provider1");
             connection.businessObject.name="";
@@ -186,7 +186,7 @@ export default function RALphLabelEditingProvider(
         if (force ||
             isAny(element, types) ||
             isCollapsedSubProcess(element)|| element.type==='RALph:ResourceArc') {
-            console.log("bingo")
+            //console.log("bingo")
             directEditing.activate(element);
         }
     }
