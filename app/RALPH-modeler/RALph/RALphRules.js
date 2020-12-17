@@ -280,7 +280,7 @@ RALphRules.prototype.init = function() {
     }
 
     // allow creation on processes
-    return is(target, 'bpmn:Process') || is(target, 'bpmn:Participant') || is(target, 'bpmn:Collaboration');
+    return is(target, 'bpmn:Process') || is(target, 'bpmn:Participant') || is(target, 'bpmn:Collaboration') || is(target, 'bpmn:SubProcess');
   }
 
   
