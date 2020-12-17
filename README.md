@@ -35,7 +35,7 @@ Connections:
     
 Labels:
  If you want to modify the box or text of the labels you should modify:
- -RALphLabelEditingProvider.js: it regulates the box and the default content of the labels.
+ - RALphLabelEditingProvider.js: it regulates the box and the default content of the labels.
     
 Finally, if you want to change the overlapping order, you will have to change RALphOrderingProvider.
 
