@@ -174,6 +174,7 @@ RALphElementFactory.prototype._getCustomElementSize = function(type) {//here the
     'RALph:reportsTransitively':{width:126, height:232},
     'RALph:delegatesDirectly':{width:126, height:232},
     'RALph:delegatesTransitively':{width:126, height:232},
+    'RALph:History-AnyInstanceInTime-Green':{width:120, height:120}
 
 
   };

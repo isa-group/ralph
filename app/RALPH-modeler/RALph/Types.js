@@ -12,6 +12,7 @@ export const label = [//this array states which elements should have a label
     'RALph:reportsTransitively',
     'RALph:delegatesDirectly',
     'RALph:delegatesTransitively',
+    'RALph:History-AnyInstanceInTime-Green'
 
 
 ]
@@ -25,6 +26,8 @@ export const externalLabel = [//this array states which elements should have a l
     'RALph:Position',
     'RALph:delegatesDirectly',
     'RALph:delegatesTransitively',
+    'RALph:History-AnyInstanceInTime-Green'
+
 
    
     
@@ -100,7 +103,8 @@ export const HistoryConnectorSameOrPreviousInstanceElements =[//linea solida con
     'RALph:History-Any-Red',
     'RALph:History-Any-Green',
     'RALph:History-Same-Green',
-    'RALph:History-Same-Red'
+    'RALph:History-Same-Red',
+    'RALph:History-AnyInstanceInTime-Green'
 ]
 
 export const HistoryConnectorPreviousInstanceElements =[//linea con rayas con punto
@@ -109,7 +113,8 @@ export const HistoryConnectorPreviousInstanceElements =[//linea con rayas con pu
     'RALph:History-Any-Red',
     'RALph:History-Any-Green',
     'RALph:History-Same-Green',
-    'RALph:History-Same-Red'
+    'RALph:History-Same-Red',
+    'RALph:History-AnyInstanceInTime-Green'
 ]
 
 
@@ -140,8 +145,9 @@ export const custom = [//this array states which elements are custom
     'RALph:reportsDirectly',
     'RALph:reportsTransitively',
     'RALph:delegatesDirectly',
-    'RALph:delegatesTransitively'
-    //añadir conexiones aqui también
+    'RALph:delegatesTransitively',
+    'RALph:History-AnyInstanceInTime-Green'
+ 
 ]
 
 export function isCustomShape(type) {

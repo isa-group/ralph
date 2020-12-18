@@ -649,6 +649,19 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
 
   }
 
+  function drawHistoryAnyInTimeConnector(shape){
+
+    var historyAnyInTime = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataHistoryAnyInstanceInTimeGreen
+    });
+
+    return historyAnyInTime;
+  }
+
   function drawOrgunit(shape){
     var org = svgCreate('image', {
       x: 0,
@@ -853,6 +866,12 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
 
       svgAppend(p,connector2)
       return connector2;
+
+    },'RALph:History-AnyInstanceInTime-Green':(p,element)=>{
+      let HistoryAnyInTimeConnector=drawHistoryAnyInTimeConnector(element)
+      renderEmbeddedLabel(p,element,'center-middle')
+      svgAppend(p,HistoryAnyInTimeConnector)
+      return HistoryAnyInTimeConnector;
 
     },'RALph:DelegateTo':(p,element)=>{
       let delegate=drawDelegateTo(element)
@@ -1393,6 +1412,31 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
       ];
 
       return componentsToPath(d);
+
+    },'RALph:History-AnyInstanceInTime-Green':(element)=>{
+      
+      var x = element.x,
+      y = element.y,
+      width = element.width,
+      height = element.height,
+      borderRadius=30;
+    
+      var d = [
+        ['M', x + borderRadius, y],
+        ['l', width - borderRadius * 2, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+        ['l', 0, height - borderRadius * 2],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+        ['l', borderRadius * 2 - width, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+        ['l', 0, borderRadius * 2 - height],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+        ['z']
+      ];
+
+      return componentsToPath(d);
+
+
 
     },'RALph:Complex-Assignment-OR':(element)=>{
       var width = element.width,
