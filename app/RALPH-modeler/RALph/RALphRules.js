@@ -306,7 +306,7 @@ RALphRules.prototype.init = function() {
       }
   }
 
-  function connectHierarchyConnectors(source,target,type) {
+  /*function connectHierarchyConnectors(source,target,type) {
     //console.log(source);
     
     if(is(source,'bpmn:Task') && type === "RALph:ReportsDirectlyAssignment"){
@@ -321,7 +321,7 @@ RALphRules.prototype.init = function() {
     }else if(is(source,'bpmn:Task') && type==="RALph:delegatesDirectlyAssignment"){
       return {type12:'RALph:ResourceArc'}
     }
-  }
+  }*/
 
   function canReconnect(source, target, connection) {
     if(!isCustom(connection) && !isCustom(source) && !isCustom(target))
