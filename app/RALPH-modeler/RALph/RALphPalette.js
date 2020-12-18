@@ -249,6 +249,12 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     'RALph-History-Same-Red':createAction(
       'RALph:History-Same-Red','history-based-assignments','icon-RALph2-history-same-red'
     ),
+    'RALph-History-AnyInstanceInTime-Green':createAction(
+      'RALph:History-AnyInstanceInTime-Green','history-based-assignments','icon-RALph2-history-instanceInTime-green'
+    ),
+    'RALph-History-AnyInstanceInTime-Red':createAction(
+      'RALph:History-AnyInstanceInTime-Red','history-based-assignments','icon-RALph2-history-instanceInTime-red'
+    ),
     'Complex-assignments': {
       group: 'Complex',
       separator: true
