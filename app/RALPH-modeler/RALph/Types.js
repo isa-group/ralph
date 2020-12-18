@@ -65,7 +65,11 @@ export const resourceArcElements = [//this array states which elements can use r
     'RALph:Orgunit',
     'RALph:Position',
     'RALph:Complex-Assignment-AND',
-    'RALph:Complex-Assignment-OR'
+    'RALph:Complex-Assignment-OR',
+    'RALph:reportsDirectly',
+    'RALph:reportsTransitively',
+    'RALph:delegatesDirectly',
+    'RALph:delegatesTransitively'
     
 ]
 
@@ -169,15 +173,6 @@ export function isCustomResourceArcElement(type) {
     return resourceArcElements.includes(type)
 }
 
-
-export function isCustomResourceArc2Element(type) {
-
-     if (typeof type === 'object') {
-        type = type.type
-     }
-
-     return resourceArcElements2.includes(type)
- }
 
  export function isHistoryConnectorActivityInstance(type) {
 

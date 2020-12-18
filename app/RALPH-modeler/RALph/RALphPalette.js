@@ -258,6 +258,19 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     'RALph-AND':createAction(
       'RALph:Complex-Assignment-AND','Complex-assignments','icon-RALph2-AND'
     ),
+    'Hierarchy-connectors': {
+      group: 'hierarchy',
+      separator: true
+    },
+    'RALph-Hierarchy-reports':createAction(
+      'RALph:reportsDirectly','Hierarchy-connectors','icon-RALph2-reportsDirectlyPalette'
+    ),
+    'RALph-Hierarchy-delegates':createAction(
+      'RALph:delegatesDirectly','Hierarchy-connectors','icon-RALph2-delegatesDirectlyPalette'
+    )
+
+
+      
 
 
 

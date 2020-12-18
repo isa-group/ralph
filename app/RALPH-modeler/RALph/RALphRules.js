@@ -13,9 +13,8 @@ import customModeler from'./RALphModeling';
 
 import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
 import {isAny} from "bpmn-js/lib/features/modeling/util/ModelingUtil";
-import {isCustomResourceArcElement, isCustomShape,isCustomResourceArc2Element,isHistoryConnectorActivityInstance,isHistoryConnectorSameOrPreviousInstance,isHistoryConnectorPreviousInstanceElements} from "./Types";
+import {resourceArcElements} from "./Types";
 import {isLabel} from "bpmn-js/lib/util/LabelUtil";
-
 //this module declares which elements can be connected by some connectors, and also declares the number of possible connections between the elements.
 
 var HIGH_PRIORITY = 1500;
@@ -36,6 +35,10 @@ function isValidForHistoryConnectors(element){
     cond=true;
 
   return cond;
+}
+
+function isValidForResourceArc(element){
+  return isAny(element,resourceArcElements);
 }
 
 function isValidForResourceEntities(element){
@@ -191,14 +194,22 @@ function simpleConnection(source, target, connection) { //function to connect el
   //cond === true => if source and target have not been connected previously
   if(connection === 'RALph:ResourceArc' && cond === true){
     //check if the target is one of the possible targets of resourceArc (Orgunit,role,task...etc)
-    if( ( is(target, 'RALph:Orgunit') && is(source,'RALph:RoleRALph')) || is(target, 'bpmn:Task') || is(target, 'bpmn:Event') || is(target,'bpmn:DataObjectReference') || is(target,'bpmn:ExclusiveGateway') || is(target,'bpmn:EndEvent') || is(target,'bpmn:DataStoreReference') || is(target,'RALph:Complex-Assignment-AND') || is(target,'RALph:Complex-Assignment-OR') ){
-      if(is(source,'RALph:Complex-Assignment-AND') || is(source,'RALph:Complex-Assignment-OR')){
-        if(sourceOutgoingConnections.length<1){//if the source is an AND or an OR, it should not be able to connect with more than one element 
-          return { type: connection }
-        }
-      }else{
-        return { type: connection }
-      }
+    if( ( is(target, 'RALph:Orgunit') && is(source,'RALph:RoleRALph')) || is(target, 'bpmn:Task') || 
+          is(target, 'bpmn:Event') || is(target,'bpmn:DataObjectReference') || is(target,'bpmn:ExclusiveGateway') ||
+          is(target,'bpmn:EndEvent') || is(target,'bpmn:DataStoreReference') || is(target,'RALph:Complex-Assignment-AND') || 
+          is(target,'RALph:Complex-Assignment-OR') || is(target, 'bpmn:Task') && is(source,'RALph:reportsTransitively')  ||
+          is(target, 'bpmn:Task') && is(source,'RALph:reportsDirectly') || is(target, 'bpmn:Task') && is(source,'RALph:delegatesDirectly') ||
+          is(target, 'bpmn:Task') && is(source,'RALph:delegatesTransitively')){
+
+          if(is(source,'RALph:Complex-Assignment-AND') || is(source,'RALph:Complex-Assignment-OR')){
+
+            if(sourceOutgoingConnections.length<1){//if the source is an AND or an OR, it should not be able to connect with more than one element 
+                return { type: connection }
+              }
+
+          }else{
+              return { type: connection }
+          }
     }
   }
 
@@ -371,8 +382,29 @@ RALphRules.prototype.init = function() {
 
   this.addRule('shape.create', HIGH_PRIORITY, function(context) {
     var target = context.target,
-        shape = context.shape;
-        
+        shape = context.shape,
+        elementFactory = context.elementFactory;
+    console.log(target);
+    console.log(shape);
+
+  var newElement = null;
+
+  /*if(shape.type==="RALph:reportsTransitively") {
+
+    // set center of element for modeling API
+    // if no new width / height is given use old elements size
+    newElementData.x = oldElement.x + (newElementData.width || oldElement.width) / 2;
+    newElementData.y = oldElement.y + (newElementData.height || oldElement.height) / 2;
+    let shape = elementFactory.createShape({ type: 'RALph:dataField' });
+                let pos = {
+                    x: (sourcePosition.x + targetPosition.x)/2,
+                    y: (sourcePosition.y + targetPosition.y)/2,
+                }
+
+    newElement = modeling.replaceShape(oldElement, newElementData, options);
+    return newElement;
+  }*/
+
     return canCreate(shape, target);
   });
 

@@ -17,7 +17,7 @@ import {isLabel} from "./utils/LabelUtil";
 import {resourceArcElements,negatedElements,solidLineElements} from "./Types";
 
 //This module is used to generate the icons of an object inside the diagram
-export default function RALphContextPadProvider(config, injector, elementFactory, connect, create, translate) {
+export default function RALphContextPadProvider(config, injector, elementFactory, connect, create, translate,modeling) {
 
     injector.invoke(ContextPadProvider, this);
 
@@ -149,7 +149,73 @@ export default function RALphContextPadProvider(config, injector, elementFactory
             ),
         });
     }*/
+    if(isAny(businessObject,['RALph:reportsDirectly'])){
+        assign(actions, {
+            'replaceReportsDirectly': {
+                className: 'icon-RALph2-reportsTransitively',
+                title: translate('Replace for reports transitively'),
+                action: {
+                  click: function(event, element) {
+                    let newElementData = elementFactory.createShape({ type: 'RALph:reportsTransitively' });
+                    newElementData.x = element.x + (newElementData.width || element.width) / 2;
+                    newElementData.y = element.y + (newElementData.height || element.height) / 2;
+                    modeling.replaceShape(element, newElementData);
+                  }
+                }
+              }
+            })
+    }
 
+    if(isAny(businessObject,['RALph:reportsTransitively'])){
+        assign(actions, {
+            'replaceReportsDirectly': {
+                className: 'icon-RALph2-reportsDirectly',
+                title: translate('Replace for reports directly'),
+                action: {
+                  click: function(event, element) {
+                    let newElementData = elementFactory.createShape({ type: 'RALph:reportsDirectly' });
+                    newElementData.x = element.x + (newElementData.width || element.width) / 2;
+                    newElementData.y = element.y + (newElementData.height || element.height) / 2;
+                    modeling.replaceShape(element, newElementData);
+                  }
+                }
+              }
+            })
+    }
+
+    if(isAny(businessObject,['RALph:delegatesTransitively'])){
+        assign(actions, {
+            'replaceDelegatesDirectly': {
+                className: 'icon-RALph2-delegatesDirectly',
+                title: translate('Replace for delegates directly'),
+                action: {
+                  click: function(event, element) {
+                    let newElementData = elementFactory.createShape({ type: 'RALph:delegatesDirectly' });
+                    newElementData.x = element.x + (newElementData.width || element.width) / 2;
+                    newElementData.y = element.y + (newElementData.height || element.height) / 2;
+                    modeling.replaceShape(element, newElementData);
+                  }
+                }
+              }
+            })
+    }
+
+    if(isAny(businessObject,['RALph:delegatesDirectly'])){
+        assign(actions, {
+            'replaceDelegatesTransitively': {
+                className: 'icon-RALph2-delegatesTransitively',
+                title: translate('Replace for delegates Transitively'),
+                action: {
+                  click: function(event, element) {
+                    let newElementData = elementFactory.createShape({ type: 'RALph:delegatesTransitively' });
+                    newElementData.x = element.x + (newElementData.width || element.width) / 2;
+                    newElementData.y = element.y + (newElementData.height || element.height) / 2;
+                    modeling.replaceShape(element, newElementData);
+                  }
+                }
+              }
+            })
+    }
     
     if(isAny(businessObject,solidLineElements) && element.type !== 'label') {
         assign(actions, {
@@ -180,26 +246,7 @@ export default function RALphContextPadProvider(config, injector, elementFactory
                 'bpmn-icon-connection-multi',//'bpmn-icon-connection-multi',
                 'Connect using data output association'
             ),
-            'connect3':appendConnectAction(
-                'RALph:ReportsDirectlyAssignment',
-                'icon-RALph2-reportsDirectly',//'bpmn-icon-connection-multi',
-                'Connect using report directly connection'
-            ),
-            'connect4':appendConnectAction(
-                'RALph:ReportsTransitivelyAssignment',
-                'icon-RALph2-reportsTransitively',//'bpmn-icon-connection-multi',
-                'Connect using report transitively connection'
-            ),
-            'connect5':appendConnectAction(
-                'RALph:delegatesDirectlyAssignment',
-                'icon-RALph2-delegatesTransitively',//'bpmn-icon-connection-multi',
-                'Connect using delegate transitively connection'
-            ),
-            'connect6':appendConnectAction(
-                'RALph:delegatesTransitivelyAssignment',
-                'icon-RALph2-delegatesDirectly',//'bpmn-icon-connection-multi',
-                'Connect using delegates direclty connection'
-            )
+           
             
         });
     }
@@ -225,5 +272,6 @@ RALphContextPadProvider.$inject = [
     'elementFactory',
     'connect',
     'create',
-    'translate'
+    'translate',
+    'modeling'
 ];
