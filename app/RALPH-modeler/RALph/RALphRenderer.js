@@ -12,7 +12,7 @@ import {assign} from "min-dash";
 import Ids from 'ids';
 import {getLabel} from "./utils/LabelUtil"
 import BaseElementFactory from "diagram-js/lib/core/ElementFactory";
-import {isCustomConnection, isCustomShape} from "./Types";
+
 
 //this module declares what should be rendered in the editor when an object is created
 

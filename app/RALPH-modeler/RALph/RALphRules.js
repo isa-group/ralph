@@ -20,7 +20,7 @@ import {isLabel} from "bpmn-js/lib/util/LabelUtil";
 var HIGH_PRIORITY = 1500;
 
 //these functions find out if an element is an instance of some element, and they are important to limit the possibilities in the connections.
-function isCustom(element) {
+function isRALph(element) {
   return element && /^RALph:/.test(element.type);
 }
 
@@ -61,7 +61,7 @@ RALphRules.$inject = [ 'eventBus',
 function canConnect(source, target, connection) {
 
   // only judge about custom elements
-  if (!isCustom(source) && !isCustom(target)) {
+  if (!isRALph(source) && !isRALph(target)) {
     if(connection === 'RALph:ConsequenceFlow') {
       if(isDefaultValid(source) && isDefaultValid(target))
         return { type: connection }
@@ -101,7 +101,7 @@ function canConnect(source, target, connection) {
       
   }
    /*else if(is(target, 'RALph:Person')) {
-        if(isCustom(source)) {
+        if(isRALph(source)) {
           if(connection === 'RALph:solidLine') // 'RALph:ConsequenceFlow' }
             return { type: connection }
         }
@@ -109,7 +109,7 @@ function canConnect(source, target, connection) {
           return false
     }*/
     else if(is(source, 'RALph:Person')) {
-        if(isCustom(target)) {
+        if(isRALph(target)) {
             if(connection === 'RALph:ConsequenceFlow')
               return { type: connection }
         }
@@ -133,9 +133,9 @@ function canConnect(source, target, connection) {
     }
     else
       return false*/
-   /*} else if(( isDefaultValid(source) && isCustomShape(target) && isCustomResourceArcElement(source)) || (isDefaultValid(target) && isCustomShape(source) &&  isCustomResourceArcElement(target))){
+   /*} else if(( isDefaultValid(source) && isRALphShape(target) && isRALphResourceArcElement(source)) || (isDefaultValid(target) && isRALphShape(source) &&  isRALphResourceArcElement(target))){
       return { type: 'RALph:ResourceArc' }
-   } else if((isDefaultValid(source) && isCustomShape(target) && isCustomResourceArc2Element(source)) || (isDefaultValid(target) && isCustomShape(source) && isCustomResourceArc2Element(target))){
+   } else if((isDefaultValid(source) && isRALphShape(target) && isRALphResourceArc2Element(source)) || (isDefaultValid(target) && isRALphShape(source) && isRALphResourceArc2Element(target))){
       return { type: 'RALph:ResourceArc2' }*/
   }else
     return;
@@ -279,7 +279,7 @@ function simpleConnection(source, target, connection) { //function to connect el
     }
   }
   else {
-    if (!isCustom(source) && !isCustom(target))
+    if (!isRALph(source) && !isRALph(target))
       return;
   }
 }
@@ -292,7 +292,7 @@ RALphRules.prototype.init = function() {
   function canCreate(shape, target) {
 
     // only judge about custom elements
-    if (!isCustom(shape)) {
+    if (!isRALph(shape)) {
       return;
     }
 
@@ -302,7 +302,7 @@ RALphRules.prototype.init = function() {
 
   
 
-  function canConnectMultipleCustomElement(source, target) {//it allows to automatically define an element and two connections between two elements.
+  function canConnectMultipleRALphElement(source, target) {//it allows to automatically define an element and two connections between two elements.
       if( is(source,'RALph:Position') && is(target,'bpmn:Task') ) { 
         return {type3: 'RALph:solidLine' , type4: 'RALph:simpleArrow' }//the return structure because depending in the type some elements are automatically connected in RALph connect
       /*}else if( is(source,'bpmn:Task') && is(target,'RALph:Position')  ){
@@ -330,24 +330,24 @@ RALphRules.prototype.init = function() {
   }*/
 
   function canReconnect(source, target, connection) {
-    if(!isCustom(connection) && !isCustom(source) && !isCustom(target))
+    if(!isRALph(connection) && !isRALph(source) && !isRALph(target))
       return;
     else {
       if(connection.type === 'RALph:ConsequenceFlow') {
-        if(!isCustom(source) && !isCustom(target))
+        if(!isRALph(source) && !isRALph(target))
           return { type: connection.type }
-        else if(is(source, 'RALph:TimeSlot') && !isCustom(target))
+        else if(is(source, 'RALph:TimeSlot') && !isRALph(target))
           return { type: connection.type }
         else
           return false
       }
       /*else if(connection.type === 'RALph:ResourceArc') {
-        if((!isCustom(source) && isCustomShape(target)) || (isCustomShape(source) && !isCustom(target)))
+        if((!isRALph(source) && isRALphShape(target)) || (isRALphShape(source) && !isRALph(target)))
           return { type: connection.type }
         else
           return;
       }else if(connection.type === 'RALph:ResourceArc2') {//en duda
-        if((!isCustom(source) && isCustomShape(target)) || (isCustomShape(source) && !isCustom(target)))
+        if((!isRALph(source) && isRALphShape(target)) || (isRALphShape(source) && !isRALph(target)))
           return { type: connection.type }
         else
           return;
@@ -371,10 +371,10 @@ RALphRules.prototype.init = function() {
     // if any shape cannot be moved, the group cannot be moved, too
     var allowed = reduce(shapes, function(result, s) {
       if (type === undefined) {
-        type = isCustom(s);
+        type = isRALph(s);
       }
 
-      if (type !== isCustom(s) || result === false) {
+      if (type !== isRALph(s) || result === false) {
         return false;
       }
       //console.log(target)
@@ -417,7 +417,7 @@ RALphRules.prototype.init = function() {
   this.addRule('shape.resize', HIGH_PRIORITY, function(context) {//it allows to resize custom elements.
     var shape = context.shape;
 
-    if (isCustom(shape)) {
+    if (isRALph(shape)) {
       // cannot resize custom elements
       return true;
     }
@@ -433,7 +433,7 @@ RALphRules.prototype.init = function() {
     //if it is one of these connections, it should be called another function (not the simple function to connect), because they require to automatically define some elements.
     if(type === 'RALph:Delegate' || type==='RALph:Report' || type==='RALph:dataFieldConnection'){
     
-      return canConnectMultipleCustomElement(source,target)
+      return canConnectMultipleRALphElement(source,target)
 
     }else if(type==='RALph:ReportsDirectlyAssignment' || type==="RALph:ReportsTransitivelyAssignment"){
       var cond=true;

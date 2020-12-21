@@ -48,7 +48,7 @@ RALphElementFactory.prototype.create = function(elementType, attrs) {
   if (elementType === 'label')
     return this.baseCreate(elementType, assign({ type: 'label' }, DEFAULT_LABEL_SIZE, attrs));
   else if (/^RALph:/.test(type))
-    return this.createCustomElement(elementType, attrs);
+    return this.createRALphElement(elementType, attrs);
   else
     return this.createBpmnElement(elementType, attrs);
 };
@@ -93,7 +93,7 @@ RALphElementFactory.prototype._initBO = function(businessObject) {
   return businessObject
 }
 
-RALphElementFactory.prototype._createCustomBO = function(elementType, attrs) {
+RALphElementFactory.prototype._createRALphBO = function(elementType, attrs) {
   let businessObject = Object.assign({}, attrs.businessObject)
   if (!businessObject.type)
     businessObject.type = elementType
@@ -110,8 +110,8 @@ RALphElementFactory.prototype._createCustomBO = function(elementType, attrs) {
 
   // add width and height if shape
   if (isCustomShape(elementType)) {
-    assign(attrs, this._getCustomElementSize(elementType));
-    assign(businessObject, this._getCustomElementSize(elementType))
+    assign(attrs, this._getRALphElementSize(elementType));
+    assign(businessObject, this._getRALphElementSize(elementType))
   }
 
 
@@ -124,7 +124,7 @@ RALphElementFactory.prototype._createCustomBO = function(elementType, attrs) {
   return businessObject
 }
 
-RALphElementFactory.prototype.createCustomElement = function(elementType, attrs) {
+RALphElementFactory.prototype.createRALphElement = function(elementType, attrs) {
   var size,
       translate = this._translate;
 
@@ -136,8 +136,8 @@ RALphElementFactory.prototype.createCustomElement = function(elementType, attrs)
     if (!attrs.type) {
       throw new Error(translate('no shape type specified'));
     }
-    businessObject = this._createCustomBO(attrs.type, attrs)
-    // size = this._getCustomElementSize(attrs.type);
+    businessObject = this._createRALphBO(attrs.type, attrs)
+    // size = this._getRALphElementSize(attrs.type);
     // businessObject = assign(businessObject, size);
   }
   else
@@ -154,7 +154,7 @@ RALphElementFactory.prototype.createCustomElement = function(elementType, attrs)
   return this.baseCreate(elementType, attrs);
 };
 
-RALphElementFactory.prototype._getCustomElementSize = function(type) {//here the default dimensions (width and height) of the elements are defined
+RALphElementFactory.prototype._getRALphElementSize = function(type) {//here the default dimensions (width and height) of the elements are defined
   var shapes = {
     __default: { width: 100, height: 80 },
     'RALph:Person':{width: 58, height: 75},
