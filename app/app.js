@@ -59,7 +59,7 @@ function openDiagram(xml, cbpmn) {
         .removeClass('with-diagram')
         .addClass('with-error');
 
-      modeler.addCustomElements(custom);
+      modeler.addCustomElements(RALph);
       modeler.setModelOpen(false);
       container.find('.error pre').text(err.message);
 
@@ -307,7 +307,7 @@ $(function() {
     if (data) {
       let urls = []
       window.localStorage.setItem("diagram", encodeURIComponent(data[0]))
-      window.localStorage.setItem("custom", encodeURIComponent(JSON.stringify(data[1])))
+      window.localStorage.setItem("RALph", encodeURIComponent(JSON.stringify(data[1])))
     } else {
       link.removeClass('active');
     }
@@ -320,7 +320,7 @@ $(function() {
     });
 
     saveDiagram(function(err, xml) {
-      // setEncoded(downloadLink, 'custom.elements', err ? null : json)
+      // setEncoded(downloadLink, 'RALph.elements', err ? null : json)
       // setEncoded(downloadLink, 'diagram.bpmn', err ? null : xml)
       // console.log("what?")
       let cbpmn = modeler.getJson()

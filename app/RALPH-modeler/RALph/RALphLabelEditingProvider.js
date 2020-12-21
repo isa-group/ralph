@@ -64,7 +64,7 @@ export default function RALphLabelEditingProvider(
         }*/
         
         var shape = event.context.shape;
-        console.log(shape);
+        //console.log(shape);
 
         if(is(shape,"bpmn:Task")){
             shape.businessObject.name="";

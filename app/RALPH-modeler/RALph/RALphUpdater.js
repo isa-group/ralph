@@ -14,7 +14,7 @@ import {
 
 
 /**
- * A handler responsible for updating the custom element's businessObject
+ * A handler responsible for updating the RALph element's businessObject
  * once changes on the diagram happen.
  */
 export default function RALphUpdater(eventBus, modeling, bpmnjs) {
@@ -32,16 +32,16 @@ export default function RALphUpdater(eventBus, modeling, bpmnjs) {
 
     var parent = shape.parent;
 
-    var customElements = bpmnjs._customElements;
+    var RALphElements = bpmnjs._RALphElements;
 
-    // make sure element is added / removed from bpmnjs.customElements
+    // make sure element is added / removed from bpmnjs.RALphElements
     if (!parent) {
-      collectionRemove(customElements, businessObject);
+      collectionRemove(RALphElements, businessObject);
     } else {
-      collectionAdd(customElements, businessObject);
+      collectionAdd(RALphElements, businessObject);
     }
 
-    // save custom element position
+    // save RALph element position
     assign(businessObject, pick(shape, [ 'x', 'y' ]));
   }
 
@@ -54,13 +54,13 @@ export default function RALphUpdater(eventBus, modeling, bpmnjs) {
 
     var parent = connection.parent;
 
-    var customElements = bpmnjs._customElements;
+    var RALphElements = bpmnjs._RALphElements;
 
-    // make sure element is added / removed from bpmnjs.customElements
+    // make sure element is added / removed from bpmnjs.RALphElements
     if (!parent) {
-      collectionRemove(customElements, businessObject);
+      collectionRemove(RALphElements, businessObject);
     } else {
-      collectionAdd(customElements, businessObject);
+      collectionAdd(RALphElements, businessObject);
     }
 
     // update waypoints
@@ -114,7 +114,7 @@ export default function RALphUpdater(eventBus, modeling, bpmnjs) {
 
   /**
    * When morphing a Process into a Collaboration or vice-versa,
-   * make sure that the existing custom elements get their parents updated.
+   * make sure that the existing RALph elements get their parents updated.
    */
   function updateCustomElementsRoot(event) {
     var context = event.context,
@@ -122,10 +122,10 @@ export default function RALphUpdater(eventBus, modeling, bpmnjs) {
         newRoot = context.newRoot,
         children = oldRoot.children;
 
-    var customChildren = children.filter(isCustom);
+    var RALphChildren = children.filter(isCustom);
 
-    if (customChildren.length) {
-      modeling.moveElements(customChildren, { x: 0, y: 0 }, newRoot);
+    if (RALphChildren.length) {
+      modeling.moveElements(RALphChildren, { x: 0, y: 0 }, newRoot);
     }
   }
 

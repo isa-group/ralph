@@ -27,7 +27,7 @@ var COLOR_GREEN = '#52B415',
 
 
 /**
- * A renderer that knows how to render custom elements.
+ * A renderer that knows how to render RALph elements.
  */
 export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
 
@@ -988,7 +988,7 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
         strokeWidth: 0.5,
         //strokeDasharray: [8,5]
       };
-      element.businessObject.name = 'custom text';
+      
       return svgAppend(p, createLine(element.waypoints, attrs));
 
     }

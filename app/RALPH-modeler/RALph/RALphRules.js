@@ -151,8 +151,8 @@ function simpleConnection(source, target, connection) { //function to connect el
   //This is important for history connector in order to avoid more than one connection between him and the task, or to avoid the possibility of
   //connecting an element with a negated and a resource connection.
   var sourceOutgoingConnections=source.outgoing;
-  console.log(sourceOutgoingConnections)
-  console.log(connection)
+  //console.log(sourceOutgoingConnections)
+  //console.log(connection)
  
   let cond=true;//cond will be the variable to check that
 
@@ -388,8 +388,8 @@ RALphRules.prototype.init = function() {
     var target = context.target,
         shape = context.shape,
         elementFactory = context.elementFactory;
-    console.log(target);
-    console.log(shape);
+    //console.log(target);
+    //console.log(shape);
 
   var newElement = null;
 
@@ -426,7 +426,7 @@ RALphRules.prototype.init = function() {
     var source = context.source,
         target = context.target,
         type = context.type;
-        console.log(type);
+        //console.log(type);
 
     //if it is one of these connections, it should be called another function (not the simple function to connect), because they require to automatically define some elements.
     if(type === 'RALph:Delegate' || type==='RALph:Report' || type==='RALph:dataFieldConnection'){

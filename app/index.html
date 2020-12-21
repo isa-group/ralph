@@ -251,7 +251,7 @@
   function downloadAll() {
     console.log("download")
     console.log(window.localStorage.getItem("diagram"))
-    console.log(window.localStorage.getItem("custom"))
+    console.log(window.localStorage.getItem("RALph"))
 
     if(window.localStorage.getItem("diagram")) {
       var link = document.createElement('a');
@@ -261,8 +261,8 @@
       link.setAttribute('href', 'data:application/bpmn20-xml;charset=UTF-8,' + window.localStorage.getItem("diagram"));
       link.click();
 
-      link.setAttribute('download', "customElements.cbpmn");
-      link.setAttribute('href', 'data:text/json;charset=UTF-8,' + window.localStorage.getItem("custom"));
+      link.setAttribute('download', "RALphElements.cbpmn");
+      link.setAttribute('href', 'data:text/json;charset=UTF-8,' + window.localStorage.getItem("RALph"));
       link.click();
 
       window.localStorage.clear()

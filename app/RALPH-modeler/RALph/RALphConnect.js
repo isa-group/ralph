@@ -231,7 +231,7 @@ export default function RALphConnect(eventBus, dragging, modeling, rules) {
         });
     };
 
-    this.customStart = function(event, source, type, elementFactory, autoActivate) {
+    this.RALphStart = function(event, source, type, elementFactory, autoActivate) {
         let sourcePosition = getMid(source);
         if (typeof sourcePosition !== 'object') {
             autoActivate = sourcePosition;
@@ -252,7 +252,7 @@ export default function RALphConnect(eventBus, dragging, modeling, rules) {
         });
     };
 
-    this.customStart2 = function(event, source, type, elementFactory, sourcePosition, autoActivate) {
+    this.RALphStart2 = function(event, source, type, elementFactory, sourcePosition, autoActivate) {
         if (typeof sourcePosition !== 'object') {
             autoActivate = sourcePosition;
             sourcePosition = getMid(source);

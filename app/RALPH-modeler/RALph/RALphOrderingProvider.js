@@ -7,7 +7,7 @@ import OrderingProvider from 'diagram-js/lib/features/ordering/OrderingProvider'
 
 
 /**
- * a simple ordering provider that ensures that custom
+ * a simple ordering provider that ensures that RALph
  * connections are always rendered on top.
  */
 export default function RALphOrderingProvider(eventBus, canvas) {

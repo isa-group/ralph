@@ -124,7 +124,7 @@ export const HistoryConnectorPreviousInstanceElements =[//linea con rayas con pu
 ]
 
 
-export const custom = [//this array states which elements are custom
+export const custom = [//this array states which elements are RALph elements
     
     'RALph:ResourceArc',
     'RALph:Person',

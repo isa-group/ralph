@@ -65,7 +65,7 @@ export default function RALphContextPadProvider(config, injector, elementFactory
         }
 
         function connectStart(event, element, autoActivate) {
-            connect.customStart(event, element, type, elementFactory, autoActivate);
+            connect.RALphStart(event, element, type, elementFactory, autoActivate);
         }
 
 
@@ -93,15 +93,15 @@ export default function RALphContextPadProvider(config, injector, elementFactory
       }
 
     function startConnectConsequence(event, element, autoActivate) {
-      connect.customStart(event, element, 'RALph:ConsequenceFlow', autoActivate);
+      connect.RALphStart(event, element, 'RALph:ConsequenceFlow', autoActivate);
     }
 
     function startConnectConsequenceTimed(event, element, autoActivate) {
-      connect.customStart2(event, element, 'RALph:ConsequenceTimedFlow', elementFactory, autoActivate);
+      connect.RALphStart2(event, element, 'RALph:ConsequenceTimedFlow', elementFactory, autoActivate);
     }
 
     function startConnectTimeDistance(event, element, autoActivate) {
-        connect.customStart2(event, element, 'RALph:ConsequenceTimedFlow', elementFactory, autoActivate);
+        connect.RALphStart2(event, element, 'RALph:ConsequenceTimedFlow', elementFactory, autoActivate);
     }
 
     //here we declared the conditions to show an icon
