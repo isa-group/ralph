@@ -158,19 +158,21 @@ function simpleConnection(source, target, connection) { //function to connect el
 
   
  
-  if(target!==null){
+  if(target !== null){
     
-    var targetIncomingConnections=target.incoming;
+    if(typeof target !== 'undefined'){
+      var targetIncomingConnections=target.incoming;
 
-    for(let i of sourceOutgoingConnections){
+      for(let i of sourceOutgoingConnections){
        
-      if(targetIncomingConnections.includes(i) ){//here it is checked if the source of a connection has already been connected to that target
+        if(targetIncomingConnections.includes(i) ){//here it is checked if the source of a connection has already been connected to that target
 
         //if it is already connected, cond will be false and it will not be possible to connect the source and the target
-        cond=false;
+          cond=false;
+        }
       }
-    }
 
+    }  
   }
 
   if (nonExistingOrLabel(source) || nonExistingOrLabel(target)) {
