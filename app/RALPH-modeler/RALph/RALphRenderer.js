@@ -125,6 +125,21 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
     });
   }
 
+  function renderEmbeddedLabelHistoryAnyInTime(parentGfx, element, align,size,weight) {
+    var semantic = getSemantic(element);
+
+    return renderLabel(parentGfx,semantic.text, {
+      box: element,
+      align: align,
+      padding:5,//35
+      style: {
+        fill: element.color,
+        ontSize:  size + 'px',
+        fontWeight: weight
+      }
+    });
+  }
+
   function renderExternalLabel(parentGfx, element) {
     var box = {
       width: 90,
@@ -805,7 +820,7 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
       let org=drawOrgunit(element)
 
       svgAppend(p,org)
-      //renderEmbeddedLabel(p,element,'center-middle')
+      renderEmbeddedLabel(p,element,'center-middle')
 
       return org;
 
@@ -869,7 +884,8 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
 
     },'RALph:History-AnyInstanceInTime-Green':(p,element)=>{
       let HistoryAnyInTimeConnector=drawHistoryAnyInTimeConnector(element)
-      renderEmbeddedLabel(p,element,'center-middle')
+      //renderEmbeddedLabel(p,element,'center-middle')
+      renderEmbeddedLabelHistoryAnyInTime(p,element,'center-middle',1,'bold')
       svgAppend(p,HistoryAnyInTimeConnector)
       return HistoryAnyInTimeConnector;
 

@@ -26,7 +26,7 @@ export const externalLabel = [//this array states which elements should have a l
     'RALph:Position',
     'RALph:delegatesDirectly',
     'RALph:delegatesTransitively',
-    'RALph:History-AnyInstanceInTime-Green'
+    //'RALph:History-AnyInstanceInTime-Green'
 
 
    
