@@ -833,7 +833,7 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
       let org=drawOrgunit(element)
 
       svgAppend(p,org)
-      renderEmbeddedLabel(p,element,'center-middle')
+      
 
       return org;
 
