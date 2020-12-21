@@ -9,51 +9,51 @@ import inherits from 'inherits';
 
 import {isCustomConnection} from "./RALph/Types";
 
-import CustomModule from './RALph';
+import RALphModule from './RALph';
 import {isLabelExternal, getExternalLabelBounds} from "./RALph/utils/LabelUtil";
 import {getLabel} from "./RALph/utils/LabelUtil";
 
 
-export default function CustomModeler(options) {
+export default function RALphModeler(options) {
   Modeler.call(this, options);
 
-  this._customElements = [];
+  this._RALphElements = [];
   this._idMap = []
 
   this.modelOpen = false;
 }
 
-inherits(CustomModeler, Modeler);
+inherits(RALphModeler, Modeler);
 
-CustomModeler.prototype._modules = [].concat(
-    CustomModeler.prototype._modules,
+RALphModeler.prototype._modules = [].concat(
+    RALphModeler.prototype._modules,
     [
-      CustomModule
+      RALphModule
     ]
 );
 
 /**
- * Add a single custom element to the underlying diagram
+ * Add a single RALph element to the underlying diagram
  *
- * @param {Object} customElement
+ * @param {Object} RALphElement
  */
-CustomModeler.prototype._addCustomShape = function(customElement) {
+RALphModeler.prototype._addRALphShape = function(RALphElement) {
 
-  this._customElements.push(customElement);
+  this._RALphElements.push(RALphElement);
 
   var canvas = this.get('canvas'),
       elementFactory = this.get('elementFactory');
 
-  var customAttrs = assign({ businessObject: customElement }, customElement);
+  var RALphAttrs = assign({ businessObject: RALphElement }, RALphElement);
 
-  var customShape = elementFactory.create('shape', customAttrs);
-  if (isLabelExternal(customElement) && getLabel(customShape)) {
-    this.addLabel(customElement, customShape);
+  var RALphShape = elementFactory.create('shape', RALphAttrs);
+  if (isLabelExternal(RALphElement) && getLabel(RALphShape)) {
+    this.addLabel(RALphElement, RALphShape);
   }
-  return canvas.addShape(customShape);
+  return canvas.addShape(RALphShape);
 };
 
-CustomModeler.prototype.setColors = function(idAndColorList) {
+RALphModeler.prototype.setColors = function(idAndColorList) {
   var modeling = this.get('modeling'),
       elementRegistry = this.get('elementRegistry');
 
@@ -79,30 +79,30 @@ CustomModeler.prototype.setColors = function(idAndColorList) {
 
 }
 
-CustomModeler.prototype.setModelOpen = function(bool) {
+RALphModeler.prototype.setModelOpen = function(bool) {
   this.modelOpen = bool;
 }
 
-CustomModeler.prototype.isModelOpen = function() {
+RALphModeler.prototype.isModelOpen = function() {
   return this.modelOpen;
 }
 
-CustomModeler.prototype._addCustomConnection = function(customElement) {
-  this._customElements.push(customElement);
+RALphModeler.prototype._addRALphConnection = function(RALphElement) {
+  this._RALphElements.push(RALphElement);
 
   var canvas = this.get('canvas'),
       elementFactory = this.get('elementFactory'),
       elementRegistry = this.get('elementRegistry');
 
-  var customAttrs = assign({ businessObject: customElement }, customElement);
+  var RALphAttrs = assign({ businessObject: RALphElement }, RALphElement);
 
-  var connection = elementFactory.create('connection', assign(customAttrs, {
-        source: elementRegistry.get(customElement.source),
-        target: elementRegistry.get(customElement.target)
+  var connection = elementFactory.create('connection', assign(RALphAttrs, {
+        source: elementRegistry.get(RALphElement.source),
+        target: elementRegistry.get(RALphElement.target)
       }),
-      elementRegistry.get(customElement.source).parent);
-  if (isLabelExternal(customElement) && getLabel(connection)) {
-    this.addLabel(customElement, connection);
+      elementRegistry.get(RALphElement.source).parent);
+  if (isLabelExternal(RALphElement) && getLabel(connection)) {
+    this.addLabel(RALphElement, connection);
   }
   // console.log(connection)
 
@@ -111,42 +111,42 @@ CustomModeler.prototype._addCustomConnection = function(customElement) {
 };
 
 /**
- * Add a number of custom elements and connections to the underlying diagram.
+ * Add a number of RALph elements and connections to the underlying diagram.
  *
- * @param {Array<Object>} customElements
+ * @param {Array<Object>} RALphElements
  */
-CustomModeler.prototype.addCustomElements = function(customElements) {
-  if (!isObject(customElements))
+RALphModeler.prototype.addRALphElements = function(RALphElements) {
+  if (!isObject(RALphElements))
     throw new Error('argument must be an object');
 
-  if(!isArray(customElements.diagram) )
+  if(!isArray(RALphElements.diagram) )
     throw new Error('missing diagram');
 
   var shapes = [],
       connections = [];
 
-  this._idMap = customElements.idMap;
+  this._idMap = RALphElements.idMap;
 
-  customElements.diagram.forEach(function(customElement) {
-    if (isCustomConnection(customElement)) {
-      connections.push(customElement);
+  RALphElements.diagram.forEach(function(RALphElement) {
+    if (isCustomConnection(RALphElement)) {
+      connections.push(RALphElement);
     } else {
-      shapes.push(customElement);
+      shapes.push(RALphElement);
     }
-    // if(customElement.type === 'custom:ConsequenceTimedFlow' || customElement.type === 'custom:TimeDistance') {
-    //   shapes.push(customElement.timeSlot)
-    //   connections = connections.concat(customElement.connections)
+    // if(RALphElement.type === 'RALph:ConsequenceTimedFlow' || RALphElement.type === 'RALph:TimeDistance') {
+    //   shapes.push(RALphElement.timeSlot)
+    //   connections = connections.concat(RALphElement.connections)
     // }
     // else {
-    //   connections.push(customElement);
+    //   connections.push(RALphElement);
     // }
   });
 
   // add shapes before connections so that connections
   // can already rely on the shapes being part of the diagram
-  shapes.forEach(this._addCustomShape, this);
+  shapes.forEach(this._addRALphShape, this);
 
-  connections.forEach(this._addCustomConnection, this);
+  connections.forEach(this._addRALphConnection, this);
 };
 
 function elementData(semantic, attrs) {
@@ -160,7 +160,7 @@ function elementData(semantic, attrs) {
 /**
  * add label for an element
  */
-CustomModeler.prototype.addLabel = function(semantic, element) {
+RALphModeler.prototype.addLabel = function(semantic, element) {
   var bounds,
       text,
       label;
@@ -194,16 +194,16 @@ CustomModeler.prototype.addLabel = function(semantic, element) {
 };
 
 /**
- * Get custom elements with their current status.
+ * Get RALph elements with their current status.
  *
- * @return {Array<Object>} custom elements on the diagram
+ * @return {Array<Object>} RALph elements on the diagram
  */
-CustomModeler.prototype.getCustomElements = function() {
-  return this._customElements;
+RALphModeler.prototype.getRALphElements = function() {
+  return this._RALphElements;
 };
 
-CustomModeler.prototype.clear = function() {
-  this._customElements = [];
+RALphModeler.prototype.clear = function() {
+  this._RALphElements = [];
   Modeler.prototype.clear.call(this)
 };
 
@@ -375,9 +375,8 @@ function insertResourceArcData(obj, connection) {
   return obj;
 }
 
-CustomModeler.prototype.getJson = function () {
-  // dividere shape e connections
-  // individuare le connessioni che partono/arrivano dallo stesso oggetto custom
+RALphModeler.prototype.getJson = function () {
+
   let obj = {
     consequences: [],
     consequencesTimed: [],
@@ -391,26 +390,26 @@ CustomModeler.prototype.getJson = function () {
     timeConnections: []
   }
 
-  obj = this._customElements.reduce((res, item) => {
+  obj = this._RALphElements.reduce((res, item) => {
 
     if(isCustomConnection(item)) {
       if(item.source.includes("TimeSlot") || item.target.includes("TimeSlot"))
         res.timeConnections.push(item)
-      else if(item.type === 'custom:ResourceArc')
+      else if(item.type === 'RALph:ResourceArc')
         res = insertResourceArcData(res, item)
       else // consequences
         res.consequences.push(createConsequence(item))
     }
     else {
-      if(item.type === "custom:TimeSlot")
+      if(item.type === "RALph:TimeSlot")
         res.timeSlots.push(item)
-      else if(item.type.includes("custom:Resource"))
+      else if(item.type.includes("RALph:Resource"))
         res.resources.push(createRRG(item, "Resource"))
-      else if(item.type.includes("custom:Role"))
+      else if(item.type.includes("RALph:Role"))
         res.roles.push(createRRG(item, "Role"))
-      else if(item.type.includes("custom:Group"))
+      else if(item.type.includes("RALph:Group"))
         res.groups.push(createRRG(item, "Group"))
-      else if(item.type === 'custom:Clock')
+      else if(item.type === 'RALph:Clock')
         res.timeInstances.push(createTimeInstance(item))
     }
     return res;
@@ -438,7 +437,7 @@ CustomModeler.prototype.getJson = function () {
       // window.alert("TimeSlot without connections")
     }
     else if(item.occurrences === 1) {
-      if(item.connections[0].type === 'custom:ResourceArc') {
+      if(item.connections[0].type === 'RALph:ResourceArc') {
         let taskDuration = createTaskDuration(item, item.timeSlot.text)
         idMap[taskDuration.id] = [item.timeSlot.id, item.connections[0].id]
         taskDuration.elements = [item.timeSlot.id, item.connections[0].id]
@@ -454,7 +453,7 @@ CustomModeler.prototype.getJson = function () {
     }
     else {
       let constraint;
-      if((item.connections[0].type === 'custom:ResourceArc' && item.connections[1].type === 'custom:ConsequenceFlow')) {
+      if((item.connections[0].type === 'RALph:ResourceArc' && item.connections[1].type === 'RALph:ConsequenceFlow')) {
         constraint = createConsequenceTimed({
           id: 'ConsequenceTimedFlow_' + counter,
           source: item.connections[0].source,
@@ -463,7 +462,7 @@ CustomModeler.prototype.getJson = function () {
 
         obj.consequencesTimed.push(constraint)
       }
-      else if(item.connections[1].type === 'custom:ResourceArc' && item.connections[0].type === 'custom:ConsequenceFlow') {
+      else if(item.connections[1].type === 'RALph:ResourceArc' && item.connections[0].type === 'RALph:ConsequenceFlow') {
         constraint = createConsequenceTimed({
           id: 'ConsequenceTimedFlow_' + counter,
           source: item.connections[1].source,
@@ -472,7 +471,7 @@ CustomModeler.prototype.getJson = function () {
 
         obj.consequencesTimed.push(constraint)
       }
-      else if((item.connections[0].type === 'custom:TimeDistanceArcStart' && item.connections[1].type === 'custom:TimeDistanceArcEnd')) {
+      else if((item.connections[0].type === 'RALph:TimeDistanceArcStart' && item.connections[1].type === 'RALph:TimeDistanceArcEnd')) {
         constraint = createTimeDistance({
           id: 'TimeDistance_'+counter,
           source: item.connections[0].source,
@@ -481,7 +480,7 @@ CustomModeler.prototype.getJson = function () {
 
         obj.timeDistances.push(constraint)
       }
-      else if(item.connections[1].type === 'custom:TimeDistanceArcStart' && item.connections[0].type === 'custom:TimeDistanceArcEnd') {
+      else if(item.connections[1].type === 'RALph:TimeDistanceArcStart' && item.connections[0].type === 'RALph:TimeDistanceArcEnd') {
         constraint = createTimeDistance({
           id: 'TimeDistance_'+counter,
           source: item.connections[1].source,
@@ -504,15 +503,15 @@ CustomModeler.prototype.getJson = function () {
   // resArc + ts + cflow = ConsequenceTimedFlow
   // TimeDisStartArc + ts + tdea = TimeDistance
   //
-  console.log(this._customElements)
+  console.log(this._RALphElements)
   console.log({
     definitions: obj,
-    diagram: this._customElements,
+    diagram: this._RALphElements,
     idMap: idMap
   })
   return {
     definitions: obj,
-    diagram: this._customElements,
+    diagram: this._RALphElements,
     idMap: idMap
   }
 }
