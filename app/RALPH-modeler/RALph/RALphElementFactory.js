@@ -164,17 +164,18 @@ RALphElementFactory.prototype._getCustomElementSize = function(type) {//here the
     'RALph:Position':{width:58,height:75},
     'RALph:History-Same':{width:36,height:45},
     'RALph:History-Any':{width:54,height:60},
-    'RALph:History-Any-Red':{width:54,height:60},
-    'RALph:History-Any-Green':{width:54,height:60},
-    'RALph:History-Same-Red':{width:36,height:45},
-    'RALph:History-Same-Green':{width:36,height:45},
+    'RALph:History-Any-Red':{width:104,height:110},
+    'RALph:History-Any-Green':{width:104,height:110},
+    'RALph:History-Same-Red':{width:100,height:109},
+    'RALph:History-Same-Green':{width:100,height:109},
     'RALph:Complex-Assignment-AND':{width:96,height:100},
     'RALph:Complex-Assignment-OR':{width:96,height:100},
     'RALph:reportsDirectly':{width:126, height:232},
     'RALph:reportsTransitively':{width:126, height:232},
     'RALph:delegatesDirectly':{width:126, height:232},
     'RALph:delegatesTransitively':{width:126, height:232},
-    'RALph:History-AnyInstanceInTime-Green':{width:120, height:120}
+    'RALph:History-AnyInstanceInTime-Green':{width:120, height:120},
+    'RALph:History-AnyInstanceInTime-Red':{width:120, height:120}
 
 
   };

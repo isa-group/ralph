@@ -383,6 +383,35 @@ RALphLabelEditingProvider.prototype.getEditingBBox = function(element) {
        
     }
 
+    if (isAny(element, ['RALph:History-AnyInstanceInTime-Green','RALph:History-AnyInstanceInTime-Red']) ||
+        isCollapsedPool(element) ||
+        isCollapsedSubProcess(element)) {
+           
+        assign(bounds, {
+            width:50,
+            height:30,
+            x: (mid.x-25),
+            y: (mid.y-10) 
+        });
+
+        /*assign(bounds, {
+            width:bbox.width/4,//50,
+            height:bbox.height/4,
+            x: mid.x,
+            y: mid.y
+        });*/
+        
+        paddingTop=(7 * zoom);
+        assign(style, {
+            fontSize: externalFontSize + 'px',
+            lineHeight: externalLineHeight,
+            paddingTop: paddingTop + 'px',
+            paddingBottom: paddingBottom + 'px'
+        });
+
+       
+    }
+
     // internal labels for expanded sub processes
     if (isExpandedSubProcess(element)) {
         assign(bounds, {
