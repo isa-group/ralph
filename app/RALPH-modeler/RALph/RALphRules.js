@@ -206,7 +206,11 @@ function simpleConnection(source, target, connection) { //function to connect el
             if(sourceOutgoingConnections.length<1){//if the source is an AND or an OR, it should not be able to connect with more than one element 
                 return { type: connection }
               }
-
+            //if the source is reports or delegates, it can only be connected to a task
+          }else if(is(source,'RALph:reportsDirectly') || is(source,'RALph:reportsTransitively') || is(source,'RALph:delegatesDirectly') || is(source,'RALph:delegatesTransitively',)){
+            if(is(target, 'bpmn:Task')){
+              return { type: connection }
+            }
           }else{
               return { type: connection }
           }
