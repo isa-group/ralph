@@ -37,7 +37,7 @@ RALphModeler.prototype._modules = [].concat(
  *
  * @param {Object} RALphElement
  */
-RALphModeler.prototype._addRALphShape = function(RALphElement) {
+RALphModeler.prototype._addCustomShape = function(RALphElement) {
 
   this._RALphElements.push(RALphElement);
 
@@ -87,7 +87,7 @@ RALphModeler.prototype.isModelOpen = function() {
   return this.modelOpen;
 }
 
-RALphModeler.prototype._addRALphConnection = function(RALphElement) {
+RALphModeler.prototype._addCustomConnection = function(RALphElement) {
   this._RALphElements.push(RALphElement);
 
   var canvas = this.get('canvas'),
@@ -115,7 +115,7 @@ RALphModeler.prototype._addRALphConnection = function(RALphElement) {
  *
  * @param {Array<Object>} RALphElements
  */
-RALphModeler.prototype.addRALphElements = function(RALphElements) {
+RALphModeler.prototype.addCustomElements = function(RALphElements) {
   if (!isObject(RALphElements))
     throw new Error('argument must be an object');
 
@@ -144,9 +144,9 @@ RALphModeler.prototype.addRALphElements = function(RALphElements) {
 
   // add shapes before connections so that connections
   // can already rely on the shapes being part of the diagram
-  shapes.forEach(this._addRALphShape, this);
+  shapes.forEach(this._addCustomShape, this);
 
-  connections.forEach(this._addRALphConnection, this);
+  connections.forEach(this._addCustomConnection, this);
 };
 
 function elementData(semantic, attrs) {
