@@ -35,7 +35,7 @@ export const externalLabel = [//this array states which elements should have a l
 ]
 
 export const connections = [//this array states which elements are connections
-
+    'RALph:ResourceArc',
     'RALph:negatedAssignment',
 
     'RALph:solidLine',
