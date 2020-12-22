@@ -124,7 +124,7 @@ RALphElementFactory.prototype._createRALphBO = function(elementType, attrs) {
   return businessObject
 }
 
-RALphElementFactory.prototype.createRALphElement = function(elementType, attrs) {
+RALphElementFactory.prototype.createRALphElement = function(elementType, attrs) {//here RALph elements are created:
   var size,
       translate = this._translate;
 

@@ -5,6 +5,7 @@ import {
 import {getNewShapePosition} from "bpmn-js/lib/features/auto-place/AutoPlaceUtil";
 import {assign} from "min-dash";
 
+//this module allows to define connections
 
 export default function RALphConnect(eventBus, dragging, modeling, rules) {
 
@@ -86,116 +87,7 @@ export default function RALphConnect(eventBus, dragging, modeling, rules) {
                 modeling.connect(newShape, target, attrs, hints);
                 return;
 
-            }else if(canExecute.type5){
-                let shape = elementFactory.createShape({ type: 'RALph:reportsTo' });
-                let pos = {
-                    x: (sourcePosition.x + targetPosition.x)/2,
-                    y: (sourcePosition.y + targetPosition.y)/2,
-                }
-                let newShape = modeling.appendShape(source, shape, pos, source.parent, {
-                    connection: { type: canExecute.type5}
-                });
-
-                hints = {
-                    connectionStart: pos,
-                    connectionEnd: targetPosition
-                }
-                attrs = { type: canExecute.type6}
-                modeling.connect(newShape, target, attrs, hints);
-                return;
-
-            }else if(canExecute.type7){
-                let shape = elementFactory.createShape({ type: 'RALph:dataField' });
-                let pos = {
-                    x: (sourcePosition.x + targetPosition.x)/2,
-                    y: (sourcePosition.y + targetPosition.y)/2,
-                }
-                let newShape = modeling.appendShape(source, shape, pos, source.parent, {
-                    connection: { type: canExecute.type7}
-                });
-
-                hints = {
-                    connectionStart: pos,
-                    connectionEnd: targetPosition
-                }
-                attrs = { type: canExecute.type8}
-                modeling.connect(newShape, target, attrs, hints);
-                return;
-
-            }else if(canExecute.type9){
-                let shape = elementFactory.createShape({ type: 'RALph:reportsDirectly' });
-                let pos = {
-                    x: sourcePosition.x,
-                    y: (sourcePosition.y - 250),
-                }
-                let newShape = modeling.appendShape(source, shape, pos, source.parent, {
-                    connection: { type: canExecute.type9}
-                });
-
-                hints = {
-                    connectionStart: sourcePosition,
-                    connectionEnd: pos,
-                }
-               
-                modeling.connect(newShape, target, attrs, hints);
-                return;
-
-            }else if(canExecute.type10){
-                let shape = elementFactory.createShape({ type: 'RALph:reportsTransitively' });
-                let pos = {
-                    x: sourcePosition.x,
-                    y: (sourcePosition.y - 250),
-                }
-                let newShape = modeling.appendShape(source, shape, pos, source.parent, {
-                    connection: { type: canExecute.type10}
-                });
-
-                hints = {
-                    connectionStart: sourcePosition,
-                    connectionEnd: pos,
-                }
-               
-                modeling.connect(newShape, target, attrs, hints);
-                return;
-
-            }else if(canExecute.type11){
-                let shape = elementFactory.createShape({ type: 'RALph:delegatesDirectly' });
-                let pos = {
-                    x: sourcePosition.x,
-                    y: (sourcePosition.y + 250),
-                }
-                let newShape = modeling.appendShape(source, shape, pos, source.parent, {
-                    connection: { type: canExecute.type11}
-                });
-
-                hints = {
-                    connectionStart: sourcePosition,
-                    connectionEnd: pos,
-                }
-               
-                modeling.connect(newShape, target, attrs, hints);
-                return;
-
-            }else if(canExecute.type12){
-                let shape = elementFactory.createShape({ type: 'RALph:delegatesTransitively' });
-                let pos = {
-                    x: sourcePosition.x,
-                    y: (sourcePosition.y + 250),
-                }
-                let newShape = modeling.appendShape(source, shape, pos, source.parent, {
-                    connection: { type: canExecute.type12}
-                });
-
-                hints = {
-                    connectionStart: sourcePosition,
-                    connectionEnd: pos,
-                }
-               
-                modeling.connect(newShape, target, attrs, hints);
-                return;
-
-            }
-            else
+        }else
                 attrs = canExecute;
         }
         if(!canExecute.type1)

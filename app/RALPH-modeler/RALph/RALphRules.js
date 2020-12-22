@@ -58,88 +58,6 @@ inherits(RALphRules, RuleProvider);
 RALphRules.$inject = [ 'eventBus',
                         'elementRegistry' ];
 
-function canConnect(source, target, connection) {
-
-  // only judge about custom elements
-  if (!isRALph(source) && !isRALph(target)) {
-    if(connection === 'RALph:ConsequenceFlow') {
-      if(isDefaultValid(source) && isDefaultValid(target))
-        return { type: connection }
-      else
-        return false
-    }
-    else
-      return; // utilizza canConnect standard
-  }
-  else if(is(source, 'RALph:TimeSlot')) {
-    if(isDefaultValid(target)) {
-      if(connection === 'RALph:ConsequenceFlow' || connection === 'RALph:TimeDistandEndArc')
-        return { type: connection }
-      else
-        return false
-    }
-    else
-      return false
-  } else if(is(source, 'RALph:nyanCat')) {
-    if(isDefaultValid(target)) {
-      if(connection === 'RALph:ConsequenceFlow' || connection === 'RALph:TimeDistandEndArc')
-        return { type: connection }
-      else
-        return false
-    }
-    else
-      return false
-  }else if(is(source, 'RALph:Person')) {
-    if(isDefaultValid(target)) {
-      if(connection === 'RALph:ConsequenceFlow' || connection === 'RALph:TimeDistandEndArc')
-        return { type: connection }
-      else
-        return false
-    }
-    else
-      return false
-      
-  }
-   /*else if(is(target, 'RALph:Person')) {
-        if(isRALph(source)) {
-          if(connection === 'RALph:solidLine') // 'RALph:ConsequenceFlow' }
-            return { type: connection }
-        }
-        else
-          return false
-    }*/
-    else if(is(source, 'RALph:Person')) {
-        if(isRALph(target)) {
-            if(connection === 'RALph:ConsequenceFlow')
-              return { type: connection }
-        }
-        else
-          return false    
-  /*}else if(is(target, 'RALph:Position')) {
-    if(isDefaultValid(source)) {
-      if(connection === 'RALph:TimeDistandStartArc')
-        return { type: connection }
-      else
-        return { type: 'RALph:ResourceArc2'}
-    }
-    else
-      return false
-  }else if(is(target, 'RALph:Orgunit')) {
-    if(isDefaultValid(source)) {
-      if(connection === 'RALph:TimeDistandStartArc')
-        return { type: connection }
-      else
-        return { type: 'RALph:ResourceArc'}
-    }
-    else
-      return false*/
-   /*} else if(( isDefaultValid(source) && isRALphShape(target) && isRALphResourceArcElement(source)) || (isDefaultValid(target) && isRALphShape(source) &&  isRALphResourceArcElement(target))){
-      return { type: 'RALph:ResourceArc' }
-   } else if((isDefaultValid(source) && isRALphShape(target) && isRALphResourceArc2Element(source)) || (isDefaultValid(target) && isRALphShape(source) && isRALphResourceArc2Element(target))){
-      return { type: 'RALph:ResourceArc2' }*/
-  }else
-    return;
-}
 
 
 //
@@ -341,21 +259,7 @@ RALphRules.prototype.init = function() {
         else
           return false
       }
-      /*else if(connection.type === 'RALph:ResourceArc') {
-        if((!isRALph(source) && isRALphShape(target)) || (isRALphShape(source) && !isRALph(target)))
-          return { type: connection.type }
-        else
-          return;
-      }else if(connection.type === 'RALph:ResourceArc2') {//en duda
-        if((!isRALph(source) && isRALphShape(target)) || (isRALphShape(source) && !isRALph(target)))
-          return { type: connection.type }
-        else
-          return;
-      }*/
-      // add time distance
-      else {
-        return canConnect(source, target, connection.type)
-      }
+     
     }
 
   }

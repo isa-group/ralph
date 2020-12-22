@@ -5,8 +5,9 @@ import { isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 import {label} from "./Types";
 
 import RALphUpdateLabelHandler from "./handlers/RALphUpdateLabelHandler";
-import RALphCreateConnectionHandler from "./handlers/RALphCreateConnectionHandler";
-import CreateConnectionHandler from "diagram-js/lib/features/modeling/cmd/CreateConnectionHandler";
+
+
+//this module defines how to update labels
 
 export default class RALphModeling extends Modeling {
     constructor(eventBus, elementFactory, commandStack,
@@ -17,7 +18,7 @@ export default class RALphModeling extends Modeling {
     getHandlers() {
         let handlers = super.getHandlers();
         handlers['element.customUpdateLabel'] = RALphUpdateLabelHandler;
-        // handlers['connection.create'] = RALphCreateConnectionHandler;
+       
 
 
         return handlers;
@@ -36,43 +37,7 @@ export default class RALphModeling extends Modeling {
         });
     }
 
-    // createShape(shape, position, target, parentIndex, hints) {
-    //     //se shape !== custom chiama super, altrimenti...
-    //     let val = super.createShape(shape, position, target, parentIndex, hints)
-    //     console.log(val)
-    //     return val
-    // }
-
-    // createConnection(source, target, parentIndex, connection, parent, hints) {
-    //
-    //     if (typeof parentIndex === 'object') {
-    //         hints = parent;
-    //         parent = connection;
-    //         connection = parentIndex;
-    //         parentIndex = undefined;
-    //     }
-    //
-    //     console.log(connection)
-    //
-    //     connection = this._create('connection', connection);
-    //
-    //     var context = {
-    //         source: source,
-    //         target: target,
-    //         parent: parent,
-    //         parentIndex: parentIndex,
-    //         connection: connection,
-    //         hints: hints
-    //     };
-    //
-    //     this._commandStack.execute('connection.create', context);
-    //
-    //     return context.connection;
-    // };
-    //
-    // connect(source, target, attrs, hints) {
-    //     return this.createConnection(source, target,attrs || {}, source.parent, hints);
-    // };
+   
 };
 
 RALphModeling.$inject = [

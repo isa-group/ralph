@@ -6,6 +6,15 @@ import {
 /**
  * here is defined the palette of the editor
  */
+
+ /*To define an icon in the palette you have to use this function:
+    
+    'RALph-Person': createAction(
+      "RALph:Person", 'resources','icon-RALph2-person' //'icon-RALph-person'
+    ),
+
+    The first argument is the element linked to the icon, the second is a group separator, and the third is the icon, which is defined in the index.html 
+ */
 export default function PaletteProvider(
     palette, create, elementFactory,
     spaceTool, lassoTool, handTool,
@@ -231,12 +240,6 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       group: 'history-based-assignments',
       separator: true
     },
-    /*'RALph-History-Same':createAction(
-      'RALph:History-Same','history-based-assignments','icon-RALph-Same'
-    ),
-    'RALph-History-Any':createAction(
-      'RALph:History-Any','history-based-assignments','icon-RALph-History-Any'
-    ),*/
     'RALph-History-Any-Green':createAction(
       'RALph:History-Any-Green','history-based-assignments','icon-RALph2-history-any-green'
     ),

@@ -18,6 +18,8 @@ import { directEdit, label} from "./Types";
 
 import LabelEditingProvider from "bpmn-js/lib/features/label-editing/LabelEditingProvider";
 
+//this module defines how the edition of labels works, for instance, adding the possibility to create default labels
+
 export default function RALphLabelEditingProvider(
     eventBus, canvas, directEditing,
     modeling, resizeHandles, textRenderer) {

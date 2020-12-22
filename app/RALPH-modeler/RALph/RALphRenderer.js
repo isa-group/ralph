@@ -937,14 +937,14 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
     },'RALph:History-AnyInstanceInTime-Green':(p,element)=>{
       let HistoryAnyInTimeConnector=drawHistoryAnyInTimeConnectorGreen(element)
 
-      renderEmbeddedLabelHistoryAnyInTime(p,element,'center-middle',9)
+      renderEmbeddedLabelHistoryAnyInTime(p,element,'center-middle')//10
       svgAppend(p,HistoryAnyInTimeConnector)
       return HistoryAnyInTimeConnector;
 
     },'RALph:History-AnyInstanceInTime-Red':(p,element)=>{
       let HistoryAnyInTimeConnector=drawHistoryAnyInTimeConnectorRed(element)
 
-      renderEmbeddedLabelHistoryAnyInTime(p,element,'center-middle',9)
+      renderEmbeddedLabelHistoryAnyInTime(p,element,'center-middle')//10
       svgAppend(p,HistoryAnyInTimeConnector)
       return HistoryAnyInTimeConnector;
 
@@ -1649,6 +1649,9 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
         ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
         ['z']
       ];
+
+      return componentsToPath(d);
+
     },'RALph:delegatesTransitively':(element)=>{
       var x = element.x,
       y = element.y,
@@ -1668,6 +1671,9 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
         ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
         ['z']
       ];
+      
+      return componentsToPath(d);
+
     }
   }
 }
