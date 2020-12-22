@@ -15,8 +15,67 @@ import BaseElementFactory from "diagram-js/lib/core/ElementFactory";
 
 
 //this module declares what should be rendered in the editor when an object is created
+//If you want to render a SVG as an element (not a connection), you should define what svg is going to be rendered, for instance in a function like this:
+/*
+function drawReportsTo(shape){
 
-var RENDERER_IDS = new Ids();
+    var catGfx = svgCreate('image', {
+      x: 0,
+      y: 0,
+      width: shape.width,
+      height: shape.height,
+      href:Cat.dataReports2
+    });
+
+    return  catGfx;
+  }
+
+  Where svgCreate transforms the element to svg,using the parameter href where receives the element in base64.
+
+  Addititonally you will have to call that function in the variable renderers when your new object appears. For example:
+
+   'RALph:Position':(p,element) =>{
+      let pos=drawPosition(element)
+
+      svgAppend(p,pos)//svgAppend links the shape to an element
+      //renderEmbeddedLabel(p,element,'center-middle')
+      return pos;
+
+    }
+
+    And you should define a path (canvas of the object in svg coordinates) in the variable paths:
+
+    'RALph:History-AnyInstanceInTime-Red':(element)=>{
+      var x = element.x,
+      y = element.y,
+      width = element.width,
+      height = element.height,
+      borderRadius=30;
+    
+      var d = [
+        ['M', x + borderRadius, y],
+        ['l', width - borderRadius * 2, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, borderRadius],
+        ['l', 0, height - borderRadius * 2],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, borderRadius],
+        ['l', borderRadius * 2 - width, 0],
+        ['a', borderRadius, borderRadius, 0, 0, 1, -borderRadius, -borderRadius],
+        ['l', 0, borderRadius * 2 - height],
+        ['a', borderRadius, borderRadius, 0, 0, 1, borderRadius, -borderRadius],
+        ['z']
+      ];
+
+      return componentsToPath(d);
+
+      This is important to be allowed to move objects and to regulate where the connections appears.
+
+      Furthermore, if you want to add an internal label to an object, you should use the function "renderEmbeddedLabel(parentGfx, element, align)" in the variable renderers.
+      With the option align you can define the position of the label, using some default parameters. (Apart from adding your object in the label array in Types.js)
+
+      If you want to add an external label to an object label, you should indicate in Types.js that your elements in label and externalLabel. 
+*/
+
+var RENDERER_IDS = new Ids();//generates the ids of the elements
 
 var COLOR_GREEN = '#52B415',
     COLOR_RED = '#cc0000',
@@ -31,7 +90,7 @@ var COLOR_GREEN = '#52B415',
  */
 export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
 
-  BaseRenderer.call(this, eventBus, 2000);//makes that this 
+  BaseRenderer.call(this, eventBus, 2000);//forces to call this renderer, instead of calling the original renderer of bpmn.js
 
   var computeStyle = styles.computeStyle;
 
@@ -41,13 +100,13 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
 
   //if you want to create a connection you will have to receive the points that delimit the connection, the source and target points.
   //If it is not a simple line, you will have to create a function with a path defining coordinates, you can preview line shapes in this page: https://yqnn.github.io/svg-path-editor/.
-  //Moreover you will have to change the function getConnectionPath
+  //Moreover you will have to change the function getConnectionPath.
 
   //Additionally, you can find more information about creating connections with different shape in this link: https://forum.bpmn.io/t/bezier-curve-drawing/1130
 
   //This function and drawCrossedLine2 create red lines in the center of a simple connection to generate a negated connection
   function drawCrossedLine(points,attrs){
-    var line = svgCreate('polyline');
+    var line = svgCreate('polyline');//it will be created a polyline
     var result='';
       //the middlepoint of the simple connection (to be negated) is calculated to put the red cross in that position.
       var middlePosition=points.length/2;
@@ -134,7 +193,7 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
       padding:35,
       style: {
         fill: element.color,
-        ontSize:  size + 'px',
+        fontSize:  size + 'px',
         fontWeight: weight
       }
     });
@@ -898,14 +957,14 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
     },'RALph:History-AnyInstanceInTime-Green':(p,element)=>{
       let HistoryAnyInTimeConnector=drawHistoryAnyInTimeConnectorGreen(element)
       //renderEmbeddedLabel(p,element,'center-middle')
-      renderEmbeddedLabelHistoryAnyInTime(p,element,'center-middle',1,'bold')
+      renderEmbeddedLabelHistoryAnyInTime(p,element,'center-middle')
       svgAppend(p,HistoryAnyInTimeConnector)
       return HistoryAnyInTimeConnector;
 
     },'RALph:History-AnyInstanceInTime-Red':(p,element)=>{
       let HistoryAnyInTimeConnector=drawHistoryAnyInTimeConnectorRed(element)
       //renderEmbeddedLabel(p,element,'center-middle')
-      renderEmbeddedLabelHistoryAnyInTime(p,element,'center-middle',1,'bold')
+      renderEmbeddedLabelHistoryAnyInTime(p,element,'center-middle')
       svgAppend(p,HistoryAnyInTimeConnector)
       return HistoryAnyInTimeConnector;
 
