@@ -154,7 +154,7 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
 
 
 
-
+  //function to render labels in objects.
   function renderLabel(parentGfx, label, options) {
     options = assign({
       size: {
@@ -162,7 +162,7 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
       }
     }, options);
 
-    var text = textRenderer.createText(label || '', options);
+    var text = textRenderer.createText(label || '', options);//text renderer defines the text to be rendered
 
     svgClasses(text).add('djs-label');
 
@@ -171,19 +171,21 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
     return text;
   }
 
+  //function to render labels inside of the objects.
   function renderEmbeddedLabel(parentGfx, element, align) {
     var semantic = getSemantic(element);
 
     return renderLabel(parentGfx,semantic.text, {
-      box: element,
-      align: align,
-      padding: 3,
+      box: element,//size of the object text box
+      align: align,//position of the text
+      padding: 3,//it declares the length of a line
       style: {
         fill: element.color
       }
     });
   }
 
+  //function to render the labels of the history connectors in certain time:
   function renderEmbeddedLabelHistoryAnyInTime(parentGfx, element, align,size,weight) {
     var semantic = getSemantic(element);
 
@@ -193,8 +195,8 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
       padding:35,
       style: {
         fill: element.color,
-        fontSize:  size + 'px',
-        fontWeight: weight
+        fontSize:  size + 'px',//it declares the size of the letters
+        fontWeight: weight //it declares the thickness of the letters
       }
     });
   }
@@ -271,8 +273,9 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
     return str.replace(/[()\s,#]+/g, '_');
   }
 
-  //with this function, diverse shapes are added to a line (for instance an arrow), depenending the shape needed
-  function marker(type, fill, stroke,x,y) {
+  //with this function, diverse shapes can be added to a connection (for instance an arrow),
+  //To add a marker to a function, you have to call this function as a the value of markerStart or markerEnd in the computeStyle variable of an element 
+  function marker(type, fill, stroke) {
     var id = type + '-' + colorEscape(fill) + '-' + colorEscape(stroke) + '-' + rendererId;
 
     if (!markers[id]) {
@@ -282,6 +285,7 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
     return 'url(#' + id + ')';
   }
 
+  //the shapes that can be added to a connection are declared in svg coordinates
   function createMarker(id, type, fill, stroke) {
 
 
@@ -819,14 +823,14 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
       let pos=drawPosition(element)
 
       svgAppend(p,pos)//svgAppend links the shape to an element
-      //renderEmbeddedLabel(p,element,'center-middle')
+
       return pos;
 
     },'RALph:Complex-Assignment-OR':(p,element)=>{
       let OR=drawOR(element)
 
       svgAppend(p,OR)
-      //renderEmbeddedLabel(p,element,'center-middle')
+
       return OR;
 
     
@@ -834,7 +838,7 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
       let AND=drawAND(element)
 
       svgAppend(p,AND)
-      //renderEmbeddedLabel(p,element,'center-middle')
+
       return AND;
 
 
@@ -932,14 +936,14 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
 
     },'RALph:History-AnyInstanceInTime-Green':(p,element)=>{
       let HistoryAnyInTimeConnector=drawHistoryAnyInTimeConnectorGreen(element)
-      //renderEmbeddedLabel(p,element,'center-middle')
+
       renderEmbeddedLabelHistoryAnyInTime(p,element,'center-middle',9)
       svgAppend(p,HistoryAnyInTimeConnector)
       return HistoryAnyInTimeConnector;
 
     },'RALph:History-AnyInstanceInTime-Red':(p,element)=>{
       let HistoryAnyInTimeConnector=drawHistoryAnyInTimeConnectorRed(element)
-      //renderEmbeddedLabel(p,element,'center-middle')
+
       renderEmbeddedLabelHistoryAnyInTime(p,element,'center-middle',9)
       svgAppend(p,HistoryAnyInTimeConnector)
       return HistoryAnyInTimeConnector;
@@ -966,8 +970,7 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
         stroke:BLACK,//-> PARA EL COLOR
         strokeWidth: 0.5,
         //strokedashoffset: 153,
-        /*Como definir history-source-another
-        markerStart: marker('history-source-another-start', 'white',BLACK),*/
+        //markerStart: marker('history-source-another-start', 'white',BLACK),
         //markerBetween: marker('history-source-another-end', 'white',BLACK),
       });
       
