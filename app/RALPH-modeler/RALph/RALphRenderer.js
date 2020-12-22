@@ -219,31 +219,7 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
     });
   }
 
-  function renderExternalLabelReports(parentGfx, element) {
-    var box = {
-      width: 90,
-      height: 10,
-      x: element.width / 2 + element.x,
-      y: element.height /2 + element.y
-    };
-    return renderLabel(parentGfx, getLabel(element), {
-      box: element,
-      fitBox: true,
-      style: assign(
-          {},
-          textRenderer.getExternalStyle(),
-          {
-            fill: element.color
-          }
-      ),
-      bounds: assign( {
-        width:50,
-        height:20,
-        x: (element.width / 2)-50,
-        y: (element.height /2)-30 
-        })
-    });
-  }
+  
   
 
   function addMarker(id, options) {
@@ -957,14 +933,14 @@ export default function RALphRenderer(eventBus, styles, canvas, textRenderer) {
     },'RALph:History-AnyInstanceInTime-Green':(p,element)=>{
       let HistoryAnyInTimeConnector=drawHistoryAnyInTimeConnectorGreen(element)
       //renderEmbeddedLabel(p,element,'center-middle')
-      renderEmbeddedLabelHistoryAnyInTime(p,element,'center-middle')
+      renderEmbeddedLabelHistoryAnyInTime(p,element,'center-middle',9)
       svgAppend(p,HistoryAnyInTimeConnector)
       return HistoryAnyInTimeConnector;
 
     },'RALph:History-AnyInstanceInTime-Red':(p,element)=>{
       let HistoryAnyInTimeConnector=drawHistoryAnyInTimeConnectorRed(element)
       //renderEmbeddedLabel(p,element,'center-middle')
-      renderEmbeddedLabelHistoryAnyInTime(p,element,'center-middle')
+      renderEmbeddedLabelHistoryAnyInTime(p,element,'center-middle',9)
       svgAppend(p,HistoryAnyInTimeConnector)
       return HistoryAnyInTimeConnector;
 
