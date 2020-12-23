@@ -1,6 +1,8 @@
 # ***RALph***
 RALph is an independent graphical notation for the assignment of human resources to Buainess Process activities (you can find more information about RALph in this link: https://link.springer.com/chapter/10.1007%2F978-3-319-19069-3_4), which can be seamlessly integrated with Business Process Model Notation (BPMN). In this repository RALph has been implemented using BPMN io (https://github.com/bpmn-io) as a BPMN editor, which has been extended. 
 
+![](tutorial.gif)
+
 ### Installation
 To use this editor you should install first Visual Studio Code (https://code.visualstudio.com/) and NodeJS (https://nodejs.org/es/). After that, you can download the project, and you should execute "npm install" in a console of Visual Studio Code. Finally, you can execute "npm run dev" and a tab will open in your browser with the editor.
 
