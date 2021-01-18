@@ -2,7 +2,7 @@
 RALph is an independent graphical notation for the assignment of human resources to Buainess Process activities (you can find more information about RALph in this link: https://link.springer.com/chapter/10.1007%2F978-3-319-19069-3_4), which can be seamlessly integrated with Business Process Model Notation (BPMN). In this repository RALph has been implemented using BPMN io (https://github.com/bpmn-io) as a BPMN editor, which has been extended. 
 
 <p align="center">
-  <img src="tutoria2.gif" alt="animated" />
+  <img src="tutorial2.gif" alt="animated" />
 </p>
 
 ### Installation
